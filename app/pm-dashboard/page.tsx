@@ -8,6 +8,7 @@ export default function PMDashboard() {
   const [polling, setPolling] = useState<number | null>(null);
   const [phaseFilter, setPhaseFilter] = useState<string>('ALL');
   const [ollamaOk, setOllamaOk] = useState<boolean | null>(null);
+  const [preview, setPreview] = useState<null | { id: string; name: string; type: string; mime: string; content: string }>(null);
 
   const kpis = useMemo(() => {
     const status = wf?.status ?? 'PENDING';
@@ -292,7 +293,20 @@ export default function PMDashboard() {
                         <td className="py-2 uppercase">{a.type}</td>
                         <td className="py-2">{Math.round(a.size / 1024)} KB</td>
                         <td className="py-2">{new Date(a.createdAt).toLocaleTimeString()}</td>
-                        <td className="py-2"><a className="underline" href={`/api/workflows/${wfId ?? ''}/artifacts/${a.id}`}>Download</a></td>
+                        <td className="py-2 flex items-center gap-3">
+                          <a className="underline" href={`/api/workflows/${wfId ?? ''}/artifacts/${a.id}`}>Download</a>
+                          <button
+                            className="underline"
+                            onClick={async () => {
+                              if (!wfId) return;
+                              const res = await fetch(`/api/workflows/${wfId}/artifacts/${a.id}`, { cache: 'no-store' });
+                              const content = await res.text();
+                              setPreview({ id: a.id, name: a.name, type: a.type, mime: a.mime, content });
+                            }}
+                          >
+                            Preview
+                          </button>
+                        </td>
                       </tr>
                     ))
                   )}
@@ -301,6 +315,28 @@ export default function PMDashboard() {
             </div>
           </div>
         </section>
+
+        {preview && (
+          <div className="fixed inset-0" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }} onClick={() => setPreview(null)}>
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-3xl max-h-[80vh] overflow-hidden rounded border" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }} onClick={(e) => e.stopPropagation()}>
+              <div className="flex items-center justify-between p-3 border-b" style={{ borderColor: 'var(--theme-border)' }}>
+                <div className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>{preview.name} <span className="opacity-70">({preview.type})</span></div>
+                <button className="btn-primary" style={{ backgroundColor: 'var(--theme-accent-primary)' }} onClick={() => setPreview(null)}>
+                  <Icon name="close" size="sm" />
+                </button>
+              </div>
+              <div className="p-3 overflow-auto" style={{ backgroundColor: 'var(--theme-bg-primary)', color: 'var(--theme-text-primary)' }}>
+                {preview.mime.includes('application/json') ? (
+                  <pre className="text-xs" style={{ whiteSpace: 'pre-wrap' }}>{safePrettyJson(preview.content)}</pre>
+                ) : preview.mime.includes('text/markdown') ? (
+                  <pre className="text-xs" style={{ whiteSpace: 'pre-wrap' }}>{preview.content}</pre>
+                ) : (
+                  <pre className="text-xs" style={{ whiteSpace: 'pre-wrap' }}>{preview.content}</pre>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </main>
   );
@@ -347,6 +383,15 @@ function TrendChart({ history, total }: { history: Array<{ ts: number; passed: n
       ))}
     </svg>
   );
+}
+
+function safePrettyJson(text: string): string {
+  try {
+    const obj = JSON.parse(text);
+    return JSON.stringify(obj, null, 2);
+  } catch {
+    return text;
+  }
 }
 
 
