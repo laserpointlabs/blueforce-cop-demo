@@ -87,4 +87,13 @@ export function getWorkflow(id: string): Workflow | undefined {
   return wf;
 }
 
+export function stopWorkflow(id: string): Workflow | undefined {
+  const wf = workflows.get(id);
+  if (!wf) return undefined;
+  if (wf.status === 'COMPLETED' || wf.status === 'FAILED') return wf;
+  wf.status = 'FAILED';
+  wf.logs.push('Workflow stopped by user');
+  return wf;
+}
+
 
