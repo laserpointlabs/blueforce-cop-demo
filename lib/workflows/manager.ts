@@ -9,6 +9,13 @@ export interface PersonaInstance {
   lastUpdate: number;
 }
 
+export interface LogEntry {
+  ts: number; // epoch ms
+  message: string;
+  personaId?: string;
+  phase?: string;
+}
+
 export interface Workflow {
   id: string;
   name: string;
@@ -17,7 +24,7 @@ export interface Workflow {
   createdAt: number;
   step: number; // simple linear step for demo
   personas: PersonaInstance[];
-  logs: string[];
+  logs: LogEntry[];
 }
 
 const workflows = new Map<string, Workflow>();
@@ -42,7 +49,7 @@ export function createCopDemoWorkflow(): Workflow {
       { id: generateId(), type: 'DATA_MODELER', status: 'IDLE', lastUpdate: now },
       { id: generateId(), type: 'UIUX_PROTOTYPER', status: 'IDLE', lastUpdate: now }
     ],
-    logs: ['Workflow started']
+    logs: [{ ts: now, message: 'Workflow started' }]
   };
   workflows.set(id, wf);
   return wf;
@@ -58,28 +65,29 @@ export function getWorkflow(id: string): Workflow | undefined {
   const newStep = Math.min(5, Math.floor(millisSince / 2000)); // step every 2s up to 5
   if (newStep !== wf.step) {
     wf.step = newStep;
+    const push = (message: string, opts?: Partial<LogEntry>) => wf.logs.push({ ts: Date.now(), message, ...opts });
     switch (wf.step) {
       case 1:
-        wf.logs.push('Standards Analyst parsed Link-16/VMF docs');
+        push('Standards Analyst parsed Link-16/VMF docs', { personaId: wf.personas[0].id, phase: 'INGEST' });
         wf.personas[0].status = 'COMPLETED';
         wf.personas[1].status = 'WORKING';
         break;
       case 2:
-        wf.logs.push('Pipeline Engineer generated parsing/validation code');
+        push('Pipeline Engineer generated parsing/validation code', { personaId: wf.personas[1].id, phase: 'CODEGEN' });
         wf.personas[1].status = 'COMPLETED';
         wf.personas[2].status = 'WORKING';
         break;
       case 3:
-        wf.logs.push('Data Modeler aligned schemas and validated interoperability');
+        push('Data Modeler aligned schemas and validated interoperability', { personaId: wf.personas[2].id, phase: 'MAPPING' });
         wf.personas[2].status = 'COMPLETED';
         wf.personas[3].status = 'WORKING';
         break;
       case 4:
-        wf.logs.push('UI/UX Prototyper created COP visualization');
+        push('UI/UX Prototyper created COP visualization', { personaId: wf.personas[3].id, phase: 'VIZ' });
         wf.personas[3].status = 'COMPLETED';
         break;
       case 5:
-        wf.logs.push('Workflow completed successfully');
+        push('Workflow completed successfully', { phase: 'DONE' });
         wf.status = 'COMPLETED';
         break;
     }
@@ -92,7 +100,7 @@ export function stopWorkflow(id: string): Workflow | undefined {
   if (!wf) return undefined;
   if (wf.status === 'COMPLETED' || wf.status === 'FAILED') return wf;
   wf.status = 'FAILED';
-  wf.logs.push('Workflow stopped by user');
+  wf.logs.push({ ts: Date.now(), message: 'Workflow stopped by user' });
   return wf;
 }
 

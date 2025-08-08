@@ -110,7 +110,26 @@ export default function PMDashboard() {
               </div>
             </div>
             <ul className="text-sm space-y-1" style={{ color: 'var(--theme-text-secondary)' }}>
-              {(wf?.logs ?? []).length === 0 ? <li>No logs yet.</li> : (wf.logs.map((l: string, i: number) => <li key={i}>• {l}</li>))}
+              {(wf?.logs ?? []).length === 0 ? (
+                <li>No logs yet.</li>
+              ) : (
+                wf.logs
+                  .slice()
+                  .reverse()
+                  .map((entry: any, i: number) => (
+                    <li key={i} className="flex items-center gap-2">
+                      <span className="opacity-60 text-xs" style={{ minWidth: 100 }}>
+                        {new Date(entry.ts).toLocaleTimeString()}
+                      </span>
+                      <span>{entry.message}</span>
+                      {entry.phase && (
+                        <span className="text-xs px-2 py-0.5 rounded" style={{ backgroundColor: 'var(--theme-bg-tertiary)' }}>
+                          {entry.phase}
+                        </span>
+                      )}
+                    </li>
+                  ))
+              )}
             </ul>
           </div>
 
