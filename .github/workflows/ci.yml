@@ -1,6 +1,9 @@
 name: CI
 
 on:
+  push:
+    # Run CI on all branches (including feature branches) to ensure signal even before PR triggers
+    branches: ["**"]
   pull_request:
     # Use ** so PR branches with slashes (e.g., feat/xyz) are matched
     branches: ["**"]
