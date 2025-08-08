@@ -7,16 +7,9 @@
   - Environments: .env.local
 
  ✓ Starting...
- ✓ Ready in 1585ms
+ ✓ Ready in 1419ms
  ○ Compiling / ...
- ✓ Compiled / in 2.9s (457 modules)
- GET / 200 in 3165ms
- GET / 200 in 116ms
- ○ Compiling /cop-demo ...
- ✓ Compiled /cop-demo in 4.6s (469 modules)
- GET /cop-demo 200 in 4799ms
- ✓ Compiled /api/health/ollama in 215ms (257 modules)
- GET /api/health/ollama 200 in 843ms
- GET /api/health/ollama 200 in 16ms
- ✓ Compiled /api/ollama/chat in 71ms (259 modules)
-[?25h
+ ✓ Compiled / in 2.7s (457 modules)
+ GET / 200 in 2849ms
+ GET / 200 in 54ms
+ ✓ Compiled in 181ms (236 modules)

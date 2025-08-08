@@ -9,17 +9,76 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const res = await fetch(`${OLLAMA_URL}/api/generate`, {
+    const upstream = await fetch(`${OLLAMA_URL}/api/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model, prompt, stream: false })
+      body: JSON.stringify({ model, prompt, stream: true })
     });
-    if (!res.ok) {
-      const text = await res.text();
-      return NextResponse.json({ error: `Ollama error: ${res.status} ${text}` }, { status: 502 });
+
+    if (!upstream.ok || !upstream.body) {
+      const text = await upstream.text().catch(() => '');
+      return NextResponse.json({ error: `Ollama error: ${upstream.status} ${text}` }, { status: 502 });
     }
-    const data = await res.json();
-    return NextResponse.json({ text: data.response ?? '' });
+
+    const encoder = new TextEncoder();
+    const decoder = new TextDecoder();
+
+    const stream = new ReadableStream<Uint8Array>({
+      async start(controller) {
+        const reader = upstream.body!.getReader();
+        let buffer = '';
+        try {
+          while (true) {
+            const { value, done } = await reader.read();
+            if (done) break;
+            buffer += decoder.decode(value, { stream: true });
+
+            const lines = buffer.split('\n');
+            buffer = lines.pop() ?? '';
+
+            for (const line of lines) {
+              const trimmed = line.trim();
+              if (!trimmed) continue;
+              try {
+                const json = JSON.parse(trimmed);
+                if (json.error) {
+                  controller.enqueue(encoder.encode(`\n[error] ${json.error}\n`));
+                }
+                if (json.response) {
+                  controller.enqueue(encoder.encode(json.response));
+                }
+                // Ollama sends { done: true } at the end; we just let the stream close naturally
+              } catch {
+                // Ignore malformed lines
+              }
+            }
+          }
+
+          // Flush any remaining buffered line
+          if (buffer.length) {
+            try {
+              const json = JSON.parse(buffer);
+              if (json.response) controller.enqueue(encoder.encode(json.response));
+            } catch {
+              // ignore
+            }
+          }
+        } catch (err) {
+          controller.error(err);
+          return;
+        } finally {
+          controller.close();
+        }
+      }
+    });
+
+    return new Response(stream, {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'no-store'
+      }
+    });
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 });
   }

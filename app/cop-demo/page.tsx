@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { Icon } from '../../components/Icon';
 
 export default function CopDemoPage() {
@@ -24,9 +26,16 @@ export default function CopDemoPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ model, prompt })
       });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      setAnswer(data.text ?? '');
+      if (!res.ok || !res.body) throw new Error(`HTTP ${res.status}`);
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value, { stream: true });
+        setAnswer(prev => prev + chunk);
+      }
     } catch (e: any) {
       setAnswer(`Error: ${e.message}`);
     } finally {
@@ -66,7 +75,23 @@ export default function CopDemoPage() {
           </button>
         </div>
 
-        <div className="p-4 rounded border whitespace-pre-wrap" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>{answer}</div>
+        <div className="p-4 rounded border" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
+          <ReactMarkdown remarkPlugins={[remarkGfm]} components={{
+            code({ inline, className, children, ...props }) {
+              const content = String(children);
+              if (inline) {
+                return <code className={className} {...props}>{content}</code>;
+              }
+              return (
+                <pre className={className} style={{ overflowX: 'auto' }} {...props}>
+                  <code>{content}</code>
+                </pre>
+              );
+            }
+          }}>
+            {answer || ''}
+          </ReactMarkdown>
+        </div>
 
         <div className="space-y-3 p-4 rounded border" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
           <div className="flex items-center justify-between">

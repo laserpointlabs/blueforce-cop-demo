@@ -14,7 +14,9 @@
     "@vscode/codicons": "^0.0.36",
     "next": "14.2.5",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "react-markdown": "^9.0.1",
+    "remark-gfm": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "20.12.7",
@@ -28,6 +30,3 @@
     "typescript": "5.4.5"
   }
 }
-
-
-
