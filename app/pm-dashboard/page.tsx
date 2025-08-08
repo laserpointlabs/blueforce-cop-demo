@@ -177,6 +177,13 @@ export default function PMDashboard() {
             <h2 className="text-lg font-semibold flex items-center gap-2"><Icon name="timeline" size="sm" /> Milestones</h2>
             {(() => {
               const phases = ['INGEST', 'CODEGEN', 'MAPPING', 'VIZ', 'DONE'];
+              const tooltip: Record<string, string> = {
+                INGEST: 'Standards Analyst ingests Link-16/VMF docs and extracts schemas/rules',
+                CODEGEN: 'Pipeline Engineer generates parsing/validation code and configs',
+                MAPPING: 'Data Modeler aligns schemas and resolves interoperability conflicts',
+                VIZ: 'UI/UX Prototyper assembles COP views, symbology, and overlays',
+                DONE: 'Workflow completes with artifacts and compliance report'
+              };
               const current = wf?.step ?? 0; // 0..5
               return (
                 <ol className="grid grid-cols-1 md:grid-cols-5 gap-3">
@@ -187,10 +194,11 @@ export default function PMDashboard() {
                     const color = isDone ? 'var(--theme-accent-success)' : isActive ? 'var(--theme-accent-primary)' : 'var(--theme-text-muted)';
                     const icon = isDone ? 'check' : isActive ? 'loading' : 'circle-large-outline';
                     return (
-                      <li key={ph} className="p-3 rounded border" style={{ borderColor: 'var(--theme-border)' }}>
+                      <li key={ph} className="p-3 rounded border" style={{ borderColor: 'var(--theme-border)' }} title={tooltip[ph]}>
                         <div className="flex items-center gap-2">
                           <i className={`codicon codicon-${icon}`} style={{ color }} />
                           <span className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>{ph}</span>
+                          <i className="codicon codicon-info" style={{ color: 'var(--theme-text-muted)' }} />
                         </div>
                       </li>
                     );
