@@ -3,3 +3,9 @@
 # - Always use ./blueforce-start.sh (start/stop/restart/status) to control the UI server.
 # - WSL can leave ports in unstable states after rapid restarts; check with `./blueforce-start.sh status` first.
 # - Standard ports: UI 4000, Ollama 11434. Avoid 3000–3023 to prevent conflicts with reserved services.
+
+# Memory: PR workflow & release practice
+# - Use short-lived feature branches for work. Open PRs to main early.
+# - On push: wait for CI lint/build to pass (green checks) before merging.
+# - Preferred merge strategy: Squash & merge, then delete the source branch.
+# - Keep PRs focused and small; include brief description and screenshots/GIFs when UI changes.
