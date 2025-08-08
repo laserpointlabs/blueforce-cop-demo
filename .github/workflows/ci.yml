@@ -2,7 +2,9 @@ name: CI
 
 on:
   pull_request:
-    branches: ["*"]
+    # Use ** so PR branches with slashes (e.g., feat/xyz) are matched
+    branches: ["**"]
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
 
 permissions:
