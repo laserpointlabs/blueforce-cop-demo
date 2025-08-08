@@ -150,9 +150,13 @@ export default function CopDemoPage() {
           </div>
           {wfStatus?.logs ? (
             <ul className="list-disc pl-5 text-sm" style={{ color: 'var(--theme-text-secondary)' }}>
-              {wfStatus.logs.map((l: string, i: number) => (
-                <li key={i}>{l}</li>
-              ))}
+              {wfStatus.logs.map((l: any, i: number) => {
+                const text = typeof l === 'string' ? l : (l?.message ?? JSON.stringify(l));
+                const when = typeof l === 'object' && l?.ts ? new Date(l.ts).toLocaleTimeString() : null;
+                return (
+                  <li key={i}>{when ? `[${when}] ${text}` : text}</li>
+                );
+              })}
             </ul>
           ) : null}
         </div>

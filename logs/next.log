@@ -29,3 +29,47 @@
  GET /api/ollama/models 200 in 15ms
  ✓ Compiled /api/ollama/chat in 155ms (529 modules)
  POST /api/ollama/chat 200 in 21165ms
+ ✓ Compiled /api/workflows/cop-demo/start in 207ms (528 modules)
+ POST /api/workflows/cop-demo/start 200 in 296ms
+ ✓ Compiled /api/workflows/[id]/status in 100ms (530 modules)
+ GET /api/workflows/jw8147bez9q05p9anx0atbj/status 200 in 369ms
+ GET /api/workflows/jw8147bez9q05p9anx0atbj/status 200 in 20ms
+ GET /api/workflows/jw8147bez9q05p9anx0atbj/status 200 in 19ms
+ GET /api/workflows/jw8147bez9q05p9anx0atbj/status 200 in 19ms
+ GET /api/workflows/jw8147bez9q05p9anx0atbj/status 200 in 18ms
+ GET /api/workflows/jw8147bez9q05p9anx0atbj/status 200 in 35ms
+ GET /api/workflows/jw8147bez9q05p9anx0atbj/status 200 in 25ms
+ GET /cop-demo 200 in 135ms
+ GET /api/ollama/models 200 in 31ms
+ GET /api/health/ollama 200 in 38ms
+ GET /api/ollama/models 200 in 13ms
+ GET /api/health/ollama 200 in 12ms
+ POST /api/workflows/cop-demo/start 200 in 12ms
+ GET /api/workflows/gk92equcxoesh15nundos/status 200 in 18ms
+ GET /api/workflows/gk92equcxoesh15nundos/status 200 in 16ms
+ GET /api/workflows/gk92equcxoesh15nundos/status 200 in 19ms
+ GET /api/workflows/gk92equcxoesh15nundos/status 200 in 14ms
+ GET /api/workflows/gk92equcxoesh15nundos/status 200 in 19ms
+ GET /api/workflows/gk92equcxoesh15nundos/status 200 in 22ms
+ GET /api/workflows/gk92equcxoesh15nundos/status 200 in 20ms
+ GET /cop-demo 200 in 82ms
+ GET /api/health/ollama 200 in 50ms
+ GET /api/ollama/models 200 in 56ms
+ GET /api/health/ollama 200 in 30ms
+ GET /api/ollama/models 200 in 34ms
+ ✓ Compiled in 760ms (1027 modules)
+ ✓ Compiled / in 77ms (527 modules)
+ GET / 200 in 174ms
+ ✓ Compiled in 342ms (1028 modules)
+ ✓ Compiled /api/workflows/cop-demo/start in 121ms (530 modules)
+ POST /api/workflows/cop-demo/start 200 in 184ms
+ ✓ Compiled /api/workflows/[id]/status in 68ms (532 modules)
+ GET /api/workflows/59sejoaesnx2chndmyxvhz/status 200 in 112ms
+ GET /api/workflows/59sejoaesnx2chndmyxvhz/status 200 in 21ms
+ GET /api/workflows/59sejoaesnx2chndmyxvhz/status 200 in 19ms
+ GET /api/workflows/59sejoaesnx2chndmyxvhz/status 200 in 23ms
+ GET /api/workflows/59sejoaesnx2chndmyxvhz/status 200 in 18ms
+ GET /api/workflows/59sejoaesnx2chndmyxvhz/status 200 in 24ms
+ GET /api/workflows/59sejoaesnx2chndmyxvhz/status 200 in 23ms
+ ✓ Compiled /api/ollama/chat in 83ms (534 modules)
+ POST /api/ollama/chat 200 in 31885ms
