@@ -1,0 +1,5 @@
+# Memory: WSL port stability & server control
+# - Avoid starting/stopping the Next.js dev server on port 4000 with ad-hoc commands.
+# - Always use ./blueforce-start.sh (start/stop/restart/status) to control the UI server.
+# - WSL can leave ports in unstable states after rapid restarts; check with `./blueforce-start.sh status` first.
+# - Standard ports: UI 4000, Ollama 11434. Avoid 3000–3023 to prevent conflicts with reserved services.

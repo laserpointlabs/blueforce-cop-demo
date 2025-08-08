@@ -20,3 +20,4 @@ volumes:
     name: ollama_data
 
 
+

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useMemo, useState } from 'react';
-import { Icon } from "../components/Icon";
+import { Icon } from "../../components/Icon";
 
 export default function PMDashboard() {
   const [wfId, setWfId] = useState<string | null>(null);
@@ -103,5 +103,6 @@ export default function PMDashboard() {
     </main>
   );
 }
+
 
 

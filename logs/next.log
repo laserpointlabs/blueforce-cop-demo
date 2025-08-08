@@ -1,0 +1,67 @@
+
+> blueforce-cop-demo@0.1.0 dev
+> next dev --port=4000
+
+  ▲ Next.js 14.2.5
+  - Local:        http://localhost:4000
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 3.7s
+ ○ Compiling / ...
+ ✓ Compiled / in 1253ms (457 modules)
+ GET / 200 in 1401ms
+ ✓ Compiled /cop-demo in 377ms (469 modules)
+ GET /cop-demo 200 in 498ms
+ ✓ Compiled /api/health/ollama in 167ms (257 modules)
+ GET /api/health/ollama 200 in 268ms
+ GET /api/health/ollama 200 in 15ms
+ ✓ Compiled /api/ollama/chat in 55ms (259 modules)
+ POST /api/ollama/chat 200 in 15319ms
+ ⨯ ./app/pm-dashboard/page.tsx:3:1
+Module not found: Can't resolve '../components/Icon'
+[0m [90m 1 |[39m [32m"use client"[39m[33m;[39m[0m
+[0m [90m 2 |[39m [36mimport[39m { useEffect[33m,[39m useMemo[33m,[39m useState } [36mfrom[39m [32m'react'[39m[33m;[39m[0m
+[0m[31m[1m>[22m[39m[90m 3 |[39m [36mimport[39m { [33mIcon[39m } [36mfrom[39m [32m"../components/Icon"[39m[33m;[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[0m
+[0m [90m 4 |[39m[0m
+[0m [90m 5 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mPMDashboard[39m() {[0m
+[0m [90m 6 |[39m   [36mconst[39m [wfId[33m,[39m setWfId] [33m=[39m useState[33m<[39m[33mstring[39m [33m|[39m [36mnull[39m[33m>[39m([36mnull[39m)[33m;[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found
+ ⨯ ./app/pm-dashboard/page.tsx:3:1
+Module not found: Can't resolve '../components/Icon'
+[0m [90m 1 |[39m [32m"use client"[39m[33m;[39m[0m
+[0m [90m 2 |[39m [36mimport[39m { useEffect[33m,[39m useMemo[33m,[39m useState } [36mfrom[39m [32m'react'[39m[33m;[39m[0m
+[0m[31m[1m>[22m[39m[90m 3 |[39m [36mimport[39m { [33mIcon[39m } [36mfrom[39m [32m"../components/Icon"[39m[33m;[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[0m
+[0m [90m 4 |[39m[0m
+[0m [90m 5 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mPMDashboard[39m() {[0m
+[0m [90m 6 |[39m   [36mconst[39m [wfId[33m,[39m setWfId] [33m=[39m useState[33m<[39m[33mstring[39m [33m|[39m [36mnull[39m[33m>[39m([36mnull[39m)[33m;[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found
+ ○ Compiling /_not-found ...
+ ⨯ ./app/pm-dashboard/page.tsx:3:1
+Module not found: Can't resolve '../components/Icon'
+[0m [90m 1 |[39m [32m"use client"[39m[33m;[39m[0m
+[0m [90m 2 |[39m [36mimport[39m { useEffect[33m,[39m useMemo[33m,[39m useState } [36mfrom[39m [32m'react'[39m[33m;[39m[0m
+[0m[31m[1m>[22m[39m[90m 3 |[39m [36mimport[39m { [33mIcon[39m } [36mfrom[39m [32m"../components/Icon"[39m[33m;[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[0m
+[0m [90m 4 |[39m[0m
+[0m [90m 5 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mPMDashboard[39m() {[0m
+[0m [90m 6 |[39m   [36mconst[39m [wfId[33m,[39m setWfId] [33m=[39m useState[33m<[39m[33mstring[39m [33m|[39m [36mnull[39m[33m>[39m([36mnull[39m)[33m;[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found
+ GET /pm-dashboard 500 in 2617ms
+ GET /cop-demo 500 in 23ms
+ ✓ Compiled /_error in 573ms (691 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /cop-demo 200 in 123ms
+ ✓ Compiled /_not-found in 128ms (677 modules)
+ ✓ Compiled /api/health/ollama in 142ms (295 modules)
+ GET /api/health/ollama 200 in 273ms
+ GET /api/health/ollama 200 in 11ms
+ ✓ Compiled /pm-dashboard in 150ms (299 modules)
+ GET /pm-dashboard 200 in 260ms
+ GET /pm-dashboard 200 in 20ms
+ ✓ Compiled in 229ms (728 modules)
