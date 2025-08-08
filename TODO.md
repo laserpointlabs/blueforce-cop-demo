@@ -31,7 +31,7 @@
 - [x] Ontology extraction (deterministic): curated ontologies for Link-16/VMF
 - [ ] Schema extraction stub → schema + rules from fixtures
 - [x] Artifact viewer and list/download API endpoints
-- [ ] Persist artifacts to `artifacts/` directory (optional)
+- [x] Persist artifacts to `artifacts/` directory (optional)
 - [x] Compliance report generation (rules coverage, violations)
 
 ## Ontology & CDM (deterministic MVP)
@@ -42,10 +42,11 @@
 - [x] Mapping: `cdm_link16.json` (Link-16 → CDM)
 - [x] Mapping: `cdm_vmf.json` (VMF → CDM)
 - [x] Alignment report generation (`alignment_report.md`) with coverage %, conflicts, decisions
-- [x] PM Dashboard: alignment status widget (coverage %, conflicts count)
+ - [x] PM Dashboard: alignment status widget (coverage %, conflicts list + preview)
 - [x] Expose all ontology/CDM artifacts in Artifact Viewer (PM Dashboard side panel)
 - [x] Ontology workspace page (`/ontology`) with simulated multi-agent alignment
 - [x] APIs: `/api/ontology/artifacts`, `/api/ontology/metrics`
+ - [x] API: `/api/artifacts` (disk-persisted artifacts listing)
 
 ### Stretch Goal: Probabilistic Ontology Extraction
 - [ ] Question-guided extraction loops with multiple runs
@@ -75,6 +76,7 @@
 - [ ] Failure-injection test and recovery verification
 - [x] Post-build smoke test to start server on 4010 and verify key routes
 - [x] Start script hardening: free stale port 4000, clean `.next/`, wait until ready
+ - [ ] CI smoke stabilization: shorter timeouts, fewer checks to avoid flakey hangs
 
 ## CI / CD
 - [ ] Extend CI to run unit + E2E tests headless
