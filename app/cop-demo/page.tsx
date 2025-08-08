@@ -39,7 +39,10 @@ export default function CopDemoPage() {
       <div className="max-w-5xl mx-auto space-y-6">
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-semibold flex items-center gap-2"><Icon name="beaker" size="sm" /> COP Demo</h1>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4">
+            <nav className="flex items-center gap-2 text-sm" style={{ color: 'var(--theme-text-secondary)' }}>
+              <a href="/" className="underline">Home</a>
+            </nav>
             <span className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Ollama</span>
             {ollamaOk === null ? (
               <Icon name="loading" className="animate-spin" />

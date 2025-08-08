@@ -62,5 +62,11 @@ jobs:
           NEXT_TELEMETRY_DISABLED: '1'
         run: npm run build
 
+      - name: Smoke test (server starts and responds)
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
+          SMOKE_PORT: '4010'
+        run: npm run smoke
+
 
 

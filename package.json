@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "rm -rf .next && next build",
+    "postbuild": "node scripts/smoke.mjs",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "smoke": "node scripts/smoke.mjs"
   },
   "dependencies": {
     "@vscode/codicons": "^0.0.36",

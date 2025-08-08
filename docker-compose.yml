@@ -4,15 +4,32 @@ services:
   ollama:
     image: ollama/ollama:latest
     container_name: blueforce-ollama
+    # Request NVIDIA GPUs for CUDA acceleration
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
     ports:
       - "11434:11434"
     volumes:
       - ollama_data:/root/.ollama
+      # Expose WSL GPU user-space libraries inside the container
+      - /usr/lib/wsl:/usr/lib/wsl:ro
+    # Expose the WSL GPU device inside the container
+    devices:
+      - /dev/dxg
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:11434"]
       interval: 10s
       timeout: 5s
       retries: 20
+    environment:
+      - OLLAMA_USE_GPU=1
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
 
 volumes:
   ollama_data:
