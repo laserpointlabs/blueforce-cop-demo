@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "@vscode/codicons/dist/codicon.css";
+
+/* DADMS Theme System */
+:root,
+[data-theme="dark"],
+.dark {
+  --theme-bg-primary: #1e1e1e;
+  --theme-bg-secondary: #252526;
+  --theme-bg-tertiary: #333333;
+  --theme-bg-elevated: #2d2d30;
+  --theme-bg-hover: #2a2d2e;
+  --theme-bg-selection: #264f78;
+
+  --theme-surface: #2d2d30;
+  --theme-surface-hover: #3e3e42;
+  --theme-surface-elevated: #383838;
+
+  --theme-text-primary: #d4d4d4;
+  --theme-text-secondary: #cccccc;
+  --theme-text-muted: #6e7681;
+  --theme-text-inverse: #1e1e1e;
+  --theme-text-link: #3794ff;
+
+  --theme-accent-primary: #007acc;
+  --theme-accent-secondary: #3794ff;
+  --theme-accent-success: #4caf50;
+  --theme-accent-warning: #ff9800;
+  --theme-accent-error: #f44336;
+  --theme-accent-info: #2196f3;
+
+  --theme-border: #2d2d30;
+  --theme-border-light: #464647;
+  --theme-border-focus: #007acc;
+
+  --theme-status-active: #4caf50;
+  --theme-status-inactive: #6e7681;
+  --theme-status-pending: #ff9800;
+  --theme-status-error: #f44336;
+}
+
+[data-theme="light"],
+.light {
+  --theme-bg-primary: #ffffff;
+  --theme-bg-secondary: #f8f9fa;
+  --theme-bg-tertiary: #e9ecef;
+  --theme-bg-elevated: #ffffff;
+  --theme-bg-hover: #f1f3f4;
+  --theme-bg-selection: #cce7ff;
+
+  --theme-surface: #ffffff;
+  --theme-surface-hover: #f8f9fa;
+  --theme-surface-elevated: #ffffff;
+
+  --theme-text-primary: #1f2328;
+  --theme-text-secondary: #656d76;
+  --theme-text-muted: #8b949e;
+  --theme-text-inverse: #ffffff;
+  --theme-text-link: #0969da;
+
+  --theme-accent-primary: #0969da;
+  --theme-accent-secondary: #218bff;
+  --theme-accent-success: #1a7f37;
+  --theme-accent-warning: #bf8700;
+  --theme-accent-error: #d1242f;
+  --theme-accent-info: #0969da;
+
+  --theme-border: #d1d9e0;
+  --theme-border-light: #d8dee4;
+  --theme-border-focus: #0969da;
+}
+
+body {
+  background-color: var(--theme-bg-primary);
+  color: var(--theme-text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Minimal utility styles aligned to DADMS */
+.input {
+  background-color: var(--theme-input-bg);
+  color: var(--theme-text-primary);
+  border: 1px solid var(--theme-input-border);
+  border-radius: 4px;
+  padding: 8px 10px;
+}
+
+.btn-primary {
+  background-color: var(--theme-accent-primary);
+  color: #fff;
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+
+
