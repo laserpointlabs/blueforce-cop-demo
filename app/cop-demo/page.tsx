@@ -6,7 +6,7 @@ import { Icon } from '../../components/Icon';
 
 export default function CopDemoPage() {
   const [ollamaOk, setOllamaOk] = useState<boolean | null>(null);
-  const [model, setModel] = useState('llama3');
+  const [model, setModel] = useState('');
   const [models, setModels] = useState<string[]>([]);
   const [prompt, setPrompt] = useState('Summarize the COP demo MVP in 3 bullets.');
   const [answer, setAnswer] = useState('');
@@ -53,53 +53,54 @@ export default function CopDemoPage() {
   return (
     <main className="min-h-screen p-6" style={{ backgroundColor: 'var(--theme-bg-primary)', color: 'var(--theme-text-primary)' }}>
       <div className="max-w-5xl mx-auto space-y-6">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <h1 className="text-xl font-semibold flex items-center gap-2"><Icon name="beaker" size="sm" /> COP Demo</h1>
-          <div className="flex items-center gap-3 text-sm" style={{ color: 'var(--theme-text-secondary)' }}>
+        <header className="flex items-center justify-between">
+          <h1 className="text-2xl font-semibold flex items-center gap-2"><Icon name="beaker" size="sm" /> COP Demo</h1>
+          <nav className="flex items-center gap-2 text-sm" style={{ color: 'var(--theme-text-secondary)' }}>
             <a href="/" className="underline">Home</a>
-            <span>Ollama</span>
-            {ollamaOk === null ? (
-              <Icon name="loading" className="animate-spin" />
-            ) : ollamaOk ? (
-              <span className="text-green-500 flex items-center gap-1"><Icon name="check" /> healthy</span>
-            ) : (
-              <span className="text-red-500 flex items-center gap-1"><Icon name="error" /> down</span>
-            )}
-          </div>
-        </div>
+            <span>/</span>
+            <a href="/pm-dashboard" className="underline">PM Dashboard</a>
+          </nav>
+        </header>
 
         <div className="space-y-3 p-4 rounded border" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 p-3 rounded border" style={{ borderColor: 'var(--theme-border)' }}>
               <label className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Model</label>
-              <select
-                value={model}
-                onChange={(e) => setModel(e.target.value)}
-                className="input"
-                style={{ backgroundColor: 'var(--theme-input-bg)', borderColor: 'var(--theme-input-border)', color: 'var(--theme-text-primary)' }}
-              >
-                {[model, ...models.filter(m => m !== model)].map((m) => (
-                  <option key={m} value={m}>{m}</option>
-                ))}
-              </select>
+              <div className="rounded border" style={{ borderColor: 'var(--theme-border)' }}>
+                <select
+                  value={model}
+                  onChange={(e) => setModel(e.target.value)}
+                  className="input"
+                  style={{ backgroundColor: 'var(--theme-input-bg)', border: 'none', width: '100%', color: 'var(--theme-text-primary)' }}
+                >
+                  {models.map((m) => (
+                    <option key={m} value={m}>{m}</option>
+                  ))}
+                </select>
+              </div>
             </div>
-            <div className="sm:col-span-2 flex flex-col gap-1">
+            <div className="sm:col-span-2 flex flex-col gap-1 p-3 rounded border" style={{ borderColor: 'var(--theme-border)' }}>
               <label className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Prompt</label>
               <textarea
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 className="input"
-                rows={3}
+                rows={4}
                 placeholder="Ask something..."
                 style={{ backgroundColor: 'var(--theme-input-bg)', borderColor: 'var(--theme-input-border)', color: 'var(--theme-text-primary)' }}
               />
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={handleAsk} disabled={loading} className="btn-primary inline-flex items-center gap-2" style={{ backgroundColor: 'var(--theme-accent-primary)' }}>
+            <button onClick={handleAsk} disabled={loading || !model} className="btn-primary inline-flex items-center gap-2" style={{ backgroundColor: 'var(--theme-accent-primary)' }}>
               <Icon name="play" size="sm" /> {loading ? 'Asking…' : 'Ask'}
             </button>
             {loading ? <span className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Streaming…</span> : null}
+          </div>
+          <div className="text-xs opacity-80 flex items-center gap-2" style={{ color: 'var(--theme-text-secondary)' }}>
+            <span>Environment:</span>
+            <span>Ollama</span>
+            {ollamaOk === null ? <Icon name="loading" className="animate-spin" /> : ollamaOk ? <span className="text-green-500">healthy</span> : <span className="text-red-500">down</span>}
           </div>
         </div>
 
