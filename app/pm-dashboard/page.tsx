@@ -6,6 +6,7 @@ export default function PMDashboard() {
   const [wfId, setWfId] = useState<string | null>(null);
   const [wf, setWf] = useState<any>(null);
   const [polling, setPolling] = useState<number | null>(null);
+  const [phaseFilter, setPhaseFilter] = useState<string>('ALL');
 
   const kpis = useMemo(() => {
     const status = wf?.status ?? 'PENDING';
@@ -41,15 +42,22 @@ export default function PMDashboard() {
 
   useEffect(() => {
     if (!wfId) return;
-    const interval = setInterval(async () => {
-      const res = await fetch(`/api/workflows/${wfId}/status`);
+    const tick = async () => {
+      const res = await fetch(`/api/workflows/${wfId}/status`, { cache: 'no-store' });
       const data = await res.json();
       setWf(data);
       if (data.status === 'COMPLETED' || data.status === 'FAILED') {
+        return false;
+      }
+      return true;
+    };
+    const interval = setInterval(async () => {
+      const keep = await tick();
+      if (!keep) {
         clearInterval(interval);
         setPolling(null);
       }
-    }, 1500);
+    }, 1200);
     setPolling(1);
     return () => clearInterval(interval);
   }, [wfId]);
@@ -102,12 +110,20 @@ export default function PMDashboard() {
 
         <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="md:col-span-2 p-4 rounded border space-y-3" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-3">
               <h2 className="text-lg font-semibold flex items-center gap-2"><Icon name="list-ordered" size="sm" /> Logs</h2>
               <div className="flex items-center gap-2">
                 <button className="btn-primary" style={{ backgroundColor: 'var(--theme-accent-primary)' }} onClick={start}><Icon name="debug-start" size="sm" /> Start</button>
                 <button className="btn-primary" style={{ backgroundColor: 'var(--theme-accent-error)' }} onClick={stop}><Icon name="debug-stop" size="sm" /> Stop</button>
               </div>
+            </div>
+            <div className="flex items-center gap-2 text-xs" style={{ color: 'var(--theme-text-secondary)' }}>
+              <span>Filter:</span>
+              <select value={phaseFilter} onChange={(e) => setPhaseFilter(e.target.value)} className="input" style={{ maxWidth: 200 }}>
+                {['ALL','INGEST','CODEGEN','MAPPING','VIZ','DONE'].map((p) => (
+                  <option key={p} value={p}>{p}</option>
+                ))}
+              </select>
             </div>
             <ul className="text-sm space-y-1" style={{ color: 'var(--theme-text-secondary)' }}>
               {(wf?.logs ?? []).length === 0 ? (
@@ -116,6 +132,7 @@ export default function PMDashboard() {
                 wf.logs
                   .slice()
                   .reverse()
+                  .filter((entry: any) => phaseFilter === 'ALL' || entry.phase === phaseFilter)
                   .map((entry: any, i: number) => (
                     <li key={i} className="flex items-center gap-2">
                       <span className="opacity-60 text-xs" style={{ minWidth: 100 }}>

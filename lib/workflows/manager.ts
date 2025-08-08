@@ -27,7 +27,13 @@ export interface Workflow {
   logs: LogEntry[];
 }
 
-const workflows = new Map<string, Workflow>();
+// Persist across Next dev HMR reloads
+declare global {
+  // eslint-disable-next-line no-var
+  var __blueforceWorkflows: Map<string, Workflow> | undefined;
+}
+
+const workflows: Map<string, Workflow> = globalThis.__blueforceWorkflows ?? (globalThis.__blueforceWorkflows = new Map<string, Workflow>());
 
 function generateId(): string {
   return Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
