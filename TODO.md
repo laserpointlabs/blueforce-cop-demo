@@ -15,6 +15,7 @@
 - [ ] Wire dashboard to mock orchestrator status/logs timeline
 - [ ] Start/stop controls for mock workflow; progress bar
 - [ ] Global toast/notification utility
+- [ ] KPIs panel (time remaining, pass/fail counts, rules coverage, persona statuses)
 
 ## LLM / Ollama
 - [ ] Streaming responses for /api/ollama/chat (SSE/NDJSON)
@@ -27,6 +28,7 @@
 - [ ] Ontology extraction (deterministic): extract concepts/relations from fixtures into a basic ontology JSON
 - [ ] Schema extraction stub → schema + rules from fixtures
 - [ ] Save artifacts to artifacts/ + index/list API
+- [ ] Compliance report generation (rules coverage, violations, provenance)
 
 ### Stretch Goal: Probabilistic Ontology Extraction
 - [ ] Question-guided extraction loops with multiple runs
@@ -42,6 +44,7 @@
 - [ ] COP placeholder "map" with tactical layer toggles (mock data)
 - [ ] Compliance dashboard (pass/fail counts, rules list)
 - [ ] Artifact viewer (schemas, generated code, logs)
+- [ ] Data lineage panel (source → schema → model → pipeline → viz)
 
 ## UI / Theme
 - [ ] Shared components: Card, Panel, TabBar, Toolbar, IconButton (using dadmsTheme)
@@ -52,6 +55,7 @@
 - [ ] E2E smoke test (Playwright): start → complete mock workflow
 - [ ] Unit tests: orchestrator manager + API routes
 - [ ] npm run demo:* scripts (seed, start, open)
+- [ ] Failure-injection test and recovery verification
 
 ## CI / CD
 - [ ] Extend CI to run unit + E2E tests headless
