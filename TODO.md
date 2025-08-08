@@ -24,8 +24,14 @@
 
 ## Standards & Knowledge (MVP mocked)
 - [ ] Mock Link-16/VMF documents + schemas (JSON fixtures)
+- [ ] Ontology extraction (deterministic): extract concepts/relations from fixtures into a basic ontology JSON
 - [ ] Schema extraction stub → schema + rules from fixtures
 - [ ] Save artifacts to artifacts/ + index/list API
+
+### Stretch Goal: Probabilistic Ontology Extraction
+- [ ] Question-guided extraction loops with multiple runs
+- [ ] Aggregate confidence scoring and convergence tracking
+- [ ] Uncertainty reporting (low-confidence areas) and comparison view across runs
 
 ## Workflow Orchestration (in-app mock)
 - [ ] Expand step machine (phases, %), per-persona tasks
@@ -54,6 +60,7 @@
 ## Docs
 - [ ] README quickstart (start script, model notes)
 - [ ] Demo script with timed steps in docs/demo/
+ - [ ] Document ontology extraction flow (deterministic + probabilistic stretch goal)
 
 ---
 
