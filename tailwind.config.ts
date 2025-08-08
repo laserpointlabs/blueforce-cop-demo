@@ -5,7 +5,8 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  darkMode: '[data-theme="dark"]',
+  // Use class strategy with custom selector for data-theme
+  darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {
@@ -59,5 +60,6 @@ const config: Config = {
 };
 
 export default config;
+
 
 

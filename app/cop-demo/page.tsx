@@ -80,7 +80,7 @@ export default function CopDemoPage() {
                 setWfId(data.id);
                 setWfStatus({ status: data.status });
                 // poll
-                const interval = setInterval(async () => {
+                const interval: ReturnType<typeof setInterval> = setInterval(async () => {
                   if (!data.id) return clearInterval(interval);
                   const s = await fetch(`/api/workflows/${data.id}/status`).then(r => r.json());
                   setWfStatus(s);

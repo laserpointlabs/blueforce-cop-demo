@@ -9,6 +9,13 @@ export interface PersonaInstance {
   lastUpdate: number;
 }
 
+export interface LogEntry {
+  ts: number; // epoch ms
+  message: string;
+  personaId?: string;
+  phase?: string;
+}
+
 export interface Workflow {
   id: string;
   name: string;
@@ -17,10 +24,39 @@ export interface Workflow {
   createdAt: number;
   step: number; // simple linear step for demo
   personas: PersonaInstance[];
-  logs: string[];
+  logs: LogEntry[];
+  compliance: {
+    total: number;
+    passed: number;
+    failed: number;
+    history: Array<{ ts: number; passed: number; failed: number; total: number }>;
+    violations: Array<{
+      id: string;
+      rule: string;
+      severity: 'LOW' | 'MEDIUM' | 'HIGH';
+      message: string;
+      ts: number;
+      phase?: string;
+    }>;
+  };
+  artifacts: Array<{
+    id: string;
+    name: string;
+    type: 'schema' | 'code' | 'report';
+    mime: string;
+    size: number; // bytes (approx)
+    createdAt: number;
+    content: string; // mock inline content for download
+  }>;
 }
 
-const workflows = new Map<string, Workflow>();
+// Persist across Next dev HMR reloads
+declare global {
+  // eslint-disable-next-line no-var
+  var __blueforceWorkflows: Map<string, Workflow> | undefined;
+}
+
+const workflows: Map<string, Workflow> = globalThis.__blueforceWorkflows ?? (globalThis.__blueforceWorkflows = new Map<string, Workflow>());
 
 function generateId(): string {
   return Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
@@ -42,7 +78,15 @@ export function createCopDemoWorkflow(): Workflow {
       { id: generateId(), type: 'DATA_MODELER', status: 'IDLE', lastUpdate: now },
       { id: generateId(), type: 'UIUX_PROTOTYPER', status: 'IDLE', lastUpdate: now }
     ],
-    logs: ['Workflow started']
+    logs: [{ ts: now, message: 'Workflow started' }],
+    compliance: {
+      total: 20,
+      passed: 0,
+      failed: 0,
+      history: [{ ts: now, passed: 0, failed: 0, total: 20 }],
+      violations: []
+    },
+    artifacts: []
   };
   workflows.set(id, wf);
   return wf;
@@ -58,32 +102,99 @@ export function getWorkflow(id: string): Workflow | undefined {
   const newStep = Math.min(5, Math.floor(millisSince / 2000)); // step every 2s up to 5
   if (newStep !== wf.step) {
     wf.step = newStep;
+    const push = (message: string, opts?: Partial<LogEntry>) => wf.logs.push({ ts: Date.now(), message, ...opts });
     switch (wf.step) {
       case 1:
-        wf.logs.push('Standards Analyst parsed Link-16/VMF docs');
+        push('Standards Analyst parsed Link-16/VMF docs', { personaId: wf.personas[0].id, phase: 'INGEST' });
         wf.personas[0].status = 'COMPLETED';
         wf.personas[1].status = 'WORKING';
+        wf.compliance.passed = 5;
+        wf.compliance.history.push({ ts: Date.now(), passed: wf.compliance.passed, failed: wf.compliance.failed, total: wf.compliance.total });
+        // Produce schema artifact
+        wf.artifacts.push({
+          id: generateId(),
+          name: 'link16_vmf_schema.json',
+          type: 'schema',
+          mime: 'application/json',
+          size: 2048,
+          createdAt: Date.now(),
+          content: JSON.stringify({
+            standard: 'LINK16_VMF',
+            version: 'mock-1.0',
+            entities: ['Unit', 'Track', 'Message'],
+            fields: [{ name: 'unitId', type: 'string' }, { name: 'lat', type: 'number' }, { name: 'lon', type: 'number' }]
+          }, null, 2)
+        });
         break;
       case 2:
-        wf.logs.push('Pipeline Engineer generated parsing/validation code');
+        push('Pipeline Engineer generated parsing/validation code', { personaId: wf.personas[1].id, phase: 'CODEGEN' });
         wf.personas[1].status = 'COMPLETED';
         wf.personas[2].status = 'WORKING';
+        wf.compliance.passed = 10;
+        wf.compliance.failed = 1;
+        wf.compliance.violations.push({
+          id: generateId(),
+          rule: 'VMF-VAL-001',
+          severity: 'LOW',
+          message: 'Optional field missing default mapping; using fallback',
+          ts: Date.now(),
+          phase: 'CODEGEN'
+        });
+        wf.compliance.history.push({ ts: Date.now(), passed: wf.compliance.passed, failed: wf.compliance.failed, total: wf.compliance.total });
+        // Produce parser code artifact
+        wf.artifacts.push({
+          id: generateId(),
+          name: 'vmf_parser.ts',
+          type: 'code',
+          mime: 'text/plain',
+          size: 4096,
+          createdAt: Date.now(),
+          content: `export function parseVMF(buffer: Buffer) {\n  // mock generated parser\n  const text = buffer.toString('utf8');\n  return { ok: true, length: text.length };\n}`
+        });
         break;
       case 3:
-        wf.logs.push('Data Modeler aligned schemas and validated interoperability');
+        push('Data Modeler aligned schemas and validated interoperability', { personaId: wf.personas[2].id, phase: 'MAPPING' });
         wf.personas[2].status = 'COMPLETED';
         wf.personas[3].status = 'WORKING';
+        wf.compliance.passed = 15;
+        wf.compliance.failed = 1;
+        wf.compliance.history.push({ ts: Date.now(), passed: wf.compliance.passed, failed: wf.compliance.failed, total: wf.compliance.total });
         break;
       case 4:
-        wf.logs.push('UI/UX Prototyper created COP visualization');
+        push('UI/UX Prototyper created COP visualization', { personaId: wf.personas[3].id, phase: 'VIZ' });
         wf.personas[3].status = 'COMPLETED';
+        wf.compliance.passed = 19;
+        wf.compliance.failed = 1;
+        wf.compliance.history.push({ ts: Date.now(), passed: wf.compliance.passed, failed: wf.compliance.failed, total: wf.compliance.total });
         break;
       case 5:
-        wf.logs.push('Workflow completed successfully');
+        push('Workflow completed successfully', { phase: 'DONE' });
         wf.status = 'COMPLETED';
+        wf.compliance.passed = 20;
+        wf.compliance.failed = 0;
+        wf.compliance.history.push({ ts: Date.now(), passed: wf.compliance.passed, failed: wf.compliance.failed, total: wf.compliance.total });
+        // Produce compliance report
+        wf.artifacts.push({
+          id: generateId(),
+          name: 'compliance-report.md',
+          type: 'report',
+          mime: 'text/markdown',
+          size: 1024,
+          createdAt: Date.now(),
+          content: `# Compliance Report\n\n- Total Rules: ${wf.compliance.total}\n- Passed: ${wf.compliance.passed}\n- Failed: ${wf.compliance.failed}\n\n## Violations\n${wf.compliance.violations.map(v => `- [${v.severity}] ${v.rule}: ${v.message}`).join('\n') || 'None'}\n`
+        });
         break;
     }
   }
+  return wf;
+}
+
+export function stopWorkflow(id: string): Workflow | undefined {
+  const wf = workflows.get(id);
+  if (!wf) return undefined;
+  if (wf.status === 'COMPLETED' || wf.status === 'FAILED') return wf;
+  wf.status = 'FAILED';
+  wf.logs.push({ ts: Date.now(), message: 'Workflow stopped by user' });
   return wf;
 }
 
