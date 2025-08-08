@@ -10,12 +10,32 @@ export default function PMDashboard() {
   const kpis = useMemo(() => {
     const status = wf?.status ?? 'PENDING';
     const logs = wf?.logs ?? [];
-    const completedRules = logs.filter((l: string) => l.toLowerCase().includes('validation')).length;
+    const step = wf?.step ?? 0;
+    const totalSteps = 5;
+    const progressPct = Math.round((step / totalSteps) * 100);
+    // Estimate by step machine timing (2s/step in mock manager)
+    const stepMs = 2000;
+    const totalMs = totalSteps * stepMs;
+    const createdAt = wf?.createdAt ? Number(wf.createdAt) : Date.now();
+    const elapsedMs = Math.max(0, Date.now() - createdAt);
+    const remainingMs = Math.max(0, totalMs - elapsedMs);
+    const fmt = (ms: number) => {
+      const s = Math.ceil(ms / 1000);
+      return `${Math.floor(s / 60)}m ${s % 60}s`;
+    };
+    // Mock rules coverage and pass/fail as proportional to step
+    const rulesCoveragePct = progressPct;
+    const passCount = step * 5;
+    const failCount = 0;
     return {
       status,
-      steps: wf?.step ?? 0,
+      steps: step,
       personas: (wf?.personas ?? []).length,
-      rulesCovered: completedRules,
+      progressPct,
+      remainingText: fmt(remainingMs),
+      rulesCoveragePct,
+      passCount,
+      failCount,
     };
   }, [wf]);
 
@@ -58,17 +78,25 @@ export default function PMDashboard() {
         </header>
 
         <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-4 rounded border" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
+          <div className="p-4 rounded border space-y-2" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
             <div className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Status</div>
             <div className="text-xl font-semibold">{kpis.status}</div>
+            <div className="text-xs opacity-80">Steps {kpis.steps}/5 • Personas {kpis.personas}</div>
           </div>
-          <div className="p-4 rounded border" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
-            <div className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Steps</div>
-            <div className="text-xl font-semibold">{kpis.steps}/5</div>
+          <div className="p-4 rounded border space-y-2" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
+            <div className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Progress</div>
+            <div className="w-full h-2 rounded" style={{ backgroundColor: 'var(--theme-bg-tertiary)' }}>
+              <div className="h-2 rounded" style={{ width: `${kpis.progressPct}%`, backgroundColor: 'var(--theme-accent-primary)' }} />
+            </div>
+            <div className="text-xs opacity-80">{kpis.progressPct}% • ~{kpis.remainingText} remaining</div>
           </div>
-          <div className="p-4 rounded border" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
-            <div className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Personas</div>
-            <div className="text-xl font-semibold">{kpis.personas}</div>
+          <div className="p-4 rounded border space-y-2" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
+            <div className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Validation</div>
+            <div className="flex items-center gap-4">
+              <div className="text-lg font-semibold">{kpis.rulesCoveragePct}%</div>
+              <div className="text-xs opacity-80">rules coverage</div>
+            </div>
+            <div className="text-xs opacity-80">Pass {kpis.passCount} • Fail {kpis.failCount}</div>
           </div>
         </section>
 
