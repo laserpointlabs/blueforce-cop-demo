@@ -7,145 +7,86 @@
   - Environments: .env.local
 
  ✓ Starting...
- ✓ Ready in 1419ms
+ ✓ Ready in 1715ms
  ○ Compiling / ...
- ✓ Compiled / in 2.7s (457 modules)
- GET / 200 in 2849ms
- GET / 200 in 54ms
- ✓ Compiled in 181ms (236 modules)
- ✓ Compiled in 421ms (236 modules)
- ✓ Compiled in 117ms (236 modules)
- ✓ Compiled / in 131ms (221 modules)
- GET / 200 in 252ms
- ✓ Compiled in 141ms (236 modules)
+ ✓ Compiled / in 2.8s (466 modules)
+ GET / 200 in 3030ms
+ GET / 200 in 47ms
+ GET / 200 in 26ms
+ GET / 200 in 27ms
+ ○ Compiling /pm-dashboard ...
+ ✓ Compiled /pm-dashboard in 644ms (474 modules)
+ GET /pm-dashboard 200 in 837ms
+ GET / 200 in 365ms
+ ✓ Compiled /ontology in 288ms (463 modules)
+ GET /ontology 200 in 412ms
+ GET /pm-dashboard 200 in 38ms
+ ✓ Compiled /api/ontology/artifacts in 190ms (264 modules)
+ ✓ Compiled (271 modules)
+ GET /api/ontology/metrics 200 in 420ms
+ GET /api/ontology/artifacts 200 in 423ms
+ GET /api/health/ollama 200 in 431ms
+ GET /api/ontology/metrics 200 in 42ms
+ GET /api/ontology/artifacts 200 in 50ms
+ GET /api/health/ollama 200 in 53ms
  ○ Compiling /cop-demo ...
- ✓ Compiled /cop-demo in 1573ms (979 modules)
- GET /cop-demo 200 in 1789ms
- ✓ Compiled /api/health/ollama in 180ms (525 modules)
- ✓ Compiled (527 modules)
- GET /api/health/ollama 200 in 391ms
- GET /api/ollama/models 200 in 395ms
- GET /api/health/ollama 200 in 13ms
- GET /api/ollama/models 200 in 15ms
- ✓ Compiled /api/ollama/chat in 155ms (529 modules)
- POST /api/ollama/chat 200 in 21165ms
- ✓ Compiled /api/workflows/cop-demo/start in 207ms (528 modules)
- POST /api/workflows/cop-demo/start 200 in 296ms
- ✓ Compiled /api/workflows/[id]/status in 100ms (530 modules)
- GET /api/workflows/jw8147bez9q05p9anx0atbj/status 200 in 369ms
- GET /api/workflows/jw8147bez9q05p9anx0atbj/status 200 in 20ms
- GET /api/workflows/jw8147bez9q05p9anx0atbj/status 200 in 19ms
- GET /api/workflows/jw8147bez9q05p9anx0atbj/status 200 in 19ms
- GET /api/workflows/jw8147bez9q05p9anx0atbj/status 200 in 18ms
- GET /api/workflows/jw8147bez9q05p9anx0atbj/status 200 in 35ms
- GET /api/workflows/jw8147bez9q05p9anx0atbj/status 200 in 25ms
- GET /cop-demo 200 in 135ms
- GET /api/ollama/models 200 in 31ms
- GET /api/health/ollama 200 in 38ms
- GET /api/ollama/models 200 in 13ms
- GET /api/health/ollama 200 in 12ms
- POST /api/workflows/cop-demo/start 200 in 12ms
- GET /api/workflows/gk92equcxoesh15nundos/status 200 in 18ms
- GET /api/workflows/gk92equcxoesh15nundos/status 200 in 16ms
- GET /api/workflows/gk92equcxoesh15nundos/status 200 in 19ms
- GET /api/workflows/gk92equcxoesh15nundos/status 200 in 14ms
- GET /api/workflows/gk92equcxoesh15nundos/status 200 in 19ms
- GET /api/workflows/gk92equcxoesh15nundos/status 200 in 22ms
- GET /api/workflows/gk92equcxoesh15nundos/status 200 in 20ms
- GET /cop-demo 200 in 82ms
- GET /api/health/ollama 200 in 50ms
- GET /api/ollama/models 200 in 56ms
- GET /api/health/ollama 200 in 30ms
- GET /api/ollama/models 200 in 34ms
- ✓ Compiled in 760ms (1027 modules)
- ✓ Compiled / in 77ms (527 modules)
- GET / 200 in 174ms
- ✓ Compiled in 342ms (1028 modules)
- ✓ Compiled /api/workflows/cop-demo/start in 121ms (530 modules)
- POST /api/workflows/cop-demo/start 200 in 184ms
- ✓ Compiled /api/workflows/[id]/status in 68ms (532 modules)
- GET /api/workflows/59sejoaesnx2chndmyxvhz/status 200 in 112ms
- GET /api/workflows/59sejoaesnx2chndmyxvhz/status 200 in 21ms
- GET /api/workflows/59sejoaesnx2chndmyxvhz/status 200 in 19ms
- GET /api/workflows/59sejoaesnx2chndmyxvhz/status 200 in 23ms
- GET /api/workflows/59sejoaesnx2chndmyxvhz/status 200 in 18ms
- GET /api/workflows/59sejoaesnx2chndmyxvhz/status 200 in 24ms
- GET /api/workflows/59sejoaesnx2chndmyxvhz/status 200 in 23ms
- ✓ Compiled /api/ollama/chat in 83ms (534 modules)
- POST /api/ollama/chat 200 in 31885ms
- GET / 200 in 93ms
- ✓ Compiled /pm-dashboard in 460ms (985 modules)
- GET /pm-dashboard 200 in 583ms
- ✓ Compiled /api/ontology/artifacts in 205ms (529 modules)
- ✓ Compiled (536 modules)
- GET /api/ontology/metrics 200 in 414ms
- GET /api/ontology/artifacts 200 in 418ms
- GET /api/health/ollama 200 in 422ms
- GET /api/ontology/metrics 200 in 26ms
- GET /api/ontology/artifacts 200 in 32ms
- GET /api/health/ollama 200 in 32ms
- GET / 200 in 77ms
- GET /cop-demo 200 in 81ms
- ✓ Compiled /api/ollama/models in 83ms (538 modules)
- GET /api/health/ollama 200 in 243ms
- GET /api/ollama/models 200 in 262ms
- GET /api/health/ollama 200 in 25ms
- GET /api/ollama/models 200 in 16ms
- ✓ Compiled in 579ms (994 modules)
- ✓ Compiled / in 112ms (495 modules)
- GET / 200 in 236ms
- ✓ Compiled in 309ms (998 modules)
- ✓ Compiled in 346ms (994 modules)
- ✓ Compiled / in 112ms (495 modules)
- GET / 200 in 233ms
- ✓ Compiled in 266ms (998 modules)
- ✓ Compiled in 487ms (994 modules)
- ✓ Compiled /api/ollama/models in 332ms (521 modules)
- ✓ Compiled (523 modules)
- GET /api/health/ollama 200 in 504ms
- GET /api/ollama/models 200 in 451ms
- GET /api/health/ollama 200 in 17ms
- GET /api/ollama/models 200 in 12ms
- ✓ Compiled / in 125ms (527 modules)
- GET / 200 in 255ms
- ✓ Compiled /api/workflows/cop-demo/start in 95ms (530 modules)
- POST /api/workflows/cop-demo/start 200 in 144ms
- ✓ Compiled /api/workflows/[id]/status in 104ms (532 modules)
- GET /api/workflows/xqjxf84j9b8yodxkjzpxkf/status 200 in 162ms
- GET /api/workflows/xqjxf84j9b8yodxkjzpxkf/status 200 in 29ms
- GET /api/workflows/xqjxf84j9b8yodxkjzpxkf/status 200 in 16ms
- GET /api/workflows/xqjxf84j9b8yodxkjzpxkf/status 200 in 25ms
- GET /api/workflows/xqjxf84j9b8yodxkjzpxkf/status 200 in 23ms
- GET /api/workflows/xqjxf84j9b8yodxkjzpxkf/status 200 in 19ms
- ✓ Compiled in 273ms (1035 modules)
- ✓ Compiled /pm-dashboard in 208ms (536 modules)
- GET /pm-dashboard 200 in 316ms
- GET /api/health/ollama 200 in 40ms
- ✓ Compiled /api/ontology/artifacts in 115ms (541 modules)
- ✓ Compiled (543 modules)
- GET /api/health/ollama 200 in 224ms
- GET /api/ontology/metrics 200 in 268ms
- GET /api/ontology/artifacts 200 in 266ms
- GET /api/ontology/metrics 200 in 19ms
- GET /api/ontology/artifacts 200 in 21ms
- POST /api/workflows/cop-demo/start 200 in 14ms
- GET /api/workflows/6solfm15oyxnvwkdm0edvo/status 200 in 22ms
- GET /api/workflows/6solfm15oyxnvwkdm0edvo/status 200 in 21ms
- GET /api/workflows/6solfm15oyxnvwkdm0edvo/status 200 in 20ms
- POST /api/workflows/cop-demo/start 200 in 8ms
- GET /api/workflows/cpibcvbxj33kxd88f07ld/status 200 in 23ms
- GET /api/workflows/cpibcvbxj33kxd88f07ld/status 200 in 18ms
- GET /api/workflows/cpibcvbxj33kxd88f07ld/status 200 in 20ms
- GET /api/workflows/cpibcvbxj33kxd88f07ld/status 200 in 23ms
- GET /api/workflows/cpibcvbxj33kxd88f07ld/status 200 in 24ms
- GET /api/workflows/cpibcvbxj33kxd88f07ld/status 200 in 22ms
- GET /api/workflows/cpibcvbxj33kxd88f07ld/status 200 in 17ms
- GET /api/workflows/cpibcvbxj33kxd88f07ld/status 200 in 23ms
- GET /api/workflows/cpibcvbxj33kxd88f07ld/status 200 in 26ms
- GET / 200 in 53ms
- ✓ Compiled /ontology in 234ms (1035 modules)
- GET /ontology 200 in 312ms
- GET /api/ontology/artifacts 200 in 25ms
+ ✓ Compiled /cop-demo in 1714ms (1033 modules)
+ GET /cop-demo 200 in 1951ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /api/health/ollama 200 in 61ms
+ ✓ Compiled /api/ollama/models in 198ms (545 modules)
+ GET /api/ollama/models 200 in 383ms
+ GET /api/health/ollama 200 in 323ms
+ GET /api/ollama/models 200 in 20ms
+ GET / 200 in 73ms
+ GET /ontology 200 in 38ms
+ GET /api/ontology/artifacts 200 in 18ms
  GET /api/ontology/artifacts 200 in 16ms
- GET /api/ontology/metrics 200 in 17ms
- GET / 200 in 38ms
+ GET /api/ontology/metrics 200 in 20ms
+ GET / 200 in 45ms
+ GET /cop-demo 200 in 83ms
+ GET /api/ollama/models 200 in 40ms
+ GET /api/health/ollama 200 in 48ms
+ GET /api/ollama/models 200 in 30ms
+ GET /api/health/ollama 200 in 25ms
+ GET / 200 in 18ms
+ GET / 200 in 18ms
+ GET /pm-dashboard 200 in 30ms
+ GET /ontology 200 in 21ms
+ ✓ Compiled /api/ollama/chat in 166ms (547 modules)
+ POST /api/ollama/chat 200 in 21197ms
+ GET /pm-dashboard 200 in 109ms
+ GET /api/health/ollama 200 in 43ms
+ GET /api/ontology/metrics 200 in 58ms
+ GET /api/ontology/artifacts 200 in 66ms
+ GET /api/health/ollama 200 in 52ms
+ GET /api/ontology/metrics 200 in 50ms
+ GET /api/ontology/artifacts 200 in 53ms
+ ✓ Compiled /api/workflows/cop-demo/start in 208ms (550 modules)
+ POST /api/workflows/cop-demo/start 200 in 276ms
+ ✓ Compiled /api/workflows/[id]/status in 255ms (552 modules)
+ GET /api/workflows/cz8hzdfpqgf6qyvu8nmbi/status 200 in 649ms
+ GET /api/workflows/cz8hzdfpqgf6qyvu8nmbi/status 200 in 30ms
+ GET /api/workflows/cz8hzdfpqgf6qyvu8nmbi/status 200 in 30ms
+ GET /api/workflows/cz8hzdfpqgf6qyvu8nmbi/status 200 in 24ms
+ GET /api/workflows/cz8hzdfpqgf6qyvu8nmbi/status 200 in 27ms
+ GET /api/workflows/cz8hzdfpqgf6qyvu8nmbi/status 200 in 29ms
+ GET /api/workflows/cz8hzdfpqgf6qyvu8nmbi/status 200 in 37ms
+ GET /api/workflows/cz8hzdfpqgf6qyvu8nmbi/status 200 in 27ms
+ GET /api/workflows/cz8hzdfpqgf6qyvu8nmbi/status 200 in 27ms
+ GET / 200 in 101ms
+ GET / 200 in 32ms
+ GET /ontology 200 in 82ms
+ GET / 200 in 58ms
+ GET /pm-dashboard 200 in 35ms
+ GET /ontology 200 in 28ms
+ GET /api/ontology/artifacts 200 in 14ms
+ GET /api/ontology/artifacts 200 in 14ms
+ GET /api/ontology/metrics 200 in 13ms
+ ✓ Compiled in 1028ms (1042 modules)
+ ○ Compiling /api/ontology/artifacts ...
+ ✓ Compiled /api/ontology/artifacts in 783ms (1044 modules)
+ GET /api/ontology/artifacts 200 in 898ms
+ ✓ Compiled in 490ms (1044 modules)
+ GET /api/ontology/artifacts 200 in 598ms
+ ✓ Compiled in 700ms (1044 modules)

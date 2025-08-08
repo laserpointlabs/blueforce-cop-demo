@@ -1,10 +1,12 @@
 "use client";
 import { useEffect, useState } from 'react';
+import { useToast } from '@/components/ToastProvider';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Icon } from '../../components/Icon';
 
 export default function CopDemoPage() {
+  const { notify } = useToast();
   const [ollamaOk, setOllamaOk] = useState<boolean | null>(null);
   const [model, setModel] = useState('');
   const [models, setModels] = useState<string[]>([]);
@@ -45,6 +47,7 @@ export default function CopDemoPage() {
       }
     } catch (e: any) {
       setAnswer(`Error: ${e.message}`);
+      notify(`Chat error: ${e.message}`, 'error');
     } finally {
       setLoading(false);
     }
@@ -106,8 +109,9 @@ export default function CopDemoPage() {
 
         <div className="p-4 rounded border" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
           <ReactMarkdown remarkPlugins={[remarkGfm]} components={{
-            code({ inline, className, children, ...props }) {
-              const content = String(children);
+            code: (codeProps: any) => {
+              const { inline, className, children, ...props } = codeProps as any;
+              const content = String(children ?? '');
               if (inline) {
                 return <code className={className} {...props}>{content}</code>;
               }
@@ -136,6 +140,7 @@ export default function CopDemoPage() {
                 const data = await res.json();
                 setWfId(data.id);
                 setWfStatus({ status: data.status });
+                notify('Workflow started', 'success', 2500);
                 // poll
                 const interval: ReturnType<typeof setInterval> = setInterval(async () => {
                   if (!data.id) return clearInterval(interval);

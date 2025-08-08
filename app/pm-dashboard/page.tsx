@@ -1,8 +1,10 @@
 "use client";
 import { useEffect, useMemo, useState } from 'react';
 import { Icon } from "../../components/Icon";
+import { useToast } from "@/components/ToastProvider";
 
 export default function PMDashboard() {
+  const { notify } = useToast();
   const [wfId, setWfId] = useState<string | null>(null);
   const [wf, setWf] = useState<any>(null);
   const [polling, setPolling] = useState<number | null>(null);
@@ -89,10 +91,12 @@ export default function PMDashboard() {
     const data = await res.json();
     setWfId(data.id);
     setWf({ status: data.status, logs: [] });
+    notify('Workflow started', 'success', 2500);
   };
   const stop = async () => {
     if (!wfId) return;
     await fetch(`/api/workflows/${wfId}/stop`, { method: 'POST' });
+    notify('Workflow stopped', 'info', 2000);
   };
 
   return (
