@@ -13,3 +13,19 @@
  GET / 200 in 2849ms
  GET / 200 in 54ms
  ✓ Compiled in 181ms (236 modules)
+ ✓ Compiled in 421ms (236 modules)
+ ✓ Compiled in 117ms (236 modules)
+ ✓ Compiled / in 131ms (221 modules)
+ GET / 200 in 252ms
+ ✓ Compiled in 141ms (236 modules)
+ ○ Compiling /cop-demo ...
+ ✓ Compiled /cop-demo in 1573ms (979 modules)
+ GET /cop-demo 200 in 1789ms
+ ✓ Compiled /api/health/ollama in 180ms (525 modules)
+ ✓ Compiled (527 modules)
+ GET /api/health/ollama 200 in 391ms
+ GET /api/ollama/models 200 in 395ms
+ GET /api/health/ollama 200 in 13ms
+ GET /api/ollama/models 200 in 15ms
+ ✓ Compiled /api/ollama/chat in 155ms (529 modules)
+ POST /api/ollama/chat 200 in 21165ms

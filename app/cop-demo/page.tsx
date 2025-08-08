@@ -7,6 +7,7 @@ import { Icon } from '../../components/Icon';
 export default function CopDemoPage() {
   const [ollamaOk, setOllamaOk] = useState<boolean | null>(null);
   const [model, setModel] = useState('llama3');
+  const [models, setModels] = useState<string[]>([]);
   const [prompt, setPrompt] = useState('Summarize the COP demo MVP in 3 bullets.');
   const [answer, setAnswer] = useState('');
   const [loading, setLoading] = useState(false);
@@ -14,7 +15,13 @@ export default function CopDemoPage() {
   const [wfStatus, setWfStatus] = useState<any>(null);
 
   useEffect(() => {
-    fetch('/api/health/ollama').then(async (r) => setOllamaOk(r.ok)).catch(() => setOllamaOk(false));
+    fetch('/api/health/ollama')
+      .then(async (r) => setOllamaOk(r.ok))
+      .catch(() => setOllamaOk(false));
+    fetch('/api/ollama/models')
+      .then(async (r) => (r.ok ? r.json() : Promise.resolve({ models: [] })))
+      .then((d) => setModels(Array.isArray(d.models) ? d.models : []))
+      .catch(() => setModels([]));
   }, []);
 
   const handleAsk = async () => {
@@ -46,13 +53,11 @@ export default function CopDemoPage() {
   return (
     <main className="min-h-screen p-6" style={{ backgroundColor: 'var(--theme-bg-primary)', color: 'var(--theme-text-primary)' }}>
       <div className="max-w-5xl mx-auto space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <h1 className="text-xl font-semibold flex items-center gap-2"><Icon name="beaker" size="sm" /> COP Demo</h1>
-          <div className="flex items-center gap-4">
-            <nav className="flex items-center gap-2 text-sm" style={{ color: 'var(--theme-text-secondary)' }}>
-              <a href="/" className="underline">Home</a>
-            </nav>
-            <span className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Ollama</span>
+          <div className="flex items-center gap-3 text-sm" style={{ color: 'var(--theme-text-secondary)' }}>
+            <a href="/" className="underline">Home</a>
+            <span>Ollama</span>
             {ollamaOk === null ? (
               <Icon name="loading" className="animate-spin" />
             ) : ollamaOk ? (
@@ -64,15 +69,38 @@ export default function CopDemoPage() {
         </div>
 
         <div className="space-y-3 p-4 rounded border" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
-          <label className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Model</label>
-          <input value={model} onChange={(e) => setModel(e.target.value)} className="input" style={{ backgroundColor: 'var(--theme-input-bg)', borderColor: 'var(--theme-input-border)', color: 'var(--theme-text-primary)' }} />
-
-          <label className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Prompt</label>
-          <textarea value={prompt} onChange={(e) => setPrompt(e.target.value)} className="input" rows={4} style={{ backgroundColor: 'var(--theme-input-bg)', borderColor: 'var(--theme-input-border)', color: 'var(--theme-text-primary)' }} />
-
-          <button onClick={handleAsk} disabled={loading} className="btn-primary inline-flex items-center gap-2" style={{ backgroundColor: 'var(--theme-accent-primary)' }}>
-            <Icon name="play" size="sm" /> {loading ? 'Asking…' : 'Ask'}
-          </button>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="flex flex-col gap-1">
+              <label className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Model</label>
+              <select
+                value={model}
+                onChange={(e) => setModel(e.target.value)}
+                className="input"
+                style={{ backgroundColor: 'var(--theme-input-bg)', borderColor: 'var(--theme-input-border)', color: 'var(--theme-text-primary)' }}
+              >
+                {[model, ...models.filter(m => m !== model)].map((m) => (
+                  <option key={m} value={m}>{m}</option>
+                ))}
+              </select>
+            </div>
+            <div className="sm:col-span-2 flex flex-col gap-1">
+              <label className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Prompt</label>
+              <textarea
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                className="input"
+                rows={3}
+                placeholder="Ask something..."
+                style={{ backgroundColor: 'var(--theme-input-bg)', borderColor: 'var(--theme-input-border)', color: 'var(--theme-text-primary)' }}
+              />
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <button onClick={handleAsk} disabled={loading} className="btn-primary inline-flex items-center gap-2" style={{ backgroundColor: 'var(--theme-accent-primary)' }}>
+              <Icon name="play" size="sm" /> {loading ? 'Asking…' : 'Ask'}
+            </button>
+            {loading ? <span className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Streaming…</span> : null}
+          </div>
         </div>
 
         <div className="p-4 rounded border" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
