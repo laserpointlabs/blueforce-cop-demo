@@ -1,0 +1,25 @@
+{
+  "name": "Link-16 Curated Ontology",
+  "version": "0.1.0",
+  "source": "Curated fixture for deterministic demo",
+  "concepts": [
+    { "name": "JMessage", "description": "Link-16 J-series message" },
+    { "name": "JTrack", "description": "Track entity represented in Link-16" },
+    { "name": "JTacticalDataLink", "description": "Link-16 network context" },
+    { "name": "JPosition", "description": "Position tuple carried in J-messages" }
+  ],
+  "relations": [
+    { "name": "carriesTrack", "from": "JMessage", "to": "JTrack" },
+    { "name": "carriesPosition", "from": "JMessage", "to": "JPosition" },
+    { "name": "sentOn", "from": "JMessage", "to": "JTacticalDataLink" }
+  ],
+  "fields": [
+    { "entity": "JTrack", "name": "trackNumber", "type": "string" },
+    { "entity": "JPosition", "name": "lat", "type": "number" },
+    { "entity": "JPosition", "name": "lon", "type": "number" },
+    { "entity": "JPosition", "name": "alt", "type": "number" },
+    { "entity": "JMessage", "name": "jSeries", "type": "string" },
+    { "entity": "JMessage", "name": "timestampMs", "type": "number" }
+  ]
+}
+

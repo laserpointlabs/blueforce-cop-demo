@@ -50,6 +50,9 @@ export interface Workflow {
   }>;
 }
 
+// Optional disk persistence for artifacts
+import { persistIfEnabled } from '@/lib/artifacts';
+
 // Persist across Next dev HMR reloads
 declare global {
   // eslint-disable-next-line no-var
@@ -111,7 +114,8 @@ export function getWorkflow(id: string): Workflow | undefined {
         wf.compliance.passed = 5;
         wf.compliance.history.push({ ts: Date.now(), passed: wf.compliance.passed, failed: wf.compliance.failed, total: wf.compliance.total });
         // Produce schema artifact
-        wf.artifacts.push({
+        {
+          const art = {
           id: generateId(),
           name: 'link16_vmf_schema.json',
           type: 'schema',
@@ -124,7 +128,10 @@ export function getWorkflow(id: string): Workflow | undefined {
             entities: ['Unit', 'Track', 'Message'],
             fields: [{ name: 'unitId', type: 'string' }, { name: 'lat', type: 'number' }, { name: 'lon', type: 'number' }]
           }, null, 2)
-        });
+        } as const;
+          wf.artifacts.push(art as any);
+          persistIfEnabled(art.name, art.content);
+        }
         break;
       case 2:
         push('Pipeline Engineer generated parsing/validation code', { personaId: wf.personas[1].id, phase: 'CODEGEN' });
@@ -142,7 +149,8 @@ export function getWorkflow(id: string): Workflow | undefined {
         });
         wf.compliance.history.push({ ts: Date.now(), passed: wf.compliance.passed, failed: wf.compliance.failed, total: wf.compliance.total });
         // Produce parser code artifact
-        wf.artifacts.push({
+        {
+          const art = {
           id: generateId(),
           name: 'vmf_parser.ts',
           type: 'code',
@@ -150,7 +158,10 @@ export function getWorkflow(id: string): Workflow | undefined {
           size: 4096,
           createdAt: Date.now(),
           content: `export function parseVMF(buffer: Buffer) {\n  // mock generated parser\n  const text = buffer.toString('utf8');\n  return { ok: true, length: text.length };\n}`
-        });
+        } as const;
+          wf.artifacts.push(art as any);
+          persistIfEnabled(art.name, art.content);
+        }
         break;
       case 3:
         push('Data Modeler aligned schemas and validated interoperability', { personaId: wf.personas[2].id, phase: 'MAPPING' });
@@ -174,7 +185,8 @@ export function getWorkflow(id: string): Workflow | undefined {
         wf.compliance.failed = 0;
         wf.compliance.history.push({ ts: Date.now(), passed: wf.compliance.passed, failed: wf.compliance.failed, total: wf.compliance.total });
         // Produce compliance report
-        wf.artifacts.push({
+        {
+          const art = {
           id: generateId(),
           name: 'compliance-report.md',
           type: 'report',
@@ -182,7 +194,10 @@ export function getWorkflow(id: string): Workflow | undefined {
           size: 1024,
           createdAt: Date.now(),
           content: `# Compliance Report\n\n- Total Rules: ${wf.compliance.total}\n- Passed: ${wf.compliance.passed}\n- Failed: ${wf.compliance.failed}\n\n## Violations\n${wf.compliance.violations.map(v => `- [${v.severity}] ${v.rule}: ${v.message}`).join('\n') || 'None'}\n`
-        });
+        } as const;
+          wf.artifacts.push(art as any);
+          persistIfEnabled(art.name, art.content);
+        }
         break;
     }
   }

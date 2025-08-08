@@ -1,14 +1,18 @@
 "use client";
 import { useEffect, useMemo, useState } from 'react';
 import { Icon } from "../../components/Icon";
+import { useToast } from "@/components/ToastProvider";
 
 export default function PMDashboard() {
+  const { notify } = useToast();
   const [wfId, setWfId] = useState<string | null>(null);
   const [wf, setWf] = useState<any>(null);
   const [polling, setPolling] = useState<number | null>(null);
   const [phaseFilter, setPhaseFilter] = useState<string>('ALL');
   const [ollamaOk, setOllamaOk] = useState<boolean | null>(null);
   const [preview, setPreview] = useState<null | { id: string; name: string; type: string; mime: string; content: string }>(null);
+  const [alignment, setAlignment] = useState<null | { coveragePct: number; cdmEntitiesCovered: number; cdmEntitiesTotal: number; conflicts: any[] }>(null);
+  const [ontologyArtifacts, setOntologyArtifacts] = useState<Array<{ name: string; type: string; mime: string; size: number; createdAt: number }>>([]);
 
   const kpis = useMemo(() => {
     const status = wf?.status ?? 'PENDING';
@@ -69,6 +73,17 @@ export default function PMDashboard() {
     fetch('/api/health/ollama')
       .then((r) => setOllamaOk(r.ok))
       .catch(() => setOllamaOk(false));
+    // Ontology/CDM alignment metrics & artifacts
+    fetch('/api/ontology/metrics').then(async (r) => {
+      if (!r.ok) return;
+      const m = await r.json();
+      setAlignment(m);
+    }).catch(() => {});
+    fetch('/api/ontology/artifacts').then(async (r) => {
+      if (!r.ok) return;
+      const items = await r.json();
+      setOntologyArtifacts(items);
+    }).catch(() => {});
   }, []);
 
   const start = async () => {
@@ -76,10 +91,12 @@ export default function PMDashboard() {
     const data = await res.json();
     setWfId(data.id);
     setWf({ status: data.status, logs: [] });
+    notify('Workflow started', 'success', 2500);
   };
   const stop = async () => {
     if (!wfId) return;
     await fetch(`/api/workflows/${wfId}/stop`, { method: 'POST' });
+    notify('Workflow stopped', 'info', 2000);
   };
 
   return (
@@ -94,7 +111,7 @@ export default function PMDashboard() {
           </nav>
         </header>
 
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <section className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="p-4 rounded border space-y-2" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
             <div className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Status</div>
             <div className="text-xl font-semibold">{kpis.status}</div>
@@ -114,6 +131,45 @@ export default function PMDashboard() {
               <div className="text-xs opacity-80">rules coverage</div>
             </div>
             <div className="text-xs opacity-80">Pass {kpis.passCount} • Fail {kpis.failCount}</div>
+          </div>
+          <div className="p-4 rounded border space-y-2" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
+            <div className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Alignment</div>
+            {alignment ? (
+              <>
+                <div className="flex items-center gap-2">
+                  <div className="text-lg font-semibold">{alignment.coveragePct}%</div>
+                  <div className="text-xs opacity-80">CDM coverage</div>
+                </div>
+                <div className="text-xs opacity-80">{alignment.cdmEntitiesCovered}/{alignment.cdmEntitiesTotal} entities</div>
+                <div className="text-xs opacity-80">Conflicts: {alignment.conflicts.length}</div>
+                {alignment.conflicts.length > 0 && (
+                  <ul className="mt-2 space-y-1 text-xs" style={{ color: 'var(--theme-text-secondary)' }}>
+                    {alignment.conflicts.slice(0, 4).map((c: any, i: number) => (
+                      <li key={i} className="flex items-start justify-between gap-3">
+                        <span>
+                          [{c.severity ?? 'INFO'}] {c.detail}
+                          {c.source && <span className="opacity-70"> — {c.source}</span>}
+                        </span>
+                        {c.source && (
+                          <button
+                            className="underline"
+                            onClick={async () => {
+                              const res = await fetch(`/api/ontology/artifacts/${c.source}`, { cache: 'no-store' });
+                              const content = await res.text();
+                              setPreview({ id: c.source, name: c.source, type: 'mapping', mime: 'application/json', content });
+                            }}
+                          >
+                            Preview
+                          </button>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </>
+            ) : (
+              <div className="text-xs opacity-80">Loading…</div>
+            )}
           </div>
         </section>
 
@@ -269,8 +325,8 @@ export default function PMDashboard() {
         </section>
 
         <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="md:col-span-3 p-4 rounded border space-y-3" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
-            <h2 className="text-lg font-semibold flex items-center gap-2"><Icon name="file" size="sm" /> Artifacts</h2>
+          <div className="md:col-span-2 p-4 rounded border space-y-3" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
+            <h2 className="text-lg font-semibold flex items-center gap-2"><Icon name="file" size="sm" /> Workflow Artifacts</h2>
             <div className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Generated during the workflow. Click to download.</div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm" style={{ borderColor: 'var(--theme-border)' }}>
@@ -313,6 +369,37 @@ export default function PMDashboard() {
                 </tbody>
               </table>
             </div>
+          </div>
+          <div className="p-4 rounded border space-y-3" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
+            <h2 className="text-lg font-semibold flex items-center gap-2"><Icon name="file-code" size="sm" /> Ontology/CDM Artifacts</h2>
+            <div className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Static, deterministic artifacts (preview/download).</div>
+            <ul className="text-sm divide-y" style={{ borderColor: 'var(--theme-border)' }}>
+              {ontologyArtifacts.length === 0 ? (
+                <li className="py-2">None</li>
+              ) : (
+                ontologyArtifacts.map((a) => (
+                  <li key={a.name} className="py-2 flex items-center justify-between">
+                    <div>
+                      <div className="font-mono text-xs">{a.name}</div>
+                      <div className="text-xs opacity-70 uppercase">{a.type}</div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <a className="underline" href={`/api/ontology/artifacts/${a.name}`}>Download</a>
+                      <button
+                        className="underline"
+                        onClick={async () => {
+                          const res = await fetch(`/api/ontology/artifacts/${a.name}`, { cache: 'no-store' });
+                          const content = await res.text();
+                          setPreview({ id: a.name, name: a.name, type: a.type, mime: a.mime, content });
+                        }}
+                      >
+                        Preview
+                      </button>
+                    </div>
+                  </li>
+                ))
+              )}
+            </ul>
           </div>
         </section>
 

@@ -1,0 +1,28 @@
+{
+  "name": "CDM Mapping - VMF",
+  "version": "0.1.0",
+  "sourceOntology": "VMF Curated Ontology",
+  "targetModel": "CDM 0.1.0",
+  "mappings": [
+    { "from": { "entity": "VMFTrack", "field": "trackId" }, "to": { "entity": "Track", "field": "trackId" } },
+    { "from": { "entity": "VMFMessage", "field": "kSeries" }, "to": { "entity": "Message", "field": "messageType" } },
+    { "from": { "entity": "VMFMessage", "field": "timestampMs" }, "to": { "entity": "Time", "field": "epochMs" } },
+    { "from": { "entity": "VMFPosition", "field": "lat" }, "to": { "entity": "Position", "field": "lat" } },
+    { "from": { "entity": "VMFPosition", "field": "lon" }, "to": { "entity": "Position", "field": "lon" } },
+    { "from": { "entity": "VMFPosition", "field": "alt" }, "to": { "entity": "Position", "field": "alt" } },
+    { "from": { "entity": "VMFLink", "field": "name" }, "to": { "entity": "Link", "field": "name" } }
+  ],
+  "coverage": {
+    "cdmEntitiesCovered": ["Track", "Message", "Position", "Time", "Link"],
+    "cdmEntitiesMissing": ["Unit", "Platform"],
+    "conflicts": [
+      {
+        "type": "naming",
+        "detail": "VMF uses kSeries where CDM expects messageType; mapped via alias",
+        "severity": "LOW",
+        "status": "RESOLVED"
+      }
+    ]
+  }
+}
+

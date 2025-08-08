@@ -1,0 +1,25 @@
+{
+  "name": "VMF Curated Ontology",
+  "version": "0.1.0",
+  "source": "Curated fixture for deterministic demo",
+  "concepts": [
+    { "name": "VMFMessage", "description": "VMF K-series message" },
+    { "name": "VMFTrack", "description": "Track representation in VMF" },
+    { "name": "VMFLink", "description": "VMF link context" },
+    { "name": "VMFPosition", "description": "Position tuple carried in VMF messages" }
+  ],
+  "relations": [
+    { "name": "carriesTrack", "from": "VMFMessage", "to": "VMFTrack" },
+    { "name": "carriesPosition", "from": "VMFMessage", "to": "VMFPosition" },
+    { "name": "sentOn", "from": "VMFMessage", "to": "VMFLink" }
+  ],
+  "fields": [
+    { "entity": "VMFTrack", "name": "trackId", "type": "string" },
+    { "entity": "VMFPosition", "name": "lat", "type": "number" },
+    { "entity": "VMFPosition", "name": "lon", "type": "number" },
+    { "entity": "VMFPosition", "name": "alt", "type": "number" },
+    { "entity": "VMFMessage", "name": "kSeries", "type": "string" },
+    { "entity": "VMFMessage", "name": "timestampMs", "type": "number" }
+  ]
+}
+
