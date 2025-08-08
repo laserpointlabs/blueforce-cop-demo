@@ -11,24 +11,37 @@
 - [x] Repo pushed to GitHub
 
 ## Foundation
-- [ ] PM Dashboard route with VS Code-style layout (sidebar, status bar, panels)
-- [ ] Wire dashboard to mock orchestrator status/logs timeline
-- [ ] Start/stop controls for mock workflow; progress bar
+- [x] PM Dashboard route with VS Code-style layout (sidebar, status bar, panels)
+- [x] Wire dashboard to mock orchestrator status/logs timeline
+- [x] Start/stop controls for mock workflow; progress bar
 - [ ] Global toast/notification utility
-- [ ] KPIs panel (time remaining, pass/fail counts, rules coverage, persona statuses)
+- [x] KPIs panel (time remaining, pass/fail counts, rules coverage, persona statuses)
 
 ## LLM / Ollama
 - [ ] Streaming responses for /api/ollama/chat (SSE/NDJSON)
 - [ ] Persona prompt templates (Standards Analyst, Pipeline Engineer, Data Modeler, UI/UX)
 - [ ] Persona execution API: POST /api/personas/:type/execute via Ollama
 - [ ] Model selector with persisted choice + fallback if model missing
+- [ ] Stretch Goal: Add AI agnet to dicuss the results on the page and offers feedback/suggestions
 
 ## Standards & Knowledge (MVP mocked)
 - [ ] Mock Link-16/VMF documents + schemas (JSON fixtures)
 - [ ] Ontology extraction (deterministic): extract concepts/relations from fixtures into a basic ontology JSON
 - [ ] Schema extraction stub → schema + rules from fixtures
-- [ ] Save artifacts to artifacts/ + index/list API
+- [x] Artifact viewer and list/download API endpoints
+- [ ] Persist artifacts to `artifacts/` directory (optional)
 - [ ] Compliance report generation (rules coverage, violations, provenance)
+
+## Ontology & CDM (deterministic MVP)
+- [ ] Define minimal base ontology (Defense Core) JSON (Unit, Track, Message, Position, Time, Platform, Link; relations: hasPosition, observedAt, emitsMessage, belongsToUnit)
+- [ ] Create `link16_ontology.json` from curated fixture
+- [ ] Create `vmf_ontology.json` from curated fixture
+- [ ] Define CDM core (`cdm.json`) aligned to base ontology
+- [ ] Mapping: `cdm_link16.json` (Link-16 → CDM)
+- [ ] Mapping: `cdm_vmf.json` (VMF → CDM)
+- [ ] Alignment report generation (`alignment_report.md`) with coverage %, conflicts, decisions
+- [ ] PM Dashboard: alignment status widget (coverage %, conflicts list)
+- [ ] Expose all ontology/CDM artifacts in Artifact Viewer
 
 ### Stretch Goal: Probabilistic Ontology Extraction
 - [ ] Question-guided extraction loops with multiple runs
@@ -42,8 +55,8 @@
 
 ## Visualization (MVP)
 - [ ] COP placeholder "map" with tactical layer toggles (mock data)
-- [ ] Compliance dashboard (pass/fail counts, rules list)
-- [ ] Artifact viewer (schemas, generated code, logs)
+- [x] Compliance dashboard (pass/fail counts, rules list)
+- [x] Artifact viewer (schemas, generated code, logs)
 - [ ] Data lineage panel (source → schema → model → pipeline → viz)
 
 ## UI / Theme
