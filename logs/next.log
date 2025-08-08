@@ -7,86 +7,584 @@
   - Environments: .env.local
 
  ✓ Starting...
- ✓ Ready in 1715ms
- ○ Compiling / ...
- ✓ Compiled / in 2.8s (466 modules)
- GET / 200 in 3030ms
- GET / 200 in 47ms
- GET / 200 in 26ms
- GET / 200 in 27ms
- ○ Compiling /pm-dashboard ...
- ✓ Compiled /pm-dashboard in 644ms (474 modules)
- GET /pm-dashboard 200 in 837ms
- GET / 200 in 365ms
- ✓ Compiled /ontology in 288ms (463 modules)
- GET /ontology 200 in 412ms
- GET /pm-dashboard 200 in 38ms
- ✓ Compiled /api/ontology/artifacts in 190ms (264 modules)
- ✓ Compiled (271 modules)
- GET /api/ontology/metrics 200 in 420ms
- GET /api/ontology/artifacts 200 in 423ms
- GET /api/health/ollama 200 in 431ms
- GET /api/ontology/metrics 200 in 42ms
- GET /api/ontology/artifacts 200 in 50ms
- GET /api/health/ollama 200 in 53ms
- ○ Compiling /cop-demo ...
- ✓ Compiled /cop-demo in 1714ms (1033 modules)
- GET /cop-demo 200 in 1951ms
+ ✓ Ready in 1333ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 6.7s (477 modules)
+ GET /ontology 200 in 6433ms
+ GET / 200 in 6942ms
+ ✓ Compiled /pm-dashboard in 403ms (466 modules)
  ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
- GET /api/health/ollama 200 in 61ms
- ✓ Compiled /api/ollama/models in 198ms (545 modules)
- GET /api/ollama/models 200 in 383ms
- GET /api/health/ollama 200 in 323ms
- GET /api/ollama/models 200 in 20ms
- GET / 200 in 73ms
- GET /ontology 200 in 38ms
+ GET /ontology 200 in 442ms
+ GET / 200 in 568ms
+ GET /_next/static/webpack/1affb23a8c704114.webpack.hot-update.json 404 in 7182ms
+ GET /pm-dashboard 200 in 797ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /ontology 200 in 29ms
+ ✓ Compiled /api/ontology/artifacts in 163ms (268 modules)
+ GET /api/ontology/artifacts 200 in 240ms
+ GET /api/ontology/artifacts 200 in 7ms
+ ✓ Compiled /api/ontology/metrics in 60ms (270 modules)
+ ✓ Compiled (272 modules)
+ GET /api/ontology/artifacts 200 in 163ms
+ GET /api/ontology/metrics 200 in 173ms
+ GET /api/health/ollama 200 in 181ms
  GET /api/ontology/artifacts 200 in 18ms
+ GET /api/ontology/metrics 200 in 14ms
+ GET /api/health/ollama 200 in 15ms
+ ✓ Compiled /api/ontology/artifacts/[name] in 160ms (263 modules)
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 499ms
+ GET /ontology 200 in 100ms
+ ✓ Compiled /api/ontology/artifacts in 157ms (263 modules)
+ GET /api/ontology/artifacts 200 in 247ms
+ GET /api/ontology/artifacts 200 in 12ms
+ GET /ontology 200 in 115ms
  GET /api/ontology/artifacts 200 in 16ms
- GET /api/ontology/metrics 200 in 20ms
- GET / 200 in 45ms
- GET /cop-demo 200 in 83ms
- GET /api/ollama/models 200 in 40ms
- GET /api/health/ollama 200 in 48ms
- GET /api/ollama/models 200 in 30ms
- GET /api/health/ollama 200 in 25ms
- GET / 200 in 18ms
- GET / 200 in 18ms
- GET /pm-dashboard 200 in 30ms
- GET /ontology 200 in 21ms
- ✓ Compiled /api/ollama/chat in 166ms (547 modules)
- POST /api/ollama/chat 200 in 21197ms
- GET /pm-dashboard 200 in 109ms
- GET /api/health/ollama 200 in 43ms
- GET /api/ontology/metrics 200 in 58ms
- GET /api/ontology/artifacts 200 in 66ms
- GET /api/health/ollama 200 in 52ms
- GET /api/ontology/metrics 200 in 50ms
- GET /api/ontology/artifacts 200 in 53ms
- ✓ Compiled /api/workflows/cop-demo/start in 208ms (550 modules)
- POST /api/workflows/cop-demo/start 200 in 276ms
- ✓ Compiled /api/workflows/[id]/status in 255ms (552 modules)
- GET /api/workflows/cz8hzdfpqgf6qyvu8nmbi/status 200 in 649ms
- GET /api/workflows/cz8hzdfpqgf6qyvu8nmbi/status 200 in 30ms
- GET /api/workflows/cz8hzdfpqgf6qyvu8nmbi/status 200 in 30ms
- GET /api/workflows/cz8hzdfpqgf6qyvu8nmbi/status 200 in 24ms
- GET /api/workflows/cz8hzdfpqgf6qyvu8nmbi/status 200 in 27ms
- GET /api/workflows/cz8hzdfpqgf6qyvu8nmbi/status 200 in 29ms
- GET /api/workflows/cz8hzdfpqgf6qyvu8nmbi/status 200 in 37ms
- GET /api/workflows/cz8hzdfpqgf6qyvu8nmbi/status 200 in 27ms
- GET /api/workflows/cz8hzdfpqgf6qyvu8nmbi/status 200 in 27ms
- GET / 200 in 101ms
- GET / 200 in 32ms
- GET /ontology 200 in 82ms
- GET / 200 in 58ms
- GET /pm-dashboard 200 in 35ms
- GET /ontology 200 in 28ms
- GET /api/ontology/artifacts 200 in 14ms
- GET /api/ontology/artifacts 200 in 14ms
- GET /api/ontology/metrics 200 in 13ms
- ✓ Compiled in 1028ms (1042 modules)
- ○ Compiling /api/ontology/artifacts ...
- ✓ Compiled /api/ontology/artifacts in 783ms (1044 modules)
- GET /api/ontology/artifacts 200 in 898ms
- ✓ Compiled in 490ms (1044 modules)
- GET /api/ontology/artifacts 200 in 598ms
- ✓ Compiled in 700ms (1044 modules)
+ GET /api/ontology/artifacts 200 in 19ms
+ GET /ontology 200 in 29ms
+ GET /api/ontology/artifacts 200 in 12ms
+ GET /api/ontology/artifacts 200 in 15ms
+ ✓ Compiled /api/ontology/artifacts/[name] in 76ms (265 modules)
+ GET /api/ontology/artifacts/base_defense_core.json 200 in 147ms
+ ✓ Compiled /api/ontology/metrics in 101ms (263 modules)
+ GET /api/ontology/metrics 200 in 155ms
+ ✓ Compiled /api/ontology/artifacts/[name] in 41ms (265 modules)
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 92ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 19ms
+ GET /api/ontology/artifacts/cdm.json 200 in 20ms
+ GET /api/ontology/metrics 200 in 15ms
+ GET /api/ontology/artifacts/vmf_ontology.json 200 in 20ms
+ ✓ Compiled in 239ms (246 modules)
+ ✓ Compiled in 308ms (511 modules)
+ ✓ Compiled / in 147ms (269 modules)
+ GET / 200 in 242ms
+ ○ Compiling /cop-demo ...
+ ✓ Compiled /cop-demo in 1565ms (1031 modules)
+ GET /cop-demo 200 in 1751ms
+ ✓ Compiled /api/ollama/models in 223ms (543 modules)
+ ✓ Compiled (545 modules)
+ GET /api/ollama/models 200 in 425ms
+ GET /api/health/ollama 200 in 432ms
+ GET /api/ollama/models 200 in 17ms
+ GET /api/health/ollama 200 in 17ms
+ GET /cop-demo 200 in 81ms
+ GET /api/health/ollama 200 in 29ms
+ GET /api/ollama/models 200 in 47ms
+ GET /api/health/ollama 200 in 33ms
+ GET /api/ollama/models 200 in 24ms
+ ✓ Compiled /api/workflows/cop-demo/start in 152ms (549 modules)
+ POST /api/workflows/cop-demo/start 200 in 200ms
+ ✓ Compiled /api/workflows/[id]/status in 135ms (551 modules)
+ GET /api/workflows/wzmhekroxwpqsv40e93xek/status 200 in 417ms
+ GET /api/workflows/wzmhekroxwpqsv40e93xek/status 200 in 20ms
+ GET /api/workflows/wzmhekroxwpqsv40e93xek/status 200 in 25ms
+ GET /api/workflows/wzmhekroxwpqsv40e93xek/status 200 in 18ms
+ GET /api/workflows/wzmhekroxwpqsv40e93xek/status 200 in 17ms
+ GET /api/workflows/wzmhekroxwpqsv40e93xek/status 200 in 17ms
+ GET /api/workflows/wzmhekroxwpqsv40e93xek/status 200 in 23ms
+ ✓ Compiled in 137ms (551 modules)
+ GET / 200 in 80ms
+ GET /ontology 200 in 47ms
+ ✓ Compiled /api/ontology/artifacts in 169ms (549 modules)
+ GET /api/ontology/artifacts 200 in 259ms
+ GET /api/ontology/artifacts 200 in 45ms
+ ✓ Compiled in 487ms (1056 modules)
+ ✓ Compiled /api/ontology/artifacts/[name] in 115ms (547 modules)
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 194ms
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js
+- /home/jdehart/working/blueforce-cop-demo/.next/server/app/api/ontology/artifacts/[name]/route.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/build/utils.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-middleware.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/start-server.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+    at /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require-hook.js:55:36
+    at Module._load (node:internal/modules/cjs/loader:1043:27)
+    at Module.require (node:internal/modules/cjs/loader:1298:19)
+    at mod.require (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:182:18)
+    at __webpack_require__.f.require (/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:203:28)
+    at /home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:167:22)
+    at /home/jdehart/working/blueforce-cop-demo/.next/server/app/page.js:1:6183
+    at Object.<anonymous> (/home/jdehart/working/blueforce-cop-demo/.next/server/app/page.js:1:6228)
+    at Module._compile (node:internal/modules/cjs/loader:1529:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+    at Module.load (node:internal/modules/cjs/loader:1275:32)
+    at Module._load (node:internal/modules/cjs/loader:1096:12)
+    at Module.require (node:internal/modules/cjs/loader:1298:19)
+    at mod.require (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:182:18)
+    at requirePage (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require.js:109:84)
+    at /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js:98:84
+    at async loadComponentsImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/next-server.js:710:36)
+    at async DevServer.findPageComponents (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:1917:24)
+    at async DevServer.renderToResponseImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:1969:32)
+    at async DevServer.pipeImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:920:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:816:17)
+    at async /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js:174:21)
+    at async handleRequest (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js:353:24)
+    at async requestHandlerImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js:377:13)
+    at async Server.requestListener (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js',
+    '/home/jdehart/working/blueforce-cop-demo/.next/server/app/api/ontology/artifacts/[name]/route.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/build/utils.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/start-server.js'
+  ],
+  page: '/'
+}
+ ○ Compiling /_error ...
+ GET / 500 in 1622ms
+ ✓ Compiled /_error in 1786ms (1252 modules)
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js
+- /home/jdehart/working/blueforce-cop-demo/.next/server/pages/_document.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/build/utils.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-middleware.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/start-server.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+    at /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require-hook.js:55:36
+    at Module._load (node:internal/modules/cjs/loader:1043:27)
+    at Module.require (node:internal/modules/cjs/loader:1298:19)
+    at mod.require (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:182:18)
+    at __webpack_require__.f.require (/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:203:28)
+    at /home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:167:22)
+    at /home/jdehart/working/blueforce-cop-demo/.next/server/app/pm-dashboard/page.js:1:22691
+    at Object.<anonymous> (/home/jdehart/working/blueforce-cop-demo/.next/server/app/pm-dashboard/page.js:1:22736)
+    at Module._compile (node:internal/modules/cjs/loader:1529:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+    at Module.load (node:internal/modules/cjs/loader:1275:32)
+    at Module._load (node:internal/modules/cjs/loader:1096:12)
+    at Module.require (node:internal/modules/cjs/loader:1298:19)
+    at mod.require (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:182:18)
+    at requirePage (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require.js:109:84)
+    at /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js:98:84
+    at async loadComponentsImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/next-server.js:710:36)
+    at async DevServer.findPageComponents (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:1917:24)
+    at async DevServer.renderToResponseImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:1969:32)
+    at async DevServer.pipeImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:920:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:816:17)
+    at async /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js:174:21)
+    at async handleRequest (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js:353:24)
+    at async requestHandlerImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js:377:13)
+    at async Server.requestListener (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js',
+    '/home/jdehart/working/blueforce-cop-demo/.next/server/pages/_document.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/build/utils.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/start-server.js'
+  ],
+  page: '/pm-dashboard'
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js
+- /home/jdehart/working/blueforce-cop-demo/.next/server/pages/_document.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/build/utils.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-middleware.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/start-server.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+    at /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require-hook.js:55:36
+    at Module._load (node:internal/modules/cjs/loader:1043:27)
+    at Module.require (node:internal/modules/cjs/loader:1298:19)
+    at mod.require (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:182:18)
+    at __webpack_require__.f.require (/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:203:28)
+    at /home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:167:22)
+    at /home/jdehart/working/blueforce-cop-demo/.next/server/app/ontology/page.js:1:13895
+    at Object.<anonymous> (/home/jdehart/working/blueforce-cop-demo/.next/server/app/ontology/page.js:1:13940)
+    at Module._compile (node:internal/modules/cjs/loader:1529:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+    at Module.load (node:internal/modules/cjs/loader:1275:32)
+    at Module._load (node:internal/modules/cjs/loader:1096:12)
+    at Module.require (node:internal/modules/cjs/loader:1298:19)
+    at mod.require (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:182:18)
+    at requirePage (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require.js:109:84)
+    at /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js:98:84
+    at async loadComponentsImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/next-server.js:710:36)
+    at async DevServer.findPageComponents (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:1917:24)
+    at async DevServer.renderToResponseImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:1969:32)
+    at async DevServer.pipeImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:920:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:816:17)
+    at async /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js:174:21)
+    at async handleRequest (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js:353:24)
+    at async requestHandlerImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js:377:13)
+    at async Server.requestListener (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js',
+    '/home/jdehart/working/blueforce-cop-demo/.next/server/pages/_document.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/build/utils.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/start-server.js'
+  ],
+  page: '/ontology'
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js
+- /home/jdehart/working/blueforce-cop-demo/.next/server/pages/_document.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/build/utils.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-middleware.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/start-server.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+    at /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require-hook.js:55:36
+    at Module._load (node:internal/modules/cjs/loader:1043:27)
+    at Module.require (node:internal/modules/cjs/loader:1298:19)
+    at mod.require (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:182:18)
+    at __webpack_require__.f.require (/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:203:28)
+    at /home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:167:22)
+    at /home/jdehart/working/blueforce-cop-demo/.next/server/app/page.js:1:6183
+    at Object.<anonymous> (/home/jdehart/working/blueforce-cop-demo/.next/server/app/page.js:1:6228)
+    at Module._compile (node:internal/modules/cjs/loader:1529:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+    at Module.load (node:internal/modules/cjs/loader:1275:32)
+    at Module._load (node:internal/modules/cjs/loader:1096:12)
+    at Module.require (node:internal/modules/cjs/loader:1298:19)
+    at mod.require (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:182:18)
+    at requirePage (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require.js:109:84)
+    at /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js:98:84
+    at async loadComponentsImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/next-server.js:710:36)
+    at async DevServer.findPageComponents (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:1917:24)
+    at async DevServer.renderToResponseImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:1969:32)
+    at async DevServer.pipeImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:920:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:816:17)
+    at async /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js:174:21)
+    at async handleRequest (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js:353:24)
+    at async requestHandlerImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js:377:13)
+    at async Server.requestListener (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js',
+    '/home/jdehart/working/blueforce-cop-demo/.next/server/pages/_document.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/build/utils.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/start-server.js'
+  ],
+  page: '/'
+}
+ GET / 500 in 768ms
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js
+- /home/jdehart/working/blueforce-cop-demo/.next/server/pages/_document.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/build/utils.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-middleware.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/start-server.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+    at /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require-hook.js:55:36
+    at Module._load (node:internal/modules/cjs/loader:1043:27)
+    at Module.require (node:internal/modules/cjs/loader:1298:19)
+    at mod.require (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:182:18)
+    at __webpack_require__.f.require (/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:203:28)
+    at /home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:167:22)
+    at /home/jdehart/working/blueforce-cop-demo/.next/server/app/ontology/page.js:1:13895
+    at Object.<anonymous> (/home/jdehart/working/blueforce-cop-demo/.next/server/app/ontology/page.js:1:13940)
+    at Module._compile (node:internal/modules/cjs/loader:1529:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+    at Module.load (node:internal/modules/cjs/loader:1275:32)
+    at Module._load (node:internal/modules/cjs/loader:1096:12)
+    at Module.require (node:internal/modules/cjs/loader:1298:19)
+    at mod.require (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:182:18)
+    at requirePage (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require.js:109:84)
+    at /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js:98:84
+    at async loadComponentsImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/next-server.js:710:36)
+    at async DevServer.findPageComponents (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:1917:24)
+    at async DevServer.renderToResponseImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:1969:32)
+    at async DevServer.pipeImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:920:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:816:17)
+    at async /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js:174:21)
+    at async handleRequest (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js:353:24)
+    at async requestHandlerImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js:377:13)
+    at async Server.requestListener (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js',
+    '/home/jdehart/working/blueforce-cop-demo/.next/server/pages/_document.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/build/utils.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/start-server.js'
+  ],
+  page: '/ontology'
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js
+- /home/jdehart/working/blueforce-cop-demo/.next/server/pages/_document.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/build/utils.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-middleware.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/start-server.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+    at /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require-hook.js:55:36
+    at Module._load (node:internal/modules/cjs/loader:1043:27)
+    at Module.require (node:internal/modules/cjs/loader:1298:19)
+    at mod.require (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:182:18)
+    at __webpack_require__.f.require (/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:203:28)
+    at /home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:167:22)
+    at /home/jdehart/working/blueforce-cop-demo/.next/server/app/pm-dashboard/page.js:1:22691
+    at Object.<anonymous> (/home/jdehart/working/blueforce-cop-demo/.next/server/app/pm-dashboard/page.js:1:22736)
+    at Module._compile (node:internal/modules/cjs/loader:1529:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+    at Module.load (node:internal/modules/cjs/loader:1275:32)
+    at Module._load (node:internal/modules/cjs/loader:1096:12)
+    at Module.require (node:internal/modules/cjs/loader:1298:19)
+    at mod.require (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:182:18)
+    at requirePage (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require.js:109:84)
+    at /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js:98:84
+    at async loadComponentsImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/next-server.js:710:36)
+    at async DevServer.findPageComponents (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:1917:24)
+    at async DevServer.renderToResponseImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:1969:32)
+    at async DevServer.pipeImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:920:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:816:17)
+    at async /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js:174:21)
+    at async handleRequest (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js:353:24)
+    at async requestHandlerImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js:377:13)
+    at async Server.requestListener (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js',
+    '/home/jdehart/working/blueforce-cop-demo/.next/server/pages/_document.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/build/utils.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/start-server.js'
+  ],
+  page: '/pm-dashboard'
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js
+- /home/jdehart/working/blueforce-cop-demo/.next/server/pages/_document.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/build/utils.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-middleware.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js
+- /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/start-server.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+    at /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require-hook.js:55:36
+    at Module._load (node:internal/modules/cjs/loader:1043:27)
+    at Module.require (node:internal/modules/cjs/loader:1298:19)
+    at mod.require (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:182:18)
+    at __webpack_require__.f.require (/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:203:28)
+    at /home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js:167:22)
+    at /home/jdehart/working/blueforce-cop-demo/.next/server/app/pm-dashboard/page.js:1:22691
+    at Object.<anonymous> (/home/jdehart/working/blueforce-cop-demo/.next/server/app/pm-dashboard/page.js:1:22736)
+    at Module._compile (node:internal/modules/cjs/loader:1529:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+    at Module.load (node:internal/modules/cjs/loader:1275:32)
+    at Module._load (node:internal/modules/cjs/loader:1096:12)
+    at Module.require (node:internal/modules/cjs/loader:1298:19)
+    at mod.require (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:182:18)
+    at requirePage (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require.js:109:84)
+    at /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js:98:84
+    at async loadComponentsImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/next-server.js:710:36)
+    at async DevServer.findPageComponents (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:1917:24)
+    at async DevServer.renderToResponseImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:1969:32)
+    at async DevServer.pipeImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:920:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/base-server.js:816:17)
+    at async /home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js:174:21)
+    at async handleRequest (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js:353:24)
+    at async requestHandlerImpl (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js:377:13)
+    at async Server.requestListener (/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/jdehart/working/blueforce-cop-demo/.next/server/webpack-runtime.js',
+    '/home/jdehart/working/blueforce-cop-demo/.next/server/pages/_document.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/require.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/load-components.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/build/utils.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/router-server.js',
+    '/home/jdehart/working/blueforce-cop-demo/node_modules/next/dist/server/lib/start-server.js'
+  ],
+  page: '/pm-dashboard'
+}
+ GET /pm-dashboard 500 in 27ms
+[Error: ENOENT: no such file or directory, stat '/home/jdehart/working/blueforce-cop-demo/.next/cache/webpack/client-development/2.pack.gz'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: '/home/jdehart/working/blueforce-cop-demo/.next/cache/webpack/client-development/2.pack.gz'
+}
+ ⨯ unhandledRejection: [Error: ENOENT: no such file or directory, stat '/home/jdehart/working/blueforce-cop-demo/.next/cache/webpack/client-development/2.pack.gz'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: '/home/jdehart/working/blueforce-cop-demo/.next/cache/webpack/client-development/2.pack.gz'
+}
+ ⨯ unhandledRejection: [Error: ENOENT: no such file or directory, stat '/home/jdehart/working/blueforce-cop-demo/.next/cache/webpack/client-development/2.pack.gz'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: '/home/jdehart/working/blueforce-cop-demo/.next/cache/webpack/client-development/2.pack.gz'
+}
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, stat '/home/jdehart/working/blueforce-cop-demo/.next/cache/webpack/client-development/1.pack.gz'
+[Error: ENOENT: no such file or directory, stat '/home/jdehart/working/blueforce-cop-demo/.next/cache/webpack/server-development/3.pack.gz'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: '/home/jdehart/working/blueforce-cop-demo/.next/cache/webpack/server-development/3.pack.gz'
+}
+ ⨯ unhandledRejection: [Error: ENOENT: no such file or directory, stat '/home/jdehart/working/blueforce-cop-demo/.next/cache/webpack/server-development/3.pack.gz'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: '/home/jdehart/working/blueforce-cop-demo/.next/cache/webpack/server-development/3.pack.gz'
+}
+ ⨯ unhandledRejection: [Error: ENOENT: no such file or directory, stat '/home/jdehart/working/blueforce-cop-demo/.next/cache/webpack/server-development/3.pack.gz'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: '/home/jdehart/working/blueforce-cop-demo/.next/cache/webpack/server-development/3.pack.gz'
+}
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, stat '/home/jdehart/working/blueforce-cop-demo/.next/cache/webpack/server-development/3.pack.gz'

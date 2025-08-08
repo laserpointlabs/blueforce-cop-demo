@@ -142,6 +142,30 @@ export default function PMDashboard() {
                 </div>
                 <div className="text-xs opacity-80">{alignment.cdmEntitiesCovered}/{alignment.cdmEntitiesTotal} entities</div>
                 <div className="text-xs opacity-80">Conflicts: {alignment.conflicts.length}</div>
+                {alignment.conflicts.length > 0 && (
+                  <ul className="mt-2 space-y-1 text-xs" style={{ color: 'var(--theme-text-secondary)' }}>
+                    {alignment.conflicts.slice(0, 4).map((c: any, i: number) => (
+                      <li key={i} className="flex items-start justify-between gap-3">
+                        <span>
+                          [{c.severity ?? 'INFO'}] {c.detail}
+                          {c.source && <span className="opacity-70"> — {c.source}</span>}
+                        </span>
+                        {c.source && (
+                          <button
+                            className="underline"
+                            onClick={async () => {
+                              const res = await fetch(`/api/ontology/artifacts/${c.source}`, { cache: 'no-store' });
+                              const content = await res.text();
+                              setPreview({ id: c.source, name: c.source, type: 'mapping', mime: 'application/json', content });
+                            }}
+                          >
+                            Preview
+                          </button>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </>
             ) : (
               <div className="text-xs opacity-80">Loading…</div>

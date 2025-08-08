@@ -13,7 +13,7 @@ export interface OntologyMetrics {
   cdmEntitiesTotal: number;
   cdmEntitiesCovered: number;
   coveragePct: number;
-  conflicts: Array<{ type: string; detail: string; severity: string; status?: string }>; 
+  conflicts: Array<{ type: string; detail: string; severity: string; status?: string; source?: string }>; 
 }
 
 const ONTOLOGY_DIR = path.join(process.cwd(), 'ontology');
@@ -92,7 +92,11 @@ export async function computeOntologyMetrics(): Promise<OntologyMetrics> {
   const cdmEntitiesTotal = cdmEntities.length;
   const cdmEntitiesCovered = covered.length;
   const coveragePct = cdmEntitiesTotal === 0 ? 0 : Math.round((cdmEntitiesCovered / cdmEntitiesTotal) * 100);
-  const conflicts = [...(mLink.coverage?.conflicts ?? []), ...(mVmf.coverage?.conflicts ?? [])];
+  const tag = (arr: any[] | undefined, source: string) => (arr ?? []).map((c: any) => ({ ...c, source }));
+  const conflicts = [
+    ...tag(mLink.coverage?.conflicts, 'cdm_link16.json'),
+    ...tag(mVmf.coverage?.conflicts, 'cdm_vmf.json')
+  ];
   return { cdmEntitiesTotal, cdmEntitiesCovered, coveragePct, conflicts };
 }
 
