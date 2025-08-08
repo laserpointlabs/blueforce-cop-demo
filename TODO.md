@@ -1,54 +1,60 @@
-# Blueforce COP Demo – Build TODO
+# Blueforce COP Demo – TODO
 
-Track progress of the demo implementation. Update this file as items complete.
+## Bootstrap (done)
+- [x] Init Next.js app with DADMS theme
+- [x] Local Docker Compose with Ollama on 11434
+- [x] Basic Ollama chat API (non-streaming)
+- [x] Mock orchestrator API (start + status)
+- [x] /cop-demo page with health, chat, and mock workflow start
+- [x] Start script: blueforce-start.sh (start/stop/restart/status/logs)
+- [x] CI workflow: lint + build on PRs
+- [x] Repo pushed to GitHub
 
 ## Foundation
-- [ ] PM Dashboard route with VS Code-style layout (status bar, sidebar, content panes)
-- [ ] Wire dashboard to mock orchestrator workflow status/logs
-- [ ] Start/Stop controls for mock workflow from UI
+- [ ] PM Dashboard route with VS Code-style layout (sidebar, status bar, panels)
+- [ ] Wire dashboard to mock orchestrator status/logs timeline
+- [ ] Start/stop controls for mock workflow; progress bar
 - [ ] Global toast/notification utility
 
 ## LLM / Ollama
-- [ ] Streaming responses for `/api/ollama/chat` (NDJSON/SSE)
+- [ ] Streaming responses for /api/ollama/chat (SSE/NDJSON)
 - [ ] Persona prompt templates (Standards Analyst, Pipeline Engineer, Data Modeler, UI/UX)
-- [ ] Persona execution API: `POST /api/personas/:type/execute` using Ollama
-- [ ] Model selector (persisted, with missing-model fallback)
+- [ ] Persona execution API: POST /api/personas/:type/execute via Ollama
+- [ ] Model selector with persisted choice + fallback if model missing
 
 ## Standards & Knowledge (MVP mocked)
-- [ ] Mock Link-16/VMF documents and schemas (JSON fixtures)
-- [ ] Schema extraction stub: generate schema + rules from fixtures
-- [ ] Artifact storage in `artifacts/` + index endpoint
+- [ ] Mock Link-16/VMF documents + schemas (JSON fixtures)
+- [ ] Schema extraction stub → schema + rules from fixtures
+- [ ] Save artifacts to artifacts/ + index/list API
 
 ## Workflow Orchestration (in-app mock)
-- [ ] Expand step machine: phases, progress %, per-persona tasks
-- [ ] Live updates via EventSource (SSE) with fallback
-- [ ] Failure/retry paths + recovery button
+- [ ] Expand step machine (phases, %), per-persona tasks
+- [ ] Event stream updates (SSE/WebSocket) with long-poll fallback
+- [ ] Failure/retry paths and recovery button
 
 ## Visualization (MVP)
-- [ ] COP map placeholder with tactical layer toggles (mock data)
+- [ ] COP placeholder "map" with tactical layer toggles (mock data)
 - [ ] Compliance dashboard (pass/fail counts, rules list)
 - [ ] Artifact viewer (schemas, generated code, logs)
 
 ## UI / Theme
-- [ ] Shared components: Card, Panel, TabBar, Toolbar, IconButton using `dadmsTheme`
+- [ ] Shared components: Card, Panel, TabBar, Toolbar, IconButton (using dadmsTheme)
 - [ ] Light/dark toggle honoring CSS variables
 - [ ] Keyboard shortcuts for demo flow (start/pause, toggle panels)
 
 ## DX / Testing
 - [ ] E2E smoke test (Playwright): start → complete mock workflow
-- [ ] Unit tests for orchestrator manager and API handlers
-- [ ] `npm run demo:*` scripts (seed, start, open)
+- [ ] Unit tests: orchestrator manager + API routes
+- [ ] npm run demo:* scripts (seed, start, open)
 
-## CI/CD
-- [x] CI lint + build on PRs
+## CI / CD
 - [ ] Extend CI to run unit + E2E tests headless
+- [ ] Upload build artifact for preview (Actions artifacts)
 
 ## Docs
-- [ ] Short README: run instructions, model notes
-- [ ] Demo script (timed steps, talking points) in `docs/demo/`
+- [ ] README quickstart (start script, model notes)
+- [ ] Demo script with timed steps in docs/demo/
 
 ---
 
-Immediate next steps:
-- [ ] Implement PM Dashboard UI with workflow timeline
-- [ ] Add streaming chat and persona prompt templates
+We will update this checklist as tasks complete; PRs will reference items here.
