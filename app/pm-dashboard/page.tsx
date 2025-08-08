@@ -163,6 +163,47 @@ export default function PMDashboard() {
             </ul>
           </div>
         </section>
+
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="p-4 rounded border space-y-3" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
+            <h2 className="text-lg font-semibold flex items-center gap-2"><Icon name="shield" size="sm" /> Compliance</h2>
+            {wf?.compliance ? (
+              <>
+                <div className="flex items-center gap-4">
+                  <div>
+                    <div className="text-xs opacity-80">Total</div>
+                    <div className="text-lg font-semibold">{wf.compliance.total}</div>
+                  </div>
+                  <div>
+                    <div className="text-xs opacity-80">Passed</div>
+                    <div className="text-lg font-semibold" style={{ color: 'var(--theme-accent-success)' }}>{wf.compliance.passed}</div>
+                  </div>
+                  <div>
+                    <div className="text-xs opacity-80">Failed</div>
+                    <div className="text-lg font-semibold" style={{ color: 'var(--theme-accent-error)' }}>{wf.compliance.failed}</div>
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Violations</div>
+                  <ul className="text-sm space-y-1">
+                    {wf.compliance.violations.length === 0 ? (
+                      <li>None</li>
+                    ) : (
+                      wf.compliance.violations.slice().reverse().map((v: any) => (
+                        <li key={v.id} className="flex items-center justify-between">
+                          <span>{v.rule} - {v.message}</span>
+                          <span className="text-xs opacity-70">{v.severity}</span>
+                        </li>
+                      ))
+                    )}
+                  </ul>
+                </div>
+              </>
+            ) : (
+              <div className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>No compliance data yet.</div>
+            )}
+          </div>
+        </section>
       </div>
     </main>
   );

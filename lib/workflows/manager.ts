@@ -25,6 +25,18 @@ export interface Workflow {
   step: number; // simple linear step for demo
   personas: PersonaInstance[];
   logs: LogEntry[];
+  compliance: {
+    total: number;
+    passed: number;
+    failed: number;
+    violations: Array<{
+      id: string;
+      rule: string;
+      severity: 'LOW' | 'MEDIUM' | 'HIGH';
+      message: string;
+      ts: number;
+    }>;
+  };
 }
 
 // Persist across Next dev HMR reloads
@@ -55,7 +67,13 @@ export function createCopDemoWorkflow(): Workflow {
       { id: generateId(), type: 'DATA_MODELER', status: 'IDLE', lastUpdate: now },
       { id: generateId(), type: 'UIUX_PROTOTYPER', status: 'IDLE', lastUpdate: now }
     ],
-    logs: [{ ts: now, message: 'Workflow started' }]
+    logs: [{ ts: now, message: 'Workflow started' }],
+    compliance: {
+      total: 20,
+      passed: 0,
+      failed: 0,
+      violations: []
+    }
   };
   workflows.set(id, wf);
   return wf;
@@ -77,24 +95,40 @@ export function getWorkflow(id: string): Workflow | undefined {
         push('Standards Analyst parsed Link-16/VMF docs', { personaId: wf.personas[0].id, phase: 'INGEST' });
         wf.personas[0].status = 'COMPLETED';
         wf.personas[1].status = 'WORKING';
+        wf.compliance.passed = 5;
         break;
       case 2:
         push('Pipeline Engineer generated parsing/validation code', { personaId: wf.personas[1].id, phase: 'CODEGEN' });
         wf.personas[1].status = 'COMPLETED';
         wf.personas[2].status = 'WORKING';
+        wf.compliance.passed = 10;
+        wf.compliance.failed = 1;
+        wf.compliance.violations.push({
+          id: generateId(),
+          rule: 'VMF-VAL-001',
+          severity: 'LOW',
+          message: 'Optional field missing default mapping; using fallback',
+          ts: Date.now()
+        });
         break;
       case 3:
         push('Data Modeler aligned schemas and validated interoperability', { personaId: wf.personas[2].id, phase: 'MAPPING' });
         wf.personas[2].status = 'COMPLETED';
         wf.personas[3].status = 'WORKING';
+        wf.compliance.passed = 15;
+        wf.compliance.failed = 1;
         break;
       case 4:
         push('UI/UX Prototyper created COP visualization', { personaId: wf.personas[3].id, phase: 'VIZ' });
         wf.personas[3].status = 'COMPLETED';
+        wf.compliance.passed = 19;
+        wf.compliance.failed = 1;
         break;
       case 5:
         push('Workflow completed successfully', { phase: 'DONE' });
         wf.status = 'COMPLETED';
+        wf.compliance.passed = 20;
+        wf.compliance.failed = 0;
         break;
     }
   }
