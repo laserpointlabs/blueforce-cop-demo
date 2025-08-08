@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "next dev",
     "build": "rm -rf .next && next build",
-    "postbuild": "node scripts/smoke.mjs",
     "start": "next start",
     "lint": "next lint",
     "smoke": "node scripts/smoke.mjs"

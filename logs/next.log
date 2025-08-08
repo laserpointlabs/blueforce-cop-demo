@@ -47,3 +47,4 @@
  ✓ Compiled /api/ontology/artifacts/[name] in 122ms (267 modules)
  GET /api/ontology/artifacts/cdm_link16.json 200 in 433ms
  GET /api/ontology/artifacts/cdm_vmf.json 200 in 19ms
+ ✓ Compiled in 264ms (246 modules)
