@@ -7,6 +7,7 @@ export default function PMDashboard() {
   const [wf, setWf] = useState<any>(null);
   const [polling, setPolling] = useState<number | null>(null);
   const [phaseFilter, setPhaseFilter] = useState<string>('ALL');
+  const [ollamaOk, setOllamaOk] = useState<boolean | null>(null);
 
   const kpis = useMemo(() => {
     const status = wf?.status ?? 'PENDING';
@@ -61,6 +62,13 @@ export default function PMDashboard() {
     setPolling(1);
     return () => clearInterval(interval);
   }, [wfId]);
+
+  useEffect(() => {
+    // Environment health snapshot for PM context
+    fetch('/api/health/ollama')
+      .then((r) => setOllamaOk(r.ok))
+      .catch(() => setOllamaOk(false));
+  }, []);
 
   const start = async () => {
     const res = await fetch('/api/workflows/cop-demo/start', { method: 'POST' });
@@ -165,6 +173,37 @@ export default function PMDashboard() {
         </section>
 
         <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="md:col-span-2 p-4 rounded border space-y-3" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
+            <h2 className="text-lg font-semibold flex items-center gap-2"><Icon name="timeline" size="sm" /> Milestones</h2>
+            {(() => {
+              const phases = ['INGEST', 'CODEGEN', 'MAPPING', 'VIZ', 'DONE'];
+              const current = wf?.step ?? 0; // 0..5
+              return (
+                <ol className="grid grid-cols-1 md:grid-cols-5 gap-3">
+                  {phases.map((ph, idx) => {
+                    const stepNum = idx + 1;
+                    const isDone = (wf?.status === 'COMPLETED') || current > idx + 0;
+                    const isActive = current === stepNum;
+                    const color = isDone ? 'var(--theme-accent-success)' : isActive ? 'var(--theme-accent-primary)' : 'var(--theme-text-muted)';
+                    const icon = isDone ? 'check' : isActive ? 'loading' : 'circle-large-outline';
+                    return (
+                      <li key={ph} className="p-3 rounded border" style={{ borderColor: 'var(--theme-border)' }}>
+                        <div className="flex items-center gap-2">
+                          <i className={`codicon codicon-${icon}`} style={{ color }} />
+                          <span className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>{ph}</span>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ol>
+              );
+            })()}
+            <div className="text-xs opacity-80 flex items-center gap-2">
+              <span>Environment:</span>
+              <span>Ollama</span>
+              {ollamaOk === null ? <Icon name="loading" className="animate-spin" /> : ollamaOk ? <span className="text-green-500">healthy</span> : <span className="text-red-500">down</span>}
+            </div>
+          </div>
           <div className="p-4 rounded border space-y-3" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
             <h2 className="text-lg font-semibold flex items-center gap-2"><Icon name="shield" size="sm" /> Compliance</h2>
             {wf?.compliance ? (
