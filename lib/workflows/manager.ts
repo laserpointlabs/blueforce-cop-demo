@@ -29,12 +29,14 @@ export interface Workflow {
     total: number;
     passed: number;
     failed: number;
+    history: Array<{ ts: number; passed: number; failed: number; total: number }>;
     violations: Array<{
       id: string;
       rule: string;
       severity: 'LOW' | 'MEDIUM' | 'HIGH';
       message: string;
       ts: number;
+      phase?: string;
     }>;
   };
 }
@@ -72,6 +74,7 @@ export function createCopDemoWorkflow(): Workflow {
       total: 20,
       passed: 0,
       failed: 0,
+      history: [{ ts: now, passed: 0, failed: 0, total: 20 }],
       violations: []
     }
   };
@@ -96,6 +99,7 @@ export function getWorkflow(id: string): Workflow | undefined {
         wf.personas[0].status = 'COMPLETED';
         wf.personas[1].status = 'WORKING';
         wf.compliance.passed = 5;
+        wf.compliance.history.push({ ts: Date.now(), passed: wf.compliance.passed, failed: wf.compliance.failed, total: wf.compliance.total });
         break;
       case 2:
         push('Pipeline Engineer generated parsing/validation code', { personaId: wf.personas[1].id, phase: 'CODEGEN' });
@@ -108,8 +112,10 @@ export function getWorkflow(id: string): Workflow | undefined {
           rule: 'VMF-VAL-001',
           severity: 'LOW',
           message: 'Optional field missing default mapping; using fallback',
-          ts: Date.now()
+          ts: Date.now(),
+          phase: 'CODEGEN'
         });
+        wf.compliance.history.push({ ts: Date.now(), passed: wf.compliance.passed, failed: wf.compliance.failed, total: wf.compliance.total });
         break;
       case 3:
         push('Data Modeler aligned schemas and validated interoperability', { personaId: wf.personas[2].id, phase: 'MAPPING' });
@@ -117,18 +123,21 @@ export function getWorkflow(id: string): Workflow | undefined {
         wf.personas[3].status = 'WORKING';
         wf.compliance.passed = 15;
         wf.compliance.failed = 1;
+        wf.compliance.history.push({ ts: Date.now(), passed: wf.compliance.passed, failed: wf.compliance.failed, total: wf.compliance.total });
         break;
       case 4:
         push('UI/UX Prototyper created COP visualization', { personaId: wf.personas[3].id, phase: 'VIZ' });
         wf.personas[3].status = 'COMPLETED';
         wf.compliance.passed = 19;
         wf.compliance.failed = 1;
+        wf.compliance.history.push({ ts: Date.now(), passed: wf.compliance.passed, failed: wf.compliance.failed, total: wf.compliance.total });
         break;
       case 5:
         push('Workflow completed successfully', { phase: 'DONE' });
         wf.status = 'COMPLETED';
         wf.compliance.passed = 20;
         wf.compliance.failed = 0;
+        wf.compliance.history.push({ ts: Date.now(), passed: wf.compliance.passed, failed: wf.compliance.failed, total: wf.compliance.total });
         break;
     }
   }

@@ -184,17 +184,31 @@ export default function PMDashboard() {
                   </div>
                 </div>
                 <div>
+                  <div className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Trend</div>
+                  <div className="w-full h-2 rounded" style={{ backgroundColor: 'var(--theme-bg-tertiary)' }}>
+                    {/* Simple inline trend: map history to width segments */}
+                    <div className="h-2 rounded" style={{ width: `${Math.round((wf.compliance.passed / wf.compliance.total) * 100)}%`, backgroundColor: 'var(--theme-accent-success)' }} />
+                  </div>
+                  <div className="text-xs opacity-80 mt-1">{Math.round((wf.compliance.passed / wf.compliance.total) * 100)}% covered</div>
+                </div>
+                <div>
                   <div className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Violations</div>
                   <ul className="text-sm space-y-1">
                     {wf.compliance.violations.length === 0 ? (
                       <li>None</li>
                     ) : (
-                      wf.compliance.violations.slice().reverse().map((v: any) => (
-                        <li key={v.id} className="flex items-center justify-between">
-                          <span>{v.rule} - {v.message}</span>
-                          <span className="text-xs opacity-70">{v.severity}</span>
-                        </li>
-                      ))
+                      wf.compliance.violations.slice().reverse().map((v: any) => {
+                        const related = (wf.logs ?? []).find((l: any) => l.phase === v.phase);
+                        return (
+                          <li key={v.id} className="flex items-center justify-between">
+                            <span>
+                              <a href="#" onClick={(e) => { e.preventDefault(); alert(`${v.rule}: ${v.message}`); }} className="underline">{v.rule}</a>
+                              {related ? <span className="opacity-70"> — see logs around {new Date(related.ts).toLocaleTimeString()}</span> : null}
+                            </span>
+                            <span className="text-xs opacity-70">{v.severity}</span>
+                          </li>
+                        );
+                      })
                     )}
                   </ul>
                 </div>
