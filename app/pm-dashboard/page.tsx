@@ -184,12 +184,13 @@ export default function PMDashboard() {
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Trend</div>
-                  <div className="w-full h-2 rounded" style={{ backgroundColor: 'var(--theme-bg-tertiary)' }}>
-                    {/* Simple inline trend: map history to width segments */}
-                    <div className="h-2 rounded" style={{ width: `${Math.round((wf.compliance.passed / wf.compliance.total) * 100)}%`, backgroundColor: 'var(--theme-accent-success)' }} />
+                  <div className="text-sm mb-2" style={{ color: 'var(--theme-text-secondary)' }}>Trend</div>
+                  <TrendChart history={wf.compliance.history} total={wf.compliance.total} />
+                  <div className="flex items-center gap-4 mt-2 text-xs opacity-80">
+                    <div className="flex items-center gap-1"><span style={{ width: 10, height: 2, background: 'var(--theme-accent-success)', display: 'inline-block' }} /> Coverage%</div>
+                    <div className="flex items-center gap-1"><span style={{ width: 8, height: 8, background: 'var(--theme-accent-success)', display: 'inline-block' }} /> Pass</div>
+                    <div className="flex items-center gap-1"><span style={{ width: 8, height: 8, background: 'var(--theme-accent-error)', display: 'inline-block' }} /> Fail</div>
                   </div>
-                  <div className="text-xs opacity-80 mt-1">{Math.round((wf.compliance.passed / wf.compliance.total) * 100)}% covered</div>
                 </div>
                 <div>
                   <div className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Violations</div>
@@ -220,6 +221,49 @@ export default function PMDashboard() {
         </section>
       </div>
     </main>
+  );
+}
+
+function TrendChart({ history, total }: { history: Array<{ ts: number; passed: number; failed: number; total: number }>; total: number }) {
+  const width = 300;
+  const height = 80;
+  const pad = 8;
+  const points = history.map((h: any, i: number) => {
+    const x = pad + (i * (width - 2 * pad)) / Math.max(1, history.length - 1);
+    const pct = (h.passed / total) * 100;
+    const y = height - pad - (pct / 100) * (height - 2 * pad);
+    return { x, y, passed: h.passed, failed: h.failed, ts: h.ts };
+  });
+  const pathD = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
+  const last = points[points.length - 1];
+  return (
+    <svg width="100%" viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Compliance trend">
+      <rect x="0" y="0" width={width} height={height} fill="var(--theme-bg-tertiary)" rx="6" />
+      {/* grid */}
+      {[0, 25, 50, 75, 100].map((pct, i) => {
+        const y = height - pad - (pct / 100) * (height - 2 * pad);
+        return <line key={i} x1={pad} y1={y} x2={width - pad} y2={y} stroke="var(--theme-border)" strokeOpacity="0.3" strokeWidth="1" />;
+      })}
+      {/* line */}
+      <path d={pathD} fill="none" stroke="var(--theme-accent-success)" strokeWidth="2" />
+      {/* points */}
+      {points.map((p, i) => (
+        <circle key={i} cx={p.x} cy={p.y} r="3" fill="var(--theme-accent-success)" />
+      ))}
+      {/* last value label */}
+      {last && (
+        <text x={last.x + 6} y={last.y - 6} fontSize="10" fill="var(--theme-text-secondary)">{`${Math.round((last.passed / total) * 100)}%`}</text>
+      )}
+      {/* pass/fail bars */}
+      {points.map((p, i) => (
+        <g key={`bars-${i}`}>
+          <rect x={p.x - 2} width="4" y={height - pad - (p.passed / total) * (height - 2 * pad)} height={(p.passed / total) * (height - 2 * pad)} fill="var(--theme-accent-success)" opacity="0.2" />
+          {p.failed > 0 && (
+            <rect x={p.x + 3} width="3" y={height - pad - (p.failed / total) * (height - 2 * pad)} height={(p.failed / total) * (height - 2 * pad)} fill="var(--theme-accent-error)" opacity="0.3" />
+          )}
+        </g>
+      ))}
+    </svg>
   );
 }
 
