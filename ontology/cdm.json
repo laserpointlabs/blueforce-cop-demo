@@ -1,0 +1,62 @@
+{
+  "name": "Common Data Model (CDM)",
+  "version": "0.1.0",
+  "alignedTo": "Defense Core",
+  "entities": [
+    {
+      "name": "Unit",
+      "attributes": [
+        { "name": "unitId", "type": "string" },
+        { "name": "name", "type": "string" }
+      ]
+    },
+    {
+      "name": "Track",
+      "attributes": [
+        { "name": "trackId", "type": "string" },
+        { "name": "sourceLink", "type": "string" }
+      ]
+    },
+    {
+      "name": "Message",
+      "attributes": [
+        { "name": "messageType", "type": "string" },
+        { "name": "observedAt", "type": "number" }
+      ]
+    },
+    {
+      "name": "Position",
+      "attributes": [
+        { "name": "lat", "type": "number" },
+        { "name": "lon", "type": "number" },
+        { "name": "alt", "type": "number" }
+      ]
+    },
+    {
+      "name": "Time",
+      "attributes": [
+        { "name": "epochMs", "type": "number" }
+      ]
+    },
+    {
+      "name": "Platform",
+      "attributes": [
+        { "name": "platformId", "type": "string" },
+        { "name": "unitId", "type": "string" }
+      ]
+    },
+    {
+      "name": "Link",
+      "attributes": [
+        { "name": "name", "type": "string" }
+      ]
+    }
+  ],
+  "relations": [
+    { "name": "hasPosition", "from": "Track", "to": "Position" },
+    { "name": "observedAt", "from": "Message", "to": "Time" },
+    { "name": "emitsMessage", "from": "Platform", "to": "Message" },
+    { "name": "belongsToUnit", "from": "Platform", "to": "Unit" }
+  ]
+}
+

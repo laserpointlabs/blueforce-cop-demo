@@ -1,0 +1,22 @@
+{
+  "name": "Defense Core",
+  "version": "0.1.0",
+  "description": "Minimal base ontology for defense interoperability demos",
+  "concepts": [
+    { "name": "Unit", "description": "Organizational element that owns platforms and assets" },
+    { "name": "Track", "description": "An identified or suspected object being tracked" },
+    { "name": "Message", "description": "A unit of communication exchanged over a tactical link" },
+    { "name": "Position", "description": "Geospatial position including latitude, longitude, altitude" },
+    { "name": "Time", "description": "Temporal reference (epoch milliseconds)" },
+    { "name": "Platform", "description": "A physical asset (aircraft, ship, vehicle, sensor)" },
+    { "name": "Link", "description": "Communications standard/protocol (e.g., Link-16, VMF)" }
+  ],
+  "relations": [
+    { "name": "hasPosition", "from": "Track", "to": "Position", "description": "A track has an associated position" },
+    { "name": "observedAt", "from": "Message", "to": "Time", "description": "A message is observed at a specific time" },
+    { "name": "emitsMessage", "from": "Platform", "to": "Message", "description": "A platform emits a message" },
+    { "name": "belongsToUnit", "from": "Platform", "to": "Unit", "description": "A platform belongs to a unit" },
+    { "name": "mapsToCDM", "from": "Link", "to": "Message", "description": "A link’s message structure maps to the CDM" }
+  ]
+}
+

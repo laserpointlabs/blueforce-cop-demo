@@ -1,0 +1,28 @@
+{
+  "name": "CDM Mapping - Link-16",
+  "version": "0.1.0",
+  "sourceOntology": "Link-16 Curated Ontology",
+  "targetModel": "CDM 0.1.0",
+  "mappings": [
+    { "from": { "entity": "JTrack", "field": "trackNumber" }, "to": { "entity": "Track", "field": "trackId" } },
+    { "from": { "entity": "JMessage", "field": "jSeries" }, "to": { "entity": "Message", "field": "messageType" } },
+    { "from": { "entity": "JMessage", "field": "timestampMs" }, "to": { "entity": "Time", "field": "epochMs" } },
+    { "from": { "entity": "JPosition", "field": "lat" }, "to": { "entity": "Position", "field": "lat" } },
+    { "from": { "entity": "JPosition", "field": "lon" }, "to": { "entity": "Position", "field": "lon" } },
+    { "from": { "entity": "JPosition", "field": "alt" }, "to": { "entity": "Position", "field": "alt" } },
+    { "from": { "entity": "JTacticalDataLink", "field": "name" }, "to": { "entity": "Link", "field": "name" } }
+  ],
+  "coverage": {
+    "cdmEntitiesCovered": ["Track", "Message", "Position", "Time", "Link"],
+    "cdmEntitiesMissing": ["Unit", "Platform"],
+    "conflicts": [
+      {
+        "type": "semantic",
+        "detail": "Link-16 JMessage timestampMs maps to Time.epochMs; precision verified",
+        "severity": "LOW",
+        "status": "RESOLVED"
+      }
+    ]
+  }
+}
+
