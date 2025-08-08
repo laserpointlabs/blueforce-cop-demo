@@ -39,6 +39,15 @@ export interface Workflow {
       phase?: string;
     }>;
   };
+  artifacts: Array<{
+    id: string;
+    name: string;
+    type: 'schema' | 'code' | 'report';
+    mime: string;
+    size: number; // bytes (approx)
+    createdAt: number;
+    content: string; // mock inline content for download
+  }>;
 }
 
 // Persist across Next dev HMR reloads
@@ -76,7 +85,8 @@ export function createCopDemoWorkflow(): Workflow {
       failed: 0,
       history: [{ ts: now, passed: 0, failed: 0, total: 20 }],
       violations: []
-    }
+    },
+    artifacts: []
   };
   workflows.set(id, wf);
   return wf;
@@ -100,6 +110,21 @@ export function getWorkflow(id: string): Workflow | undefined {
         wf.personas[1].status = 'WORKING';
         wf.compliance.passed = 5;
         wf.compliance.history.push({ ts: Date.now(), passed: wf.compliance.passed, failed: wf.compliance.failed, total: wf.compliance.total });
+        // Produce schema artifact
+        wf.artifacts.push({
+          id: generateId(),
+          name: 'link16_vmf_schema.json',
+          type: 'schema',
+          mime: 'application/json',
+          size: 2048,
+          createdAt: Date.now(),
+          content: JSON.stringify({
+            standard: 'LINK16_VMF',
+            version: 'mock-1.0',
+            entities: ['Unit', 'Track', 'Message'],
+            fields: [{ name: 'unitId', type: 'string' }, { name: 'lat', type: 'number' }, { name: 'lon', type: 'number' }]
+          }, null, 2)
+        });
         break;
       case 2:
         push('Pipeline Engineer generated parsing/validation code', { personaId: wf.personas[1].id, phase: 'CODEGEN' });
@@ -116,6 +141,16 @@ export function getWorkflow(id: string): Workflow | undefined {
           phase: 'CODEGEN'
         });
         wf.compliance.history.push({ ts: Date.now(), passed: wf.compliance.passed, failed: wf.compliance.failed, total: wf.compliance.total });
+        // Produce parser code artifact
+        wf.artifacts.push({
+          id: generateId(),
+          name: 'vmf_parser.ts',
+          type: 'code',
+          mime: 'text/plain',
+          size: 4096,
+          createdAt: Date.now(),
+          content: `export function parseVMF(buffer: Buffer) {\n  // mock generated parser\n  const text = buffer.toString('utf8');\n  return { ok: true, length: text.length };\n}`
+        });
         break;
       case 3:
         push('Data Modeler aligned schemas and validated interoperability', { personaId: wf.personas[2].id, phase: 'MAPPING' });
@@ -138,6 +173,16 @@ export function getWorkflow(id: string): Workflow | undefined {
         wf.compliance.passed = 20;
         wf.compliance.failed = 0;
         wf.compliance.history.push({ ts: Date.now(), passed: wf.compliance.passed, failed: wf.compliance.failed, total: wf.compliance.total });
+        // Produce compliance report
+        wf.artifacts.push({
+          id: generateId(),
+          name: 'compliance-report.md',
+          type: 'report',
+          mime: 'text/markdown',
+          size: 1024,
+          createdAt: Date.now(),
+          content: `# Compliance Report\n\n- Total Rules: ${wf.compliance.total}\n- Passed: ${wf.compliance.passed}\n- Failed: ${wf.compliance.failed}\n\n## Violations\n${wf.compliance.violations.map(v => `- [${v.severity}] ${v.rule}: ${v.message}`).join('\n') || 'None'}\n`
+        });
         break;
     }
   }

@@ -266,6 +266,41 @@ export default function PMDashboard() {
             )}
           </div>
         </section>
+
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="md:col-span-3 p-4 rounded border space-y-3" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
+            <h2 className="text-lg font-semibold flex items-center gap-2"><Icon name="file" size="sm" /> Artifacts</h2>
+            <div className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Generated during the workflow. Click to download.</div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm" style={{ borderColor: 'var(--theme-border)' }}>
+                <thead style={{ color: 'var(--theme-text-secondary)' }}>
+                  <tr className="text-left">
+                    <th className="py-2">Name</th>
+                    <th className="py-2">Type</th>
+                    <th className="py-2">Size</th>
+                    <th className="py-2">Created</th>
+                    <th className="py-2">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(wf?.artifacts ?? []).length === 0 ? (
+                    <tr><td className="py-2" colSpan={5}>No artifacts yet.</td></tr>
+                  ) : (
+                    (wf?.artifacts ?? []).slice().reverse().map((a: any) => (
+                      <tr key={a.id} className="border-t" style={{ borderColor: 'var(--theme-border)' }}>
+                        <td className="py-2">{a.name}</td>
+                        <td className="py-2 uppercase">{a.type}</td>
+                        <td className="py-2">{Math.round(a.size / 1024)} KB</td>
+                        <td className="py-2">{new Date(a.createdAt).toLocaleTimeString()}</td>
+                        <td className="py-2"><a className="underline" href={`/api/workflows/${wfId ?? ''}/artifacts/${a.id}`}>Download</a></td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
       </div>
     </main>
   );
