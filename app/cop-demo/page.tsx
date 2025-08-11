@@ -15,6 +15,25 @@ export default function CopDemoPage() {
   const [loading, setLoading] = useState(false);
   const [wfId, setWfId] = useState<string | null>(null);
   const [wfStatus, setWfStatus] = useState<any>(null);
+  const [schemaPreview, setSchemaPreview] = useState<string>('');
+  const [schemaKind, setSchemaKind] = useState<'link16' | 'vmf' | 'cdm' | ''>('');
+  const fetchSchema = async (kind: 'link16' | 'vmf' | 'cdm') => {
+    try {
+      setSchemaKind(kind);
+      if (kind === 'cdm') {
+        const res = await fetch('/api/ontology/artifacts/cdm.json', { cache: 'no-store' });
+        const text = await res.text();
+        setSchemaPreview(text);
+        return;
+      }
+      const res = await fetch(`/api/standards/schemas?standard=${kind}`, { cache: 'no-store' });
+      const text = await res.text();
+      setSchemaPreview(text);
+    } catch {
+      setSchemaPreview('');
+      setSchemaKind('');
+    }
+  };
 
   useEffect(() => {
     fetch('/api/health/ollama')
@@ -113,8 +132,9 @@ export default function CopDemoPage() {
           </div>
         </div>
 
-        <div className="p-4 rounded border" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
-          <ReactMarkdown remarkPlugins={[remarkGfm]} components={{
+        {!schemaKind && (
+          <div className="p-4 rounded border" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
+            <ReactMarkdown remarkPlugins={[remarkGfm]} components={{
             code: (codeProps: any) => {
               const { inline, className, children, ...props } = codeProps as any;
               const content = String(children ?? '');
@@ -127,9 +147,66 @@ export default function CopDemoPage() {
                 </pre>
               );
             }
-          }}>
-            {answer || ''}
-          </ReactMarkdown>
+            }}>
+              {answer || ''}
+            </ReactMarkdown>
+          </div>
+        )}
+
+        <div className="space-y-3 p-4 rounded border" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold flex items-center gap-2"><Icon name="file-code" size="sm" /> Standards & CDM Schemas</h2>
+            <div className="flex items-center gap-2">
+              <button
+                className={`btn ${schemaKind==='link16' ? 'btn-primary' : ''} rounded`}
+                style={{
+                  backgroundColor: schemaKind==='link16' ? 'var(--theme-accent-primary)' : 'transparent',
+                  border: schemaKind==='link16' ? '1px solid transparent' : '2px solid var(--theme-border)'
+                }}
+                onClick={() => fetchSchema('link16')}
+              >
+                Preview Link-16
+              </button>
+              <button
+                className={`btn ${schemaKind==='vmf' ? 'btn-primary' : ''} rounded`}
+                style={{
+                  backgroundColor: schemaKind==='vmf' ? 'var(--theme-accent-primary)' : 'transparent',
+                  border: schemaKind==='vmf' ? '1px solid transparent' : '2px solid var(--theme-border)'
+                }}
+                onClick={() => fetchSchema('vmf')}
+              >
+                Preview VMF
+              </button>
+              <button
+                className={`btn ${schemaKind==='cdm' ? 'btn-primary' : ''} rounded`}
+                style={{
+                  backgroundColor: schemaKind==='cdm' ? 'var(--theme-accent-primary)' : 'transparent',
+                  border: schemaKind==='cdm' ? '1px solid transparent' : '2px solid var(--theme-border)'
+                }}
+                onClick={() => fetchSchema('cdm')}
+              >
+                Preview CDM
+              </button>
+              {schemaKind && (
+                <button className="btn" onClick={() => { setSchemaKind(''); setSchemaPreview(''); }}>Close Preview</button>
+              )}
+            </div>
+          </div>
+          <div className="text-xs opacity-80" style={{ color: 'var(--theme-text-secondary)' }}>
+            Open raw JSON:
+            {' '}
+            <a className="underline" href="/api/standards/schemas?standard=link16" target="_blank" rel="noreferrer">Link-16</a>,{' '}
+            <a className="underline" href="/api/standards/schemas?standard=vmf" target="_blank" rel="noreferrer">VMF</a>,{' '}
+            <a className="underline" href="/api/ontology/artifacts/cdm.json" target="_blank" rel="noreferrer">CDM</a>
+          </div>
+          {schemaKind && (
+            <div className="rounded border p-3 overflow-auto" style={{ borderColor: 'var(--theme-border)', backgroundColor: 'var(--theme-bg-primary)' }}>
+              <div className="text-xs mb-2 opacity-80" style={{ color: 'var(--theme-text-secondary)' }}>
+                Previewing: {schemaKind.toUpperCase()}
+              </div>
+              <pre className="text-xs" style={{ whiteSpace: 'pre-wrap' }}>{schemaPreview}</pre>
+            </div>
+          )}
         </div>
 
         <div className="space-y-3 p-4 rounded border" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>

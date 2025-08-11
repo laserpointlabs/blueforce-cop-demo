@@ -26,13 +26,13 @@
 - [x] /api/ollama/models endpoint to list available models (UI wired)
 - [x] Persona Output streaming UI on /ontology (per‑persona badges + spinner)
 - [ ] Optional deterministic fallback text if Ollama missing
-- [ ] Structured Data Modeler rendering (mapping/conflicts table)
+- [x] Structured Data Modeler rendering (mapping/conflicts table)
 - [ ] Stretch Goal: Add AI agnet to dicuss the results on the page and offers feedback/suggestions
 
 ## Standards & Knowledge (MVP mocked)
 - [ ] Mock Link-16/VMF documents + schemas (JSON fixtures)
 - [x] Ontology extraction (deterministic): curated ontologies for Link-16/VMF
-- [ ] Schema extraction stub → schema + rules from fixtures
+- [x] Schema extraction stub → schema + rules from fixtures
 - [x] Artifact viewer and list/download API endpoints
 - [x] Persist artifacts to `artifacts/` directory (optional)
 - [x] Compliance report generation (rules coverage, violations)

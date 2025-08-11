@@ -23,6 +23,7 @@ export default function OntologyPage() {
     DATA_MODELER: false
   });
   const [schemas, setSchemas] = useState<{ link16?: any; vmf?: any }>({});
+  const [mappingTable, setMappingTable] = useState<Array<{ source: string; target: string; spec: 'Link-16' | 'VMF' }>>([]);
 
   const index = useMemo(() => {
     const map = new Map(artifacts.map((a) => [a.name, a] as const));
@@ -59,6 +60,38 @@ export default function OntologyPage() {
       fetch('/api/standards/schemas?standard=link16').then(r => (r.ok ? r.json() : null)).catch(() => null),
       fetch('/api/standards/schemas?standard=vmf').then(r => (r.ok ? r.json() : null)).catch(() => null),
     ]).then(([l16, vmf]) => setSchemas({ link16: l16, vmf })).catch(() => {});
+    // Load mapping artifacts to build a structured view for the Data Modeler
+    Promise.all([
+      fetch('/api/ontology/artifacts/cdm_link16.json').then((r) => (r.ok ? r.text() : 'null')).catch(() => 'null'),
+      fetch('/api/ontology/artifacts/cdm_vmf.json').then((r) => (r.ok ? r.text() : 'null')).catch(() => 'null'),
+    ]).then(([m1, m2]) => {
+      try {
+        const j1 = JSON.parse(m1 || 'null');
+        const j2 = JSON.parse(m2 || 'null');
+        const rows: Array<{ source: string; target: string; spec: 'Link-16' | 'VMF' }> = [];
+        if (j1?.mappings) {
+          for (const m of j1.mappings) {
+            rows.push({
+              source: `${m.from?.entity ?? ''}.${m.from?.field ?? ''}`,
+              target: `${m.to?.entity ?? ''}.${m.to?.field ?? ''}`,
+              spec: 'Link-16',
+            });
+          }
+        }
+        if (j2?.mappings) {
+          for (const m of j2.mappings) {
+            rows.push({
+              source: `${m.from?.entity ?? ''}.${m.from?.field ?? ''}`,
+              target: `${m.to?.entity ?? ''}.${m.to?.field ?? ''}`,
+              spec: 'VMF',
+            });
+          }
+        }
+        setMappingTable(rows);
+      } catch {
+        setMappingTable([]);
+      }
+    }).catch(() => setMappingTable([]));
   }, []);
 
   // Stream persona output from the server and append to the matching buffer
@@ -301,6 +334,35 @@ export default function OntologyPage() {
               <div className="text-xs mb-2 opacity-80">Data Modeler</div>
               <pre className="text-xs whitespace-pre-wrap">{personaOutput.DATA_MODELER || '—'}</pre>
             </div>
+          </div>
+          <div className="mt-3">
+            <h3 className="text-sm font-semibold flex items-center gap-2"><Icon name="table" size="sm" /> Structured Mapping View</h3>
+            {mappingTable.length === 0 ? (
+              <div className="text-xs opacity-80" style={{ color: 'var(--theme-text-secondary)' }}>No mappings loaded.</div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-xs" style={{ borderColor: 'var(--theme-border)' }}>
+                  <thead>
+                    <tr className="text-left" style={{ color: 'var(--theme-text-secondary)' }}>
+                      <th className="py-2">Spec</th>
+                      <th className="py-2">Source</th>
+                      <th className="py-2">→</th>
+                      <th className="py-2">CDM Target</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {mappingTable.map((row, idx) => (
+                      <tr key={idx} className="border-t" style={{ borderColor: 'var(--theme-border)' }}>
+                        <td className="py-2">{row.spec}</td>
+                        <td className="py-2 font-mono">{row.source}</td>
+                        <td className="py-2">→</td>
+                        <td className="py-2 font-mono">{row.target}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         </section>
 
