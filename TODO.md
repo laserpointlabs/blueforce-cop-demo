@@ -42,11 +42,11 @@
 - [x] Mapping: `cdm_link16.json` (Link-16 → CDM)
 - [x] Mapping: `cdm_vmf.json` (VMF → CDM)
 - [x] Alignment report generation (`alignment_report.md`) with coverage %, conflicts, decisions
- - [x] PM Dashboard: alignment status widget (coverage %, conflicts list + preview)
+- [x] PM Dashboard: alignment status widget (coverage %, conflicts list + preview)
 - [x] Expose all ontology/CDM artifacts in Artifact Viewer (PM Dashboard side panel)
 - [x] Ontology workspace page (`/ontology`) with simulated multi-agent alignment
 - [x] APIs: `/api/ontology/artifacts`, `/api/ontology/metrics`
- - [x] API: `/api/artifacts` (disk-persisted artifacts listing)
+- [x] API: `/api/artifacts` (disk-persisted artifacts listing)
 
 ### Stretch Goal: Probabilistic Ontology Extraction
 - [ ] Question-guided extraction loops with multiple runs
