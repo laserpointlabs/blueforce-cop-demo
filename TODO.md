@@ -24,6 +24,9 @@
 - [x] Persona execution API: POST /api/personas/:type/execute via Ollama
 - [x] Model selector with persisted choice + fallback if model missing
 - [x] /api/ollama/models endpoint to list available models (UI wired)
+- [x] Persona Output streaming UI on /ontology (per‑persona badges + spinner)
+- [ ] Optional deterministic fallback text if Ollama missing
+- [ ] Structured Data Modeler rendering (mapping/conflicts table)
 - [ ] Stretch Goal: Add AI agnet to dicuss the results on the page and offers feedback/suggestions
 
 ## Standards & Knowledge (MVP mocked)
@@ -86,7 +89,8 @@
 ## Docs
 - [ ] README quickstart (start script, model notes)
 - [ ] Demo script with timed steps in docs/demo/
- - [ ] Document ontology extraction flow (deterministic + probabilistic stretch goal)
+- [ ] Document ontology extraction flow (deterministic + probabilistic stretch goal)
+- [x] Dev stability playbook (WSL ports, clean builds, checks)
 
 ## Navigation / UX
 - [x] Add Home link in top-right on key pages (COP Demo, PM Dashboard, Ontology)
