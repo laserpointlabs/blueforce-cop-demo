@@ -11,6 +11,8 @@ export default function OntologyPage() {
   const [running, setRunning] = useState(false);
   const [step, setStep] = useState(0);
   const [logs, setLogs] = useState<{ ts: number; message: string; agent?: string }[]>([]);
+  const [model, setModel] = useState('');
+  const [models, setModels] = useState<string[]>([]);
 
   const index = useMemo(() => {
     const map = new Map(artifacts.map((a) => [a.name, a] as const));
@@ -30,6 +32,16 @@ export default function OntologyPage() {
     fetch("/api/ontology/artifacts")
       .then(async (r) => setArtifacts(r.ok ? await r.json() : []))
       .catch(() => setArtifacts([]));
+    // Load available models and restore selection
+    fetch('/api/ollama/models')
+      .then(async (r) => (r.ok ? r.json() : Promise.resolve({ models: [] })))
+      .then((d) => {
+        const list = Array.isArray(d.models) ? d.models : [];
+        setModels(list);
+        const saved = typeof window !== 'undefined' ? localStorage.getItem('ollama:model') : '';
+        setModel(saved && list.includes(saved) ? saved : (list[0] ?? ''));
+      })
+      .catch(() => {});
   }, []);
 
   const runAgents = async () => {
@@ -40,14 +52,17 @@ export default function OntologyPage() {
     setStep(0);
     // Step 1: Standards Analyst extracts Link-16
     pushLog("Standards Analyst: extracting Link-16 ontology from spec", "STANDARDS_ANALYST");
+    await runPersona('STANDARDS_ANALYST', 'Extract Link-16 schema/entities/rules from curated spec', { artifact: 'link16_ontology.json' });
     await delay(900);
     setStep(1);
     // Step 2: Standards Analyst extracts VMF
     pushLog("Standards Analyst: extracting VMF ontology from spec", "STANDARDS_ANALYST");
+    await runPersona('STANDARDS_ANALYST', 'Extract VMF schema/entities/rules from curated spec', { artifact: 'vmf_ontology.json' });
     await delay(900);
     setStep(2);
     // Step 3: Data Modeler aligns to CDM
     pushLog("Data Modeler: aligning extracted ontologies to Defense Core / CDM", "DATA_MODELER");
+    await runPersona('DATA_MODELER', 'Align Link-16/VMF to CDM and note conflicts', { artifacts: ['cdm_link16.json','cdm_vmf.json'] });
     const m = await fetch("/api/ontology/metrics").then((r) => (r.ok ? r.json() : null)).catch(() => null);
     if (m) setMetrics(m);
     await delay(600);
@@ -81,6 +96,22 @@ export default function OntologyPage() {
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold flex items-center gap-2"><Icon name="run-all" size="sm" /> Simulated Multi-Agent Extraction & Alignment</h2>
             <div className="flex items-center gap-2">
+              <div className="hidden sm:flex items-center gap-2 text-sm" style={{ color: 'var(--theme-text-secondary)' }}>
+                <span>Model</span>
+                <select
+                  value={model}
+                  onChange={(e) => {
+                    setModel(e.target.value);
+                    try { localStorage.setItem('ollama:model', e.target.value); } catch {}
+                  }}
+                  className="input"
+                  style={{ backgroundColor: 'var(--theme-input-bg)', border: 'none', color: 'var(--theme-text-primary)' }}
+                >
+                  {models.map((m) => (
+                    <option key={m} value={m}>{m}</option>
+                  ))}
+                </select>
+              </div>
               <button className="btn-primary" style={{ backgroundColor: 'var(--theme-accent-primary)' }} onClick={runAgents} disabled={running}>
                 {running ? 'Running…' : 'Run Agents'}
               </button>
@@ -236,6 +267,24 @@ function ArtifactSummary({ item, disabled }: { item?: OntMeta; disabled?: boolea
 function delay(ms: number) { return new Promise((res) => setTimeout(res, ms)); }
 function safePrettyJson(text: string): string {
   try { return JSON.stringify(JSON.parse(text), null, 2); } catch { return text; }
+}
+
+async function runPersona(type: 'STANDARDS_ANALYST' | 'DATA_MODELER', task: string, context: any) {
+  try {
+    const model = (typeof window !== 'undefined' ? localStorage.getItem('ollama:model') : '') || '';
+    const res = await fetch(`/api/personas/${type}/execute`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model, task, context })
+    });
+    // We ignore the streamed body here, as this page shows a deterministic simulation.
+    // In a later PR, we can surface the streamed content live.
+    if (!res.ok) {
+      // no-op; simulation continues regardless
+    }
+  } catch {
+    // ignore; simulation continues
+  }
 }
 
 

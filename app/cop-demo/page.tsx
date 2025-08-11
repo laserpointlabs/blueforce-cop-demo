@@ -22,7 +22,13 @@ export default function CopDemoPage() {
       .catch(() => setOllamaOk(false));
     fetch('/api/ollama/models')
       .then(async (r) => (r.ok ? r.json() : Promise.resolve({ models: [] })))
-      .then((d) => setModels(Array.isArray(d.models) ? d.models : []))
+      .then((d) => {
+        const availableModels = Array.isArray(d.models) ? d.models : [];
+        setModels(availableModels);
+        if (!model && availableModels.length > 0) {
+          setModel(availableModels[0]);
+        }
+      })
       .catch(() => setModels([]));
   }, []);
 

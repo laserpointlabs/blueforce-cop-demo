@@ -20,10 +20,10 @@
 ## LLM / Ollama
 - [x] Streaming responses for /api/ollama/chat (server proxy streams Ollama)
 - [x] Markdown rendering for streamed answers in COP Demo
-- [ ] Persona prompt templates (Standards Analyst, Pipeline Engineer, Data Modeler, UI/UX)
-- [ ] Persona execution API: POST /api/personas/:type/execute via Ollama
-- [ ] Model selector with persisted choice + fallback if model missing
-- [ ] /api/ollama/models endpoint to list available models (UI wired)
+- [x] Persona prompt templates (Standards Analyst, Pipeline Engineer, Data Modeler, UI/UX)
+- [x] Persona execution API: POST /api/personas/:type/execute via Ollama
+- [x] Model selector with persisted choice + fallback if model missing
+- [x] /api/ollama/models endpoint to list available models (UI wired)
 - [ ] Stretch Goal: Add AI agnet to dicuss the results on the page and offers feedback/suggestions
 
 ## Standards & Knowledge (MVP mocked)
@@ -42,11 +42,11 @@
 - [x] Mapping: `cdm_link16.json` (Link-16 → CDM)
 - [x] Mapping: `cdm_vmf.json` (VMF → CDM)
 - [x] Alignment report generation (`alignment_report.md`) with coverage %, conflicts, decisions
- - [x] PM Dashboard: alignment status widget (coverage %, conflicts list + preview)
+- [x] PM Dashboard: alignment status widget (coverage %, conflicts list + preview)
 - [x] Expose all ontology/CDM artifacts in Artifact Viewer (PM Dashboard side panel)
 - [x] Ontology workspace page (`/ontology`) with simulated multi-agent alignment
 - [x] APIs: `/api/ontology/artifacts`, `/api/ontology/metrics`
- - [x] API: `/api/artifacts` (disk-persisted artifacts listing)
+- [x] API: `/api/artifacts` (disk-persisted artifacts listing)
 
 ### Stretch Goal: Probabilistic Ontology Extraction
 - [ ] Question-guided extraction loops with multiple runs
