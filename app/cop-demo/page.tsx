@@ -17,6 +17,22 @@ export default function CopDemoPage() {
   const [wfStatus, setWfStatus] = useState<any>(null);
   const [schemaPreview, setSchemaPreview] = useState<string>('');
   const [schemaKind, setSchemaKind] = useState<'link16' | 'vmf' | 'cdm' | ''>('');
+  const [vizLayer, setVizLayer] = useState<string>('');
+  // honor query param schema=link16|vmf|cdm for deep linking from PM Dashboard
+  useEffect(() => {
+    try {
+      const url = new URL(typeof window !== 'undefined' ? window.location.href : '');
+      const q = (url.searchParams.get('schema') || '').toLowerCase();
+      const v = (url.searchParams.get('viz') || '').toLowerCase();
+      if (q === 'link16' || q === 'vmf' || q === 'cdm') {
+        // trigger the same fetch used by buttons
+        fetchSchema(q as 'link16' | 'vmf' | 'cdm').catch(() => {});
+      }
+      if (v) setVizLayer(v);
+    } catch {
+      // ignore
+    }
+  }, []);
   const fetchSchema = async (kind: 'link16' | 'vmf' | 'cdm') => {
     try {
       setSchemaKind(kind);
@@ -192,6 +208,11 @@ export default function CopDemoPage() {
               )}
             </div>
           </div>
+          {vizLayer && (
+            <div className="text-xs opacity-80" style={{ color: 'var(--theme-text-secondary)' }}>
+              Active viz layer: <span className="px-1.5 py-0.5 rounded border" style={{ borderColor: 'var(--theme-border)' }}>{vizLayer}</span>
+            </div>
+          )}
           <div className="text-xs opacity-80" style={{ color: 'var(--theme-text-secondary)' }}>
             Open raw JSON:
             {' '}

@@ -37,6 +37,11 @@
 - [x] Persist artifacts to `artifacts/` directory (optional)
 - [x] Compliance report generation (rules coverage, violations)
 
+### Stretch Goals: Knowledge & Ontology
+- [ ] GraphDB integration (e.g., Neo4j) to model ontology + data schemas; enable impact analysis queries prior to CDM/spec changes (diffs, blast radius, what‑if)
+- [ ] Ontology modeler/viewer integration (React Flow example): graph view with CRUD operations on entities, relationships, and constraints
+- [ ] Measurement unit ontology (SI/imperial) and conversion graph; enforce unit semantics in alignment, validation, and compliance (e.g., km ↔ m, inch ↔ ft)
+
 ## Ontology & CDM (deterministic MVP)
 - [x] Define minimal base ontology (Defense Core) JSON (Unit, Track, Message, Position, Time, Platform, Link; relations: hasPosition, observedAt, emitsMessage, belongsToUnit)
 - [x] Create `link16_ontology.json` from curated fixture
@@ -65,7 +70,14 @@
 - [ ] COP placeholder "map" with tactical layer toggles (mock data)
 - [x] Compliance dashboard (pass/fail counts, rules list)
 - [x] Artifact viewer (schemas, generated code, logs)
-- [ ] Data lineage panel (source → schema → model → pipeline → viz)
+- [x] Data lineage panel (source → schema → model → pipeline → viz)
+
+### Stretch Goal: Visualization Layers
+- [ ] Add actual map layers; wire `vizLayer` to control visibility programmatically (e.g., toggling tracks/units/messages)
+
+### Stretch Goals: Visualization & Simulation
+- [ ] Integrate execution tools (e.g., AFSIM, NetLogo, PyAgent) to run approved scenarios for change validation; hook into impact analysis
+- [ ] Measurement units management: normalization and conversions (km, m, inch, ft), user display preferences (SI/imperial), unit-aware mapping/pipeline validation, and unit-aware viz overlays
 
 ## UI / Theme
 - [ ] Shared components: Card, Panel, TabBar, Toolbar, IconButton (using dadmsTheme)
@@ -80,11 +92,13 @@
 - [x] Post-build smoke test to start server on 4010 and verify key routes
 - [x] Start script hardening: free stale port 4000, clean `.next/`, wait until ready
  - [ ] CI smoke stabilization: shorter timeouts, fewer checks to avoid flakey hangs
+ - [ ] Reintroduce CI smoke later as a lightweight curl-only step or nightly, after stability work
 
 ## CI / CD
 - [ ] Extend CI to run unit + E2E tests headless
 - [ ] Upload build artifact for preview (Actions artifacts)
 - [x] CI smoke test step after build
+ - [x] CI simplified to Lint + Build only (smoke removed to unblock PRs; revisit later)
 
 ## Docs
 - [ ] README quickstart (start script, model notes)
@@ -92,9 +106,15 @@
 - [ ] Document ontology extraction flow (deterministic + probabilistic stretch goal)
 - [x] Dev stability playbook (WSL ports, clean builds, checks)
 
+### Stretch Goals: Onboarding & Guidance
+- [ ] Guided walkthrough with contextual popovers to lead new users through: load spec → extract ontology → integrate → extract data schema → integrate → PM integration & test; expandable with new features
+
 ## Navigation / UX
 - [x] Add Home link in top-right on key pages (COP Demo, PM Dashboard, Ontology)
 - [x] Add Ontology Workspace tile to home page
+
+### Stretch Goals: Navigation/Information Architecture
+- [ ] Separate Ontology Management and Data Management into dedicated pages (reflecting workflow from ontology → data)
 
 ---
 

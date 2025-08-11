@@ -2,10 +2,8 @@ name: CI
 
 on:
   push:
-    # Run CI on all branches (including feature branches) to ensure signal even before PR triggers
     branches: ["**"]
   pull_request:
-    # Use ** so PR branches with slashes (e.g., feat/xyz) are matched
     branches: ["**"]
     types: [opened, synchronize, reopened]
   workflow_dispatch:
@@ -23,20 +21,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run ESLint
-        run: npm run lint
+      - run: npm ci --no-audit --no-fund
+      - run: npm run lint
 
   build:
     name: Build
@@ -44,18 +35,12 @@ jobs:
     needs: lint
     timeout-minutes: 20
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
+      - run: npm ci --no-audit --no-fund
       - name: Cache Next.js build
         uses: actions/cache@v4
         with:
@@ -63,13 +48,11 @@ jobs:
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.[jt]s', '**/*.[jt]sx', 'next.config.*', 'app/**', 'components/**') }}
           restore-keys: |
             ${{ runner.os }}-nextjs-
-
-      - name: Build
-        env:
+      - env:
           NEXT_TELEMETRY_DISABLED: '1'
         run: npm run build
 
-      # Rely on postbuild smoke to reduce duplication; keep job fast
+  # Smoke job removed to prevent CI hangs; keep CI lean (lint + build only)
 
 
 
