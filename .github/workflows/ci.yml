@@ -64,6 +64,10 @@ jobs:
           node-version: '20'
           cache: 'npm'
       - run: npm ci --no-audit --no-fund
+      - name: Build (for smoke job workspace)
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
+        run: npm run build
       - env:
           NEXT_TELEMETRY_DISABLED: '1'
           SMOKE_PORT: '4011'
