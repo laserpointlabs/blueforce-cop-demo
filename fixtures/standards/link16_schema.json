@@ -1,0 +1,30 @@
+{
+  "standard": "Link-16",
+  "version": "mock-1.0",
+  "entities": [
+    {
+      "name": "Track",
+      "fields": [
+        { "name": "trackId", "type": "string", "required": true },
+        { "name": "lat", "type": "number", "required": true },
+        { "name": "lon", "type": "number", "required": true },
+        { "name": "speed", "type": "number", "required": false },
+        { "name": "heading", "type": "number", "required": false }
+      ]
+    },
+    {
+      "name": "Unit",
+      "fields": [
+        { "name": "unitId", "type": "string", "required": true },
+        { "name": "platform", "type": "string", "required": false }
+      ]
+    }
+  ],
+  "rules": [
+    { "rule": "lat_range", "target": "Track.lat", "type": "range", "min": -90, "max": 90 },
+    { "rule": "lon_range", "target": "Track.lon", "type": "range", "min": -180, "max": 180 },
+    { "rule": "track_id_format", "target": "Track.trackId", "type": "regex", "pattern": "^[A-Z0-9]{4,12}$" }
+  ]
+}
+
+

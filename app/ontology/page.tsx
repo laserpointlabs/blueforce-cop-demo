@@ -22,6 +22,7 @@ export default function OntologyPage() {
     STANDARDS_ANALYST: false,
     DATA_MODELER: false
   });
+  const [schemas, setSchemas] = useState<{ link16?: any; vmf?: any }>({});
 
   const index = useMemo(() => {
     const map = new Map(artifacts.map((a) => [a.name, a] as const));
@@ -53,6 +54,11 @@ export default function OntologyPage() {
         try { if (chosen) localStorage.setItem('ollama:model', chosen); } catch {}
       })
       .catch(() => {});
+    // Preload deterministic schema fixtures via API (stub extraction)
+    Promise.all([
+      fetch('/api/standards/schemas?standard=link16').then(r => (r.ok ? r.json() : null)).catch(() => null),
+      fetch('/api/standards/schemas?standard=vmf').then(r => (r.ok ? r.json() : null)).catch(() => null),
+    ]).then(([l16, vmf]) => setSchemas({ link16: l16, vmf })).catch(() => {});
   }, []);
 
   // Stream persona output from the server and append to the matching buffer
@@ -198,6 +204,12 @@ export default function OntologyPage() {
             action={index.link16 ? (<button className="underline" onClick={() => open(index.link16!.name)} disabled={step < 1}>Preview</button>) : null}
           >
             <ArtifactSummary item={index.link16} disabled={step < 1} />
+            {schemas.link16 && (
+              <details className="mt-2 text-xs">
+                <summary className="cursor-pointer opacity-80">Preview extracted schema (stub)</summary>
+                <pre className="mt-2" style={{ whiteSpace: 'pre-wrap' }}>{safePrettyJson(JSON.stringify(schemas.link16))}</pre>
+              </details>
+            )}
           </Panel>
           <Panel
             title="VMF (Extracted)"
@@ -205,6 +217,12 @@ export default function OntologyPage() {
             action={index.vmf ? (<button className="underline" onClick={() => open(index.vmf!.name)} disabled={step < 2}>Preview</button>) : null}
           >
             <ArtifactSummary item={index.vmf} disabled={step < 2} />
+            {schemas.vmf && (
+              <details className="mt-2 text-xs">
+                <summary className="cursor-pointer opacity-80">Preview extracted schema (stub)</summary>
+                <pre className="mt-2" style={{ whiteSpace: 'pre-wrap' }}>{safePrettyJson(JSON.stringify(schemas.vmf))}</pre>
+              </details>
+            )}
           </Panel>
         </section>
 

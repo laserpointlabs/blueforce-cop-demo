@@ -1,0 +1,27 @@
+{
+  "standard": "VMF",
+  "version": "mock-1.0",
+  "entities": [
+    {
+      "name": "Message",
+      "fields": [
+        { "name": "messageId", "type": "string", "required": true },
+        { "name": "messageType", "type": "string", "required": true },
+        { "name": "timestamp", "type": "string", "required": true }
+      ]
+    },
+    {
+      "name": "Position",
+      "fields": [
+        { "name": "lat", "type": "number", "required": true },
+        { "name": "lon", "type": "number", "required": true },
+        { "name": "alt", "type": "number", "required": false }
+      ]
+    }
+  ],
+  "rules": [
+    { "rule": "timestamp_iso8601", "target": "Message.timestamp", "type": "format", "format": "iso8601" }
+  ]
+}
+
+
