@@ -49,11 +49,34 @@ async function main() {
     process.exit(1);
   }
 
-  // Minimal check: root route only to reduce flakiness/time
-  const code = await ping('/');
-  if (code < 200 || code >= 500) {
+  // Check key routes/APIs including new deep-link
+  const paths = [
+    '/',
+    '/pm-dashboard',
+    '/cop-demo',
+    '/ontology',
+    '/api/ontology/artifacts',
+    '/api/ontology/metrics',
+    '/cop-demo?schema=link16&viz=tracks',
+  ];
+  const errors = [];
+  for (const p of paths) {
+    let attempts = 0;
+    let status = 0;
+    while (attempts < 3) {
+      // small stagger between attempts
+      // eslint-disable-next-line no-await-in-loop
+      status = await ping(p);
+      if (status >= 200 && status < 400) break;
+      attempts += 1;
+      // eslint-disable-next-line no-await-in-loop
+      await wait(300);
+    }
+    if (!(status >= 200 && status < 400)) errors.push({ path: p, status });
+  }
+  if (errors.length > 0) {
     child.kill('SIGKILL');
-    console.error(`[smoke] check failed / -> ${code}`);
+    for (const e of errors) console.error(`[smoke] check failed ${e.path} -> ${e.status}`);
     process.exit(2);
   }
 
