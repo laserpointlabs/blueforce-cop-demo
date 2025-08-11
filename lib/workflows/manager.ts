@@ -213,4 +213,40 @@ export function stopWorkflow(id: string): Workflow | undefined {
   return wf;
 }
 
+export function failWorkflow(id: string, reason?: string): Workflow | undefined {
+  const wf = workflows.get(id);
+  if (!wf) return undefined;
+  if (wf.status === 'COMPLETED') return wf;
+  wf.status = 'FAILED';
+  wf.logs.push({ ts: Date.now(), message: `Workflow failed${reason ? `: ${reason}` : ''}` });
+  return wf;
+}
+
+export function retryWorkflow(id: string): Workflow | undefined {
+  const wf = workflows.get(id);
+  if (!wf) return undefined;
+  // Reset only from FAILED or COMPLETED; allow rerun for demo
+  const now = Date.now();
+  wf.status = 'RUNNING';
+  wf.createdAt = now;
+  wf.step = 0;
+  // Reset personas: first working, rest idle
+  if (Array.isArray(wf.personas) && wf.personas.length >= 4) {
+    wf.personas[0].status = 'WORKING';
+    wf.personas[1].status = 'IDLE';
+    wf.personas[2].status = 'IDLE';
+    wf.personas[3].status = 'IDLE';
+    for (const p of wf.personas) p.lastUpdate = now;
+  }
+  // Reset compliance summary
+  wf.compliance.passed = 0;
+  wf.compliance.failed = 0;
+  wf.compliance.history = [{ ts: now, passed: 0, failed: 0, total: wf.compliance.total }];
+  // Keep violations/artifacts for audit or clear? Keep minimal; clear for clean rerun
+  wf.compliance.violations = [];
+  wf.artifacts = [];
+  wf.logs.push({ ts: now, message: 'Workflow retry initiated' });
+  return wf;
+}
+
 

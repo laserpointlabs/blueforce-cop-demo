@@ -4,6 +4,7 @@ import { useToast } from '@/components/ToastProvider';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Icon } from '../../components/Icon';
+import { VizPlaceholder } from '@/components/VizPlaceholder';
 
 export default function CopDemoPage() {
   const { notify } = useToast();
@@ -208,11 +209,20 @@ export default function CopDemoPage() {
               )}
             </div>
           </div>
-          {vizLayer && (
-            <div className="text-xs opacity-80" style={{ color: 'var(--theme-text-secondary)' }}>
-              Active viz layer: <span className="px-1.5 py-0.5 rounded border" style={{ borderColor: 'var(--theme-border)' }}>{vizLayer}</span>
-            </div>
-          )}
+          <div className="flex items-center gap-2 text-xs" style={{ color: 'var(--theme-text-secondary)' }}>
+            <span>Viz layers:</span>
+            {['tracks','units','messages'].map((l) => (
+              <button
+                key={l}
+                className={`px-2 py-0.5 rounded border ${vizLayer===l ? 'opacity-100' : 'opacity-70'}`}
+                style={{ borderColor: 'var(--theme-border)' }}
+                onClick={() => setVizLayer(l)}
+              >{l}</button>
+            ))}
+            {vizLayer && (
+              <button className="underline" onClick={() => setVizLayer('')}>clear</button>
+            )}
+          </div>
           <div className="text-xs opacity-80" style={{ color: 'var(--theme-text-secondary)' }}>
             Open raw JSON:
             {' '}
@@ -227,6 +237,9 @@ export default function CopDemoPage() {
               </div>
               <pre className="text-xs" style={{ whiteSpace: 'pre-wrap' }}>{schemaPreview}</pre>
             </div>
+          )}
+          {vizLayer && (
+            <VizPlaceholder layer={vizLayer} />
           )}
         </div>
 

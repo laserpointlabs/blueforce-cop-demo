@@ -1,6 +1,35 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const OLLAMA_URL = process.env.OLLAMA_URL || 'http://localhost:11434';
+const OLLAMA_DETERMINISTIC_FALLBACK = process.env.OLLAMA_DETERMINISTIC_FALLBACK === '1';
+
+function createDeterministicFallbackStream(prompt: string): ReadableStream<Uint8Array> {
+  const encoder = new TextEncoder();
+  const lines = [
+    `Deterministic fallback response (Ollama unavailable)`,
+    ``,
+    `- Prompt: ${prompt?.slice(0, 160)}`,
+    `- Model: simulated`,
+    ``,
+    `Key points:`,
+    `1. The demo environment can operate without Ollama using canned outputs.`,
+    `2. All flows remain reproducible; enable Ollama later for live generation.`,
+    `3. See TODO.md for the fallback item status.`,
+  ];
+  let i = 0;
+  return new ReadableStream<Uint8Array>({
+    start(controller) {
+      const interval = setInterval(() => {
+        if (i >= lines.length) {
+          clearInterval(interval);
+          controller.close();
+          return;
+        }
+        controller.enqueue(encoder.encode(lines[i++] + '\n'));
+      }, 120);
+    }
+  });
+}
 
 export async function POST(req: NextRequest) {
   const { model = 'llama3', prompt } = await req.json();
@@ -9,6 +38,10 @@ export async function POST(req: NextRequest) {
   }
 
   try {
+    if (OLLAMA_DETERMINISTIC_FALLBACK) {
+      const stream = createDeterministicFallbackStream(prompt);
+      return new Response(stream, { status: 200, headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' } });
+    }
     const upstream = await fetch(`${OLLAMA_URL}/api/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -16,8 +49,9 @@ export async function POST(req: NextRequest) {
     });
 
     if (!upstream.ok || !upstream.body) {
-      const text = await upstream.text().catch(() => '');
-      return NextResponse.json({ error: `Ollama error: ${upstream.status} ${text}` }, { status: 502 });
+      // If the service is unreachable or errors, provide deterministic fallback
+      const stream = createDeterministicFallbackStream(prompt);
+      return new Response(stream, { status: 200, headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' } });
     }
 
     const encoder = new TextEncoder();
@@ -80,7 +114,9 @@ export async function POST(req: NextRequest) {
       }
     });
   } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+    // Network/connection errors → deterministic fallback
+    const stream = createDeterministicFallbackStream(prompt);
+    return new Response(stream, { status: 200, headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' } });
   }
 }
 
