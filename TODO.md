@@ -26,7 +26,7 @@
 - [x] /api/ollama/models endpoint to list available models (UI wired)
 - [x] Persona Output streaming UI on /ontology (per‑persona badges + spinner)
 - [ ] Optional deterministic fallback text if Ollama missing
-- [ ] Structured Data Modeler rendering (mapping/conflicts table) ← next PR
+- [x] Structured Data Modeler rendering (mapping/conflicts table)
 - [ ] Stretch Goal: Add AI agnet to dicuss the results on the page and offers feedback/suggestions
 
 ## Standards & Knowledge (MVP mocked)
