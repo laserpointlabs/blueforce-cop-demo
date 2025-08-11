@@ -20,10 +20,10 @@
 ## LLM / Ollama
 - [x] Streaming responses for /api/ollama/chat (server proxy streams Ollama)
 - [x] Markdown rendering for streamed answers in COP Demo
-- [ ] Persona prompt templates (Standards Analyst, Pipeline Engineer, Data Modeler, UI/UX)
-- [ ] Persona execution API: POST /api/personas/:type/execute via Ollama
-- [ ] Model selector with persisted choice + fallback if model missing
-- [ ] /api/ollama/models endpoint to list available models (UI wired)
+- [x] Persona prompt templates (Standards Analyst, Pipeline Engineer, Data Modeler, UI/UX)
+- [x] Persona execution API: POST /api/personas/:type/execute via Ollama
+- [x] Model selector with persisted choice + fallback if model missing
+- [x] /api/ollama/models endpoint to list available models (UI wired)
 - [ ] Stretch Goal: Add AI agnet to dicuss the results on the page and offers feedback/suggestions
 
 ## Standards & Knowledge (MVP mocked)
