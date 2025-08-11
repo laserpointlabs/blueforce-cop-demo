@@ -283,9 +283,23 @@ export default function CopDemoPage() {
               <label className="inline-flex items-center gap-1">
                 <input type="checkbox" checked={simSources.vmf} onChange={(e) => setSimSources((s) => ({ ...s, vmf: e.target.checked }))} /> VMF
               </label>
-              <button className="btn-primary" style={{ backgroundColor: simOn ? 'var(--theme-accent-error)' : 'var(--theme-accent-primary)' }} onClick={() => { setSimEvents([]); setSimOn((v) => !v); }}>
+              <button
+                className="btn-primary"
+                style={{ backgroundColor: simOn ? 'var(--theme-accent-error)' : 'var(--theme-accent-primary)' }}
+                onClick={() => {
+                  if (simOn) {
+                    // Stop without clearing collected events
+                    setSimOn(false);
+                  } else {
+                    // Start fresh (clear previous events)
+                    setSimEvents([]);
+                    setSimOn(true);
+                  }
+                }}
+              >
                 <Icon name={simOn ? 'debug-stop' : 'debug-start'} size="sm" /> {simOn ? 'Stop' : 'Start'}
               </button>
+              <button className="btn" onClick={() => setSimEvents([])}>Clear</button>
             </div>
           </div>
           <div className="rounded border p-3 overflow-auto" style={{ borderColor: 'var(--theme-border)', backgroundColor: 'var(--theme-bg-primary)' }}>
