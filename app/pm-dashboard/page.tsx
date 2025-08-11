@@ -8,6 +8,7 @@ export default function PMDashboard() {
   const [wfId, setWfId] = useState<string | null>(null);
   const [wf, setWf] = useState<any>(null);
   const [polling, setPolling] = useState<number | null>(null);
+  const [sseActive, setSseActive] = useState<boolean>(false);
   const [phaseFilter, setPhaseFilter] = useState<string>('ALL');
   const [ollamaOk, setOllamaOk] = useState<boolean | null>(null);
   const [preview, setPreview] = useState<null | { id: string; name: string; type: string; mime: string; content: string }>(null);
@@ -63,6 +64,26 @@ export default function PMDashboard() {
 
   useEffect(() => {
     if (!wfId) return;
+    // Prefer SSE; fallback to polling if SSE errors
+    try {
+      const es = new EventSource(`/api/workflows/${wfId}/events`);
+      es.onopen = () => setSseActive(true);
+      es.onmessage = (ev) => {
+        try { setWf(JSON.parse(ev.data)); } catch {}
+      };
+      es.onerror = () => {
+        es.close();
+        setSseActive(false);
+      };
+      return () => es.close();
+    } catch {
+      setSseActive(false);
+    }
+  }, [wfId]);
+
+  useEffect(() => {
+    if (!wfId) return;
+    if (sseActive) return; // SSE is handling updates
     const tick = async () => {
       const res = await fetch(`/api/workflows/${wfId}/status`, { cache: 'no-store' });
       const data = await res.json();
@@ -81,7 +102,7 @@ export default function PMDashboard() {
     }, 1200);
     setPolling(1);
     return () => clearInterval(interval);
-  }, [wfId]);
+  }, [wfId, sseActive]);
 
   useEffect(() => {
     // Environment health snapshot for PM context
@@ -156,6 +177,16 @@ export default function PMDashboard() {
     if (!wfId) return;
     await fetch(`/api/workflows/${wfId}/stop`, { method: 'POST' });
     notify('Workflow stopped', 'info', 2000);
+  };
+  const injectFailure = async () => {
+    if (!wfId) return;
+    await fetch(`/api/workflows/${wfId}/fail`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ reason: 'Injected failure for demo' }) });
+    notify('Failure injected', 'warning', 2000);
+  };
+  const retry = async () => {
+    if (!wfId) return;
+    await fetch(`/api/workflows/${wfId}/retry`, { method: 'POST' });
+    notify('Retry started', 'info', 2000);
   };
 
   const openOntologyArtifact = async (name: string) => {
@@ -263,6 +294,10 @@ export default function PMDashboard() {
               <div className="flex items-center gap-2">
                 <button className="btn-primary" style={{ backgroundColor: 'var(--theme-accent-primary)' }} onClick={start}><Icon name="debug-start" size="sm" /> Start</button>
                 <button className="btn-primary" style={{ backgroundColor: 'var(--theme-accent-error)' }} onClick={stop}><Icon name="debug-stop" size="sm" /> Stop</button>
+                <button className="btn" onClick={injectFailure}><Icon name="alert" size="sm" /> Inject Failure</button>
+                {wf?.status === 'FAILED' && (
+                  <button className="btn" onClick={retry}><Icon name="refresh" size="sm" /> Retry</button>
+                )}
                 <div className="hidden md:flex items-center gap-2 text-xs" style={{ color: 'var(--theme-text-secondary)' }}>
                   <span>Model</span>
                   <select

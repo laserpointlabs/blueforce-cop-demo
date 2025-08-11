@@ -4,6 +4,7 @@ import { useToast } from '@/components/ToastProvider';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Icon } from '../../components/Icon';
+import { VizPlaceholder } from '@/components/VizPlaceholder';
 
 export default function CopDemoPage() {
   const { notify } = useToast();
@@ -18,6 +19,9 @@ export default function CopDemoPage() {
   const [schemaPreview, setSchemaPreview] = useState<string>('');
   const [schemaKind, setSchemaKind] = useState<'link16' | 'vmf' | 'cdm' | ''>('');
   const [vizLayer, setVizLayer] = useState<string>('');
+  const [simOn, setSimOn] = useState(false);
+  const [simSources, setSimSources] = useState<{ link16: boolean; vmf: boolean }>({ link16: true, vmf: true });
+  const [simEvents, setSimEvents] = useState<Array<{ id: string; ts: number; source: string; cdm: any; deviations: Array<{ field: string; issue: string }> }>>([]);
   // honor query param schema=link16|vmf|cdm for deep linking from PM Dashboard
   useEffect(() => {
     try {
@@ -32,7 +36,34 @@ export default function CopDemoPage() {
     } catch {
       // ignore
     }
-  }, []);
+  }, [model]);
+
+  // Live CDM simulation stream
+  useEffect(() => {
+    if (!simOn) return;
+    const enabled = Object.entries(simSources).filter(([_, v]) => !!v).map(([k]) => k).join(',');
+    const url = `/api/sim/cdm/events?sources=${encodeURIComponent(enabled)}&intervalMs=700`;
+    let es: EventSource | null = null;
+    try {
+      es = new EventSource(url);
+      es.onmessage = (ev) => {
+        try {
+          const evt = JSON.parse(ev.data);
+          setSimEvents((prev) => {
+            const next = [...prev, evt];
+            // Keep last ~50 events
+            return next.slice(-50);
+          });
+        } catch {}
+      };
+      es.onerror = () => {
+        es?.close();
+      };
+    } catch {
+      // ignore
+    }
+    return () => { try { es?.close(); } catch {} };
+  }, [simOn, simSources]);
   const fetchSchema = async (kind: 'link16' | 'vmf' | 'cdm') => {
     try {
       setSchemaKind(kind);
@@ -65,7 +96,7 @@ export default function CopDemoPage() {
         }
       })
       .catch(() => setModels([]));
-  }, []);
+  }, [model]);
 
   const handleAsk = async () => {
     setLoading(true);
@@ -208,11 +239,20 @@ export default function CopDemoPage() {
               )}
             </div>
           </div>
-          {vizLayer && (
-            <div className="text-xs opacity-80" style={{ color: 'var(--theme-text-secondary)' }}>
-              Active viz layer: <span className="px-1.5 py-0.5 rounded border" style={{ borderColor: 'var(--theme-border)' }}>{vizLayer}</span>
-            </div>
-          )}
+          <div className="flex items-center gap-2 text-xs" style={{ color: 'var(--theme-text-secondary)' }}>
+            <span>Viz layers:</span>
+            {['tracks','units','messages'].map((l) => (
+              <button
+                key={l}
+                className={`px-2 py-0.5 rounded border ${vizLayer===l ? 'opacity-100' : 'opacity-70'}`}
+                style={{ borderColor: 'var(--theme-border)' }}
+                onClick={() => setVizLayer(l)}
+              >{l}</button>
+            ))}
+            {vizLayer && (
+              <button className="underline" onClick={() => setVizLayer('')}>clear</button>
+            )}
+          </div>
           <div className="text-xs opacity-80" style={{ color: 'var(--theme-text-secondary)' }}>
             Open raw JSON:
             {' '}
@@ -228,6 +268,87 @@ export default function CopDemoPage() {
               <pre className="text-xs" style={{ whiteSpace: 'pre-wrap' }}>{schemaPreview}</pre>
             </div>
           )}
+          {vizLayer && (
+            <VizPlaceholder layer={vizLayer} />
+          )}
+        </div>
+
+        <div className="space-y-3 p-4 rounded border" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold flex items-center gap-2"><Icon name="broadcast" size="sm" /> Live CDM Integration (Link‑16 + VMF)</h2>
+            <div className="flex items-center gap-2 text-xs">
+              <label className="inline-flex items-center gap-1">
+                <input type="checkbox" checked={simSources.link16} onChange={(e) => setSimSources((s) => ({ ...s, link16: e.target.checked }))} /> Link‑16
+              </label>
+              <label className="inline-flex items-center gap-1">
+                <input type="checkbox" checked={simSources.vmf} onChange={(e) => setSimSources((s) => ({ ...s, vmf: e.target.checked }))} /> VMF
+              </label>
+              <button
+                className="btn-primary"
+                style={{ backgroundColor: simOn ? 'var(--theme-accent-error)' : 'var(--theme-accent-primary)' }}
+                onClick={() => {
+                  if (simOn) {
+                    // Stop without clearing collected events
+                    setSimOn(false);
+                  } else {
+                    // Start fresh (clear previous events)
+                    setSimEvents([]);
+                    setSimOn(true);
+                  }
+                }}
+              >
+                <Icon name={simOn ? 'debug-stop' : 'debug-start'} size="sm" /> {simOn ? 'Stop' : 'Start'}
+              </button>
+              <button className="btn" onClick={() => setSimEvents([])}>Clear</button>
+            </div>
+          </div>
+          <div className="rounded border p-3 overflow-auto" style={{ borderColor: 'var(--theme-border)', backgroundColor: 'var(--theme-bg-primary)' }}>
+            <div className="text-xs opacity-80 mb-2" style={{ color: 'var(--theme-text-secondary)' }}>
+              Unified CDM events from both sources. Deviations highlight differences (missing fields, ID formats).
+            </div>
+            <table className="w-full text-sm" style={{ borderColor: 'var(--theme-border)' }}>
+              <thead style={{ color: 'var(--theme-text-secondary)' }}>
+                <tr className="text-left">
+                  <th className="py-1">Time</th>
+                  <th className="py-1">Source</th>
+                  <th className="py-1">Entity</th>
+                  <th className="py-1">UnitId</th>
+                  <th className="py-1">Lat,Lon</th>
+                  <th className="py-1">Speed</th>
+                  <th className="py-1">Heading</th>
+                  <th className="py-1">Deviations</th>
+                </tr>
+              </thead>
+              <tbody>
+                {simEvents.length === 0 ? (
+                  <tr><td className="py-2" colSpan={8}>No events yet.</td></tr>
+                ) : (
+                  simEvents.slice().reverse().map((e) => (
+                    <tr key={e.id} className="border-t" style={{ borderColor: 'var(--theme-border)' }}>
+                      <td className="py-1 text-xs opacity-80">{new Date(e.ts).toLocaleTimeString()}</td>
+                      <td className="py-1 uppercase">{e.source}</td>
+                      <td className="py-1">{e.cdm?.entity}</td>
+                      <td className="py-1 font-mono text-xs">{e.cdm?.unitId}</td>
+                      <td className="py-1 text-xs">{e.cdm?.lat}, {e.cdm?.lon}</td>
+                      <td className="py-1">{e.cdm?.speed ?? <span className="opacity-60">—</span>}</td>
+                      <td className="py-1">{e.cdm?.heading ?? <span className="opacity-60">—</span>}</td>
+                      <td className="py-1 text-xs">
+                        {e.deviations?.length ? (
+                          <ul className="space-y-0.5">
+                            {e.deviations.map((d, i) => (
+                              <li key={i} className="px-1.5 py-0.5 rounded border inline-block mr-1" style={{ borderColor: 'var(--theme-border)' }}>{d.field}: {d.issue}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <span className="opacity-60">None</span>
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <div className="space-y-3 p-4 rounded border" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
