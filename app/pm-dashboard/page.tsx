@@ -13,6 +13,8 @@ export default function PMDashboard() {
   const [preview, setPreview] = useState<null | { id: string; name: string; type: string; mime: string; content: string }>(null);
   const [alignment, setAlignment] = useState<null | { coveragePct: number; cdmEntitiesCovered: number; cdmEntitiesTotal: number; conflicts: any[] }>(null);
   const [ontologyArtifacts, setOntologyArtifacts] = useState<Array<{ name: string; type: string; mime: string; size: number; createdAt: number }>>([]);
+  const [models, setModels] = useState<string[]>([]);
+  const [model, setModel] = useState('');
 
   const kpis = useMemo(() => {
     const status = wf?.status ?? 'PENDING';
@@ -73,6 +75,16 @@ export default function PMDashboard() {
     fetch('/api/health/ollama')
       .then((r) => setOllamaOk(r.ok))
       .catch(() => setOllamaOk(false));
+    // Load available models
+    fetch('/api/ollama/models')
+      .then(async (r) => (r.ok ? r.json() : Promise.resolve({ models: [] })))
+      .then((d) => {
+        const list = Array.isArray(d.models) ? d.models : [];
+        setModels(list);
+        const saved = typeof window !== 'undefined' ? localStorage.getItem('ollama:model') : '';
+        setModel(saved && list.includes(saved) ? saved : (list[0] ?? ''));
+      })
+      .catch(() => {});
     // Ontology/CDM alignment metrics & artifacts
     fetch('/api/ontology/metrics').then(async (r) => {
       if (!r.ok) return;
@@ -180,6 +192,19 @@ export default function PMDashboard() {
               <div className="flex items-center gap-2">
                 <button className="btn-primary" style={{ backgroundColor: 'var(--theme-accent-primary)' }} onClick={start}><Icon name="debug-start" size="sm" /> Start</button>
                 <button className="btn-primary" style={{ backgroundColor: 'var(--theme-accent-error)' }} onClick={stop}><Icon name="debug-stop" size="sm" /> Stop</button>
+                <div className="hidden md:flex items-center gap-2 text-xs" style={{ color: 'var(--theme-text-secondary)' }}>
+                  <span>Model</span>
+                  <select
+                    value={model}
+                    onChange={(e) => { setModel(e.target.value); try { localStorage.setItem('ollama:model', e.target.value); } catch {} }}
+                    className="input"
+                    style={{ backgroundColor: 'var(--theme-input-bg)', border: 'none', color: 'var(--theme-text-primary)' }}
+                  >
+                    {models.map((m) => (
+                      <option key={m} value={m}>{m}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
             </div>
             <div className="flex items-center gap-2 text-xs" style={{ color: 'var(--theme-text-secondary)' }}>
