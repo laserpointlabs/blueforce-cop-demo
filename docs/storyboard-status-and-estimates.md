@@ -3,7 +3,7 @@
 Prepared: August 8, 2025
 
 ### Executive summary
-- **UI scaffold**: On track for completion by Monday (16–24 engineer-hours).
+- **UI scaffold**: On track; lineage panel and deep-links implemented.
 - **Estimate options**:
   - **Option A**: Basic first-order common data model (CDM) demo.
   - **Option B**: Probabilistic ontology extraction + CDM demo.
@@ -15,11 +15,11 @@ Prepared: August 8, 2025
 ### Option A — Basic First-Order CDM Demo
 - **Objective**: Demonstrate ingesting heterogeneous tabular data and mapping to a first-order CDM via a guided, deterministic mapping flow.
 - **Scope & steps**
-  - UI: Complete storyboard scaffold, navigation, and mapping wizard.
+   - UI: Complete storyboard scaffold, navigation, mapping wizard, and lineage panel.
   - Data ingestion: CSV/Excel/JSON file upload; basic schema detection and preview.
   - Mapping: Manual/assisted field mapping, rule-based normalization, simple validation.
   - CDM: Persist mapped output, export as JSON/CSV; simple lineage log.
-  - Demo content: 2–3 curated datasets and demo script; readme/runbook.
+   - Demo content: 2–3 curated datasets and demo script; readme/runbook; lineage walkthrough.
   - Hardening: Basic error handling, logging, and lightweight auth (if required).
 - **Deliverables**
   - Working UI with mapping wizard and one connector (file upload).
@@ -77,7 +77,7 @@ Prepared: August 8, 2025
 ### Risks and mitigations
 - **Data variability**: Early access to sample datasets reduces rework; add flexible mapping rules.
 - **Model suitability**: Start with pre-trained, domain-agnostic models; parameterize model choice.
-- **Timeline compression**: Phase deliverables; timebox experiments; maintain a thin vertical slice first.
+- **Timeline compression**: Phase deliverables; timebox experiments; maintain a thin vertical slice first; keep CI lean (lint/build) and add smoke later.
 
 ### Next steps
 - **Monday (1 hour)**: Alignment to confirm datasets, acceptance criteria, and which option to pursue.

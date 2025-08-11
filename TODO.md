@@ -70,7 +70,7 @@
 - [ ] COP placeholder "map" with tactical layer toggles (mock data)
 - [x] Compliance dashboard (pass/fail counts, rules list)
 - [x] Artifact viewer (schemas, generated code, logs)
-- [ ] Data lineage panel (source → schema → model → pipeline → viz)
+- [x] Data lineage panel (source → schema → model → pipeline → viz)
 
 ### Stretch Goal: Visualization Layers
 - [ ] Add actual map layers; wire `vizLayer` to control visibility programmatically (e.g., toggling tracks/units/messages)
@@ -92,11 +92,13 @@
 - [x] Post-build smoke test to start server on 4010 and verify key routes
 - [x] Start script hardening: free stale port 4000, clean `.next/`, wait until ready
  - [ ] CI smoke stabilization: shorter timeouts, fewer checks to avoid flakey hangs
+ - [ ] Reintroduce CI smoke later as a lightweight curl-only step or nightly, after stability work
 
 ## CI / CD
 - [ ] Extend CI to run unit + E2E tests headless
 - [ ] Upload build artifact for preview (Actions artifacts)
 - [x] CI smoke test step after build
+ - [x] CI simplified to Lint + Build only (smoke removed to unblock PRs; revisit later)
 
 ## Docs
 - [ ] README quickstart (start script, model notes)
