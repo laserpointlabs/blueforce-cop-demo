@@ -15,6 +15,19 @@ export default function PMDashboard() {
   const [ontologyArtifacts, setOntologyArtifacts] = useState<Array<{ name: string; type: string; mime: string; size: number; createdAt: number }>>([]);
   const [models, setModels] = useState<string[]>([]);
   const [model, setModel] = useState('');
+  const [mappingSummaries, setMappingSummaries] = useState<Record<string, { rows: Array<{ source: string; target: string }>; stats: { mappings: number; covered: number; conflicts: number } }>>({});
+  const ontologyIndex = useMemo(() => {
+    const map = new Map(ontologyArtifacts.map((a) => [a.name, a] as const));
+    return {
+      base: map.get('base_defense_core.json'),
+      link16: map.get('link16_ontology.json'),
+      vmf: map.get('vmf_ontology.json'),
+      cdm: map.get('cdm.json'),
+      mapLink: map.get('cdm_link16.json'),
+      mapVmf: map.get('cdm_vmf.json'),
+      report: map.get('alignment_report.md'),
+    } as const;
+  }, [ontologyArtifacts]);
 
   const kpis = useMemo(() => {
     const status = wf?.status ?? 'PENDING';
@@ -98,6 +111,40 @@ export default function PMDashboard() {
     }).catch(() => {});
   }, []);
 
+  // Build mapping snippets for quick inline context in lineage table
+  useEffect(() => {
+    const want = ['cdm_link16.json', 'cdm_vmf.json'] as const;
+    const present = new Set(ontologyArtifacts.map((a) => a.name));
+    (async () => {
+      const next: Record<string, { rows: Array<{ source: string; target: string }>; stats: { mappings: number; covered: number; conflicts: number } }> = {};
+      for (const name of want) {
+        if (!present.has(name)) continue;
+        try {
+          const res = await fetch(`/api/ontology/artifacts/${name}`, { cache: 'no-store' });
+          const text = await res.text();
+          const json = JSON.parse(text);
+          const rows: Array<{ source: string; target: string }> = [];
+          const list = Array.isArray(json?.mappings) ? json.mappings : [];
+          for (const m of list.slice(0, 3)) {
+            rows.push({
+              source: `${m?.from?.entity ?? ''}.${m?.from?.field ?? ''}`,
+              target: `${m?.to?.entity ?? ''}.${m?.to?.field ?? ''}`,
+            });
+          }
+          const stats = {
+            mappings: list.length || 0,
+            covered: Array.isArray(json?.coverage?.cdmEntitiesCovered) ? json.coverage.cdmEntitiesCovered.length : 0,
+            conflicts: Array.isArray(json?.coverage?.conflicts) ? json.coverage.conflicts.length : 0,
+          };
+          if (rows.length > 0 || stats.mappings > 0) next[name] = { rows, stats };
+        } catch {
+          // ignore
+        }
+      }
+      setMappingSummaries(next);
+    })();
+  }, [ontologyArtifacts]);
+
   const start = async () => {
     const res = await fetch('/api/workflows/cop-demo/start', { method: 'POST' });
     const data = await res.json();
@@ -109,6 +156,30 @@ export default function PMDashboard() {
     if (!wfId) return;
     await fetch(`/api/workflows/${wfId}/stop`, { method: 'POST' });
     notify('Workflow stopped', 'info', 2000);
+  };
+
+  const openOntologyArtifact = async (name: string) => {
+    try {
+      const res = await fetch(`/api/ontology/artifacts/${name}`, { cache: 'no-store' });
+      if (!res.ok) return;
+      const content = await res.text();
+      const meta = ontologyArtifacts.find((a) => a.name === name);
+      const fallbackMime = name.endsWith('.json') ? 'application/json' : (name.endsWith('.md') ? 'text/markdown; charset=utf-8' : 'text/plain; charset=utf-8');
+      setPreview({ id: name, name, type: (meta?.type ?? 'ontology') as any, mime: meta?.mime ?? fallbackMime, content });
+    } catch {
+      // ignore
+    }
+  };
+
+  const previewStandardSchema = async (standard: 'link16' | 'vmf') => {
+    try {
+      const res = await fetch(`/api/standards/schemas?standard=${standard}`, { cache: 'no-store' });
+      if (!res.ok) return;
+      const content = await res.text();
+      setPreview({ id: `schema:${standard}`, name: `${standard.toUpperCase()} schema (stub)`, type: 'schema', mime: 'application/json', content });
+    } catch {
+      // ignore
+    }
   };
 
   return (
@@ -425,6 +496,95 @@ export default function PMDashboard() {
                 ))
               )}
             </ul>
+          </div>
+        </section>
+
+        <section className="p-4 rounded border space-y-3" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
+          <h2 className="text-lg font-semibold flex items-center gap-2"><Icon name="git-merge" size="sm" /> Data Lineage</h2>
+          <div className="text-sm" style={{ color: 'var(--theme-text-secondary)' }}>Source → Schema/Ontology → CDM Mapping → Viz</div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm" style={{ borderColor: 'var(--theme-border)' }}>
+              <thead style={{ color: 'var(--theme-text-secondary)' }}>
+                <tr className="text-left">
+                  <th className="py-2">Standard</th>
+                  <th className="py-2">Source</th>
+                  <th className="py-2">Schema/Ontology</th>
+                  <th className="py-2">CDM Mapping</th>
+                  <th className="py-2">Viz</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { key: 'Link-16', std: 'link16' as const, schemaName: 'link16_ontology.json', mapName: 'cdm_link16.json' },
+                  { key: 'VMF', std: 'vmf' as const, schemaName: 'vmf_ontology.json', mapName: 'cdm_vmf.json' },
+                ].map((row) => (
+                  <tr key={row.key} className="border-t" style={{ borderColor: 'var(--theme-border)' }}>
+                    <td className="py-2 font-medium">{row.key}</td>
+                    <td className="py-2">
+                      <button className="underline" onClick={() => previewStandardSchema(row.std)}>Preview source schema</button>
+                    </td>
+                    <td className="py-2">
+                      {(() => {
+                        const meta = ontologyArtifacts.find((a) => a.name === row.schemaName);
+                        return meta ? (
+                          <button className="underline" onClick={() => openOntologyArtifact(row.schemaName)}>{row.schemaName}</button>
+                        ) : (
+                          <span className="opacity-70">{row.schemaName} (missing)</span>
+                        );
+                      })()}
+                    </td>
+                    <td className="py-2">
+                      {(() => {
+                        const meta = ontologyArtifacts.find((a) => a.name === row.mapName);
+                        const summary = mappingSummaries[row.mapName];
+                        return (
+                          <div className="space-y-1">
+                            {meta ? (
+                              <button className="underline" onClick={() => openOntologyArtifact(row.mapName)}>{row.mapName}</button>
+                            ) : (
+                              <span className="opacity-70">{row.mapName} (missing)</span>
+                            )}
+                            {summary?.stats && (
+                              <div className="flex items-center gap-2 text-xs">
+                                <span className="px-1.5 py-0.5 rounded border" style={{ borderColor: 'var(--theme-border)' }}>Mappings {summary.stats.mappings}</span>
+                                <span className="px-1.5 py-0.5 rounded border" style={{ borderColor: 'var(--theme-accent-success)', color: 'var(--theme-accent-success)' }}>Covered {summary.stats.covered}</span>
+                                <span className="px-1.5 py-0.5 rounded border" style={{ borderColor: 'var(--theme-accent-error)', color: 'var(--theme-accent-error)' }}>Conflicts {summary.stats.conflicts}</span>
+                              </div>
+                            )}
+                            {summary?.rows && summary.rows.length > 0 && (
+                              <ul className="text-xs opacity-80 space-y-0.5" style={{ color: 'var(--theme-text-secondary)' }}>
+                                {summary.rows.map((m, i) => (
+                                  <li key={i} className="font-mono">{m.source} → {m.target}</li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+                        );
+                      })()}
+                    </td>
+                    <td className="py-2">
+                      <div className="space-y-0.5">
+                        <a className="underline" href={`/cop-demo?schema=${row.std}`}>Open Viz ({row.key})</a>
+                        <div className="text-xs" style={{ color: 'var(--theme-text-secondary)' }}>
+                          <a className="underline" href={`/cop-demo?schema=${row.std}&viz=tracks`}>tracks</a>
+                          <span> · </span>
+                          <a className="underline" href={`/cop-demo?schema=${row.std}&viz=units`}>units</a>
+                          <span> · </span>
+                          <a className="underline" href={`/cop-demo?schema=${row.std}&viz=messages`}>messages</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="text-xs opacity-80" style={{ color: 'var(--theme-text-secondary)' }}>
+            CDM: {ontologyIndex.cdm ? (
+              <button className="underline" onClick={() => openOntologyArtifact(ontologyIndex.cdm!.name)}>{ontologyIndex.cdm!.name}</button>
+            ) : (
+              <span className="opacity-70">cdm.json (missing)</span>
+            )}
           </div>
         </section>
 
