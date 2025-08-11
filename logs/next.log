@@ -7,44 +7,9 @@
   - Environments: .env.local
 
  ✓ Starting...
- ✓ Ready in 2.1s
+ ✓ Ready in 1614ms
  ○ Compiling / ...
- ✓ Compiled / in 4.6s (466 modules)
- GET / 200 in 4961ms
- GET / 200 in 2760ms
- GET / 200 in 120ms
- GET / 200 in 26ms
- GET / 200 in 23ms
- ○ Compiling /pm-dashboard ...
- ✓ Compiled /ontology in 1099ms (463 modules)
- GET /pm-dashboard 200 in 1300ms
- GET /ontology 200 in 596ms
- GET /ontology 200 in 55ms
- ✓ Compiled /api/ontology/artifacts in 200ms (267 modules)
- GET /api/ontology/artifacts 200 in 315ms
- GET /api/ontology/artifacts 200 in 16ms
- GET /pm-dashboard 200 in 116ms
- ✓ Compiled /api/ontology/metrics in 109ms (269 modules)
- ✓ Compiled (271 modules)
- GET /api/ontology/artifacts 200 in 336ms
- GET /api/ontology/metrics 200 in 357ms
- GET /api/health/ollama 200 in 364ms
- GET /api/ontology/artifacts 200 in 46ms
- GET /api/ontology/metrics 200 in 24ms
- GET /api/health/ollama 200 in 29ms
- ✓ Compiled /api/workflows/cop-demo/start in 102ms (275 modules)
- POST /api/workflows/cop-demo/start 200 in 143ms
- ✓ Compiled /api/workflows/[id]/status in 65ms (277 modules)
- GET /api/workflows/7wg8till09n65dsuqpebuk/status 200 in 371ms
- GET /api/workflows/7wg8till09n65dsuqpebuk/status 200 in 23ms
- GET /api/workflows/7wg8till09n65dsuqpebuk/status 200 in 25ms
- GET /api/workflows/7wg8till09n65dsuqpebuk/status 200 in 15ms
- GET /api/workflows/7wg8till09n65dsuqpebuk/status 200 in 15ms
- GET /api/workflows/7wg8till09n65dsuqpebuk/status 200 in 17ms
- GET /api/workflows/7wg8till09n65dsuqpebuk/status 200 in 28ms
- GET /api/workflows/7wg8till09n65dsuqpebuk/status 200 in 16ms
- GET /api/workflows/7wg8till09n65dsuqpebuk/status 200 in 26ms
- ✓ Compiled /api/ontology/artifacts/[name] in 122ms (267 modules)
- GET /api/ontology/artifacts/cdm_link16.json 200 in 433ms
- GET /api/ontology/artifacts/cdm_vmf.json 200 in 19ms
- ✓ Compiled in 264ms (246 modules)
+ ✓ Compiled / in 2.8s (466 modules)
+ GET / 200 in 3012ms
+ GET / 200 in 50ms
+[?25h

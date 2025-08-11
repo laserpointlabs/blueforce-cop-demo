@@ -13,6 +13,15 @@ export default function OntologyPage() {
   const [logs, setLogs] = useState<{ ts: number; message: string; agent?: string }[]>([]);
   const [model, setModel] = useState('');
   const [models, setModels] = useState<string[]>([]);
+  const [personaOutput, setPersonaOutput] = useState<Record<string, string>>({
+    STANDARDS_ANALYST: '',
+    DATA_MODELER: ''
+  });
+  const [streaming, setStreaming] = useState(false);
+  const [personaStreaming, setPersonaStreaming] = useState<{ STANDARDS_ANALYST: boolean; DATA_MODELER: boolean }>({
+    STANDARDS_ANALYST: false,
+    DATA_MODELER: false
+  });
 
   const index = useMemo(() => {
     const map = new Map(artifacts.map((a) => [a.name, a] as const));
@@ -39,10 +48,48 @@ export default function OntologyPage() {
         const list = Array.isArray(d.models) ? d.models : [];
         setModels(list);
         const saved = typeof window !== 'undefined' ? localStorage.getItem('ollama:model') : '';
-        setModel(saved && list.includes(saved) ? saved : (list[0] ?? ''));
+        const chosen = saved && list.includes(saved) ? saved : (list[0] ?? '');
+        setModel(chosen);
+        try { if (chosen) localStorage.setItem('ollama:model', chosen); } catch {}
       })
       .catch(() => {});
   }, []);
+
+  // Stream persona output from the server and append to the matching buffer
+  const streamPersona = async (
+    type: 'STANDARDS_ANALYST' | 'DATA_MODELER',
+    task: string,
+    context: any
+  ) => {
+    try {
+      setStreaming(true);
+      setPersonaStreaming((s) => ({ ...s, [type]: true }));
+      const selectedModel = (typeof window !== 'undefined' ? localStorage.getItem('ollama:model') : '') || '';
+      const res = await fetch(`/api/personas/${type}/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ model: selectedModel, task, context })
+      });
+      if (!res.ok || !res.body) {
+        const errText = await res.text().catch(() => `HTTP ${res.status}`);
+        setPersonaOutput((prev) => ({ ...prev, [type]: (prev[type] || '') + `\n[error] ${errText}` }));
+        return;
+      }
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value, { stream: true });
+        setPersonaOutput((prev) => ({ ...prev, [type]: (prev[type] || '') + chunk }));
+      }
+    } catch {
+      // ignore
+    } finally {
+      setStreaming(false);
+      setPersonaStreaming((s) => ({ ...s, [type]: false }));
+    }
+  };
 
   const runAgents = async () => {
     if (running) return;
@@ -50,19 +97,20 @@ export default function OntologyPage() {
     setLogs([]);
     setMetrics(null);
     setStep(0);
+    setPersonaOutput({ STANDARDS_ANALYST: '', DATA_MODELER: '' });
     // Step 1: Standards Analyst extracts Link-16
     pushLog("Standards Analyst: extracting Link-16 ontology from spec", "STANDARDS_ANALYST");
-    await runPersona('STANDARDS_ANALYST', 'Extract Link-16 schema/entities/rules from curated spec', { artifact: 'link16_ontology.json' });
+    await streamPersona('STANDARDS_ANALYST', 'Extract Link-16 schema/entities/rules from curated spec', { artifact: 'link16_ontology.json' });
     await delay(900);
     setStep(1);
     // Step 2: Standards Analyst extracts VMF
     pushLog("Standards Analyst: extracting VMF ontology from spec", "STANDARDS_ANALYST");
-    await runPersona('STANDARDS_ANALYST', 'Extract VMF schema/entities/rules from curated spec', { artifact: 'vmf_ontology.json' });
+    await streamPersona('STANDARDS_ANALYST', 'Extract VMF schema/entities/rules from curated spec', { artifact: 'vmf_ontology.json' });
     await delay(900);
     setStep(2);
     // Step 3: Data Modeler aligns to CDM
     pushLog("Data Modeler: aligning extracted ontologies to Defense Core / CDM", "DATA_MODELER");
-    await runPersona('DATA_MODELER', 'Align Link-16/VMF to CDM and note conflicts', { artifacts: ['cdm_link16.json','cdm_vmf.json'] });
+    await streamPersona('DATA_MODELER', 'Align Link-16/VMF to CDM and note conflicts', { artifacts: ['cdm_link16.json','cdm_vmf.json'] });
     const m = await fetch("/api/ontology/metrics").then((r) => (r.ok ? r.json() : null)).catch(() => null);
     if (m) setMetrics(m);
     await delay(600);
@@ -214,6 +262,30 @@ export default function OntologyPage() {
           </ul>
         </section>
 
+        <section className="p-4 rounded border space-y-3" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }}>
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold flex items-center gap-2">
+              <Icon name="comment-discussion" size="sm" /> Persona Output
+              <PersonaBadge label="Standards Analyst" working={personaStreaming.STANDARDS_ANALYST} hasOutput={!!personaOutput.STANDARDS_ANALYST} />
+              <PersonaBadge label="Data Modeler" working={personaStreaming.DATA_MODELER} hasOutput={!!personaOutput.DATA_MODELER} />
+            </h2>
+            <div className="flex items-center gap-2 text-xs" style={{ color: 'var(--theme-text-secondary)' }}>
+              {streaming ? <span className="opacity-80 flex items-center gap-1"><Icon name="loading" className="animate-spin" /> Streaming…</span> : null}
+              <button className="btn" onClick={() => setPersonaOutput({ STANDARDS_ANALYST: '', DATA_MODELER: '' })}>Clear</button>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="p-3 rounded border overflow-auto max-h-60" style={{ borderColor: 'var(--theme-border)', backgroundColor: 'var(--theme-bg-primary)' }}>
+              <div className="text-xs mb-2 opacity-80">Standards Analyst</div>
+              <pre className="text-xs whitespace-pre-wrap">{personaOutput.STANDARDS_ANALYST || '—'}</pre>
+            </div>
+            <div className="p-3 rounded border overflow-auto max-h-60" style={{ borderColor: 'var(--theme-border)', backgroundColor: 'var(--theme-bg-primary)' }}>
+              <div className="text-xs mb-2 opacity-80">Data Modeler</div>
+              <pre className="text-xs whitespace-pre-wrap">{personaOutput.DATA_MODELER || '—'}</pre>
+            </div>
+          </div>
+        </section>
+
         {preview && (
           <div className="fixed inset-0" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }} onClick={() => setPreview(null)}>
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-3xl max-h-[80vh] overflow-hidden rounded border" style={{ backgroundColor: 'var(--theme-bg-secondary)', borderColor: 'var(--theme-border)' }} onClick={(e) => e.stopPropagation()}>
@@ -269,22 +341,16 @@ function safePrettyJson(text: string): string {
   try { return JSON.stringify(JSON.parse(text), null, 2); } catch { return text; }
 }
 
-async function runPersona(type: 'STANDARDS_ANALYST' | 'DATA_MODELER', task: string, context: any) {
-  try {
-    const model = (typeof window !== 'undefined' ? localStorage.getItem('ollama:model') : '') || '';
-    const res = await fetch(`/api/personas/${type}/execute`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model, task, context })
-    });
-    // We ignore the streamed body here, as this page shows a deterministic simulation.
-    // In a later PR, we can surface the streamed content live.
-    if (!res.ok) {
-      // no-op; simulation continues regardless
-    }
-  } catch {
-    // ignore; simulation continues
-  }
+function PersonaBadge({ label, working, hasOutput }: { label: string; working: boolean; hasOutput: boolean }) {
+  const color = working ? 'var(--theme-accent-primary)' : hasOutput ? 'var(--theme-accent-success)' : 'var(--theme-text-muted)';
+  const icon = working ? 'loading' : hasOutput ? 'check' : 'circle-large-outline';
+  return (
+    <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded border" style={{ color, borderColor: color }}>
+      <i className={`codicon codicon-${icon} ${working ? 'animate-spin' : ''}`} />
+      {label}
+    </span>
+  );
 }
+
 
 
