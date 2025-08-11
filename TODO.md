@@ -25,7 +25,7 @@
 - [x] Model selector with persisted choice + fallback if model missing
 - [x] /api/ollama/models endpoint to list available models (UI wired)
 - [x] Persona Output streaming UI on /ontology (per‑persona badges + spinner)
-- [ ] Optional deterministic fallback text if Ollama missing
+ - [x] Optional deterministic fallback text if Ollama missing
 - [x] Structured Data Modeler rendering (mapping/conflicts table)
 - [ ] Stretch Goal: Add AI agnet to dicuss the results on the page and offers feedback/suggestions
 
@@ -63,11 +63,11 @@
 
 ## Workflow Orchestration (in-app mock)
 - [ ] Expand step machine (phases, %), per-persona tasks
-- [ ] Event stream updates (SSE/WebSocket) with long-poll fallback
-- [ ] Failure/retry paths and recovery button
+ - [x] Event stream updates (SSE/WebSocket) with long-poll fallback
+ - [x] Failure/retry paths and recovery button
 
 ## Visualization (MVP)
-- [ ] COP placeholder "map" with tactical layer toggles (mock data)
+ - [x] COP placeholder "map" with tactical layer toggles (mock data)
 - [x] Compliance dashboard (pass/fail counts, rules list)
 - [x] Artifact viewer (schemas, generated code, logs)
 - [x] Data lineage panel (source → schema → model → pipeline → viz)
@@ -116,6 +116,8 @@
 ### Stretch Goals: Navigation/Information Architecture
 - [ ] Separate Ontology Management and Data Management into dedicated pages (reflecting workflow from ontology → data)
 
+### Stretch Goals:Ontology WorkBench
+- [ ] Incorporate an ontology workbench based on dadms react flow implametion allowing a user to perform CRUD operations on an ontology model.
 ---
 
 We will update this checklist as tasks complete; PRs will reference items here.
