@@ -7,26 +7,411 @@
   - Environments: .env.local
 
  ✓ Starting...
- ✓ Ready in 1936ms
+ ✓ Ready in 1814ms
  ○ Compiling / ...
- ✓ Compiled / in 3.6s (466 modules)
- GET / 200 in 3901ms
- GET / 200 in 3964ms
- GET / 200 in 136ms
- ○ Compiling /ontology ...
- ✓ Compiled /ontology in 3.9s (474 modules)
- GET /ontology 200 in 4020ms
- ✓ Compiled /api/ontology/artifacts/[name] in 183ms (263 modules)
- ✓ Compiled (270 modules)
- GET /api/standards/schemas?standard=link16 200 in 437ms
- GET /api/standards/schemas?standard=vmf 200 in 440ms
- GET /api/ollama/models 200 in 444ms
- GET /api/ontology/artifacts 200 in 449ms
- GET /api/standards/schemas?standard=link16 200 in 38ms
- GET /api/standards/schemas?standard=vmf 200 in 38ms
- GET /api/ontology/artifacts 200 in 42ms
- GET /api/ollama/models 200 in 45ms
- GET /api/ontology/artifacts/cdm_link16.json 200 in 712ms
- GET /api/ontology/artifacts/cdm_vmf.json 200 in 713ms
+ ✓ Compiled /cop-demo in 7.5s (1003 modules)
+ GET / 200 in 7808ms
+ GET /cop-demo 200 in 5641ms
+ GET / 200 in 53ms
+ ✓ Compiled /api/ollama/models in 270ms (529 modules)
+ ✓ Compiled (531 modules)
+ GET /api/ollama/models 200 in 540ms
+ GET /api/health/ollama 200 in 548ms
+ GET /api/ollama/models 200 in 22ms
+ GET /api/health/ollama 200 in 17ms
+ GET /api/ollama/models 200 in 20ms
+ GET /api/health/ollama 200 in 22ms
+ ✓ Compiled /api/sim/cdm/events in 99ms (533 modules)
+ GET /api/sim/cdm/events?sources=link16%2Cvmf&intervalMs=700 200 in 4324ms
+ ✓ Compiled /api/ontology/artifacts/[name] in 225ms (528 modules)
+ GET /api/ontology/artifacts/cdm.json 200 in 524ms
+ ✓ Compiled / in 184ms (532 modules)
+ GET / 200 in 287ms
+ ✓ Compiled /pm-dashboard in 319ms (1025 modules)
+ GET /pm-dashboard 200 in 429ms
+ ✓ Compiled /api/ontology/artifacts in 195ms (538 modules)
+ ✓ Compiled (544 modules)
+ GET /api/ontology/metrics 200 in 405ms
+ GET /api/ontology/artifacts 200 in 407ms
+ GET /api/ollama/models 200 in 413ms
+ GET /api/health/ollama 200 in 419ms
+ GET /api/ontology/metrics 200 in 33ms
+ GET /api/ontology/artifacts 200 in 52ms
+ GET /api/ollama/models 200 in 52ms
+ GET /api/health/ollama 200 in 48ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 46ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 12ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 11ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 10ms
+ ✓ Compiled /api/workflows/cop-demo/start in 120ms (548 modules)
+ POST /api/workflows/cop-demo/start 200 in 181ms
+ ✓ Compiled /api/workflows/[id]/events in 133ms (550 modules)
+ GET /api/workflows/2cymbh16pkxvb0w9pej23q/events 200 in 10464ms
+ ✓ Compiled /api/workflows/[id]/status in 96ms (552 modules)
+ GET /api/workflows/2cymbh16pkxvb0w9pej23q/status 200 in 368ms
+ ✓ Compiled /api/workflows/[id]/artifacts/[artifactId] in 100ms (554 modules)
+ GET /api/workflows/2cymbh16pkxvb0w9pej23q/artifacts/1ummkri7yihg5oli4ry1sg 200 in 387ms
+ GET /api/workflows/2cymbh16pkxvb0w9pej23q/artifacts/l6jvsn7fdanfvrauyaf5pp 200 in 31ms
+ GET /api/workflows/2cymbh16pkxvb0w9pej23q/artifacts/6far5gxxopfbam5dzehte 200 in 24ms
+ GET /cop-demo?schema=link16 200 in 115ms
+ ✓ Compiled /api/standards/schemas in 156ms (557 modules)
+ GET /api/ollama/models 200 in 371ms
+ GET /api/standards/schemas?standard=link16 200 in 375ms
+ GET /api/standards/schemas?standard=link16 200 in 375ms
+ GET /api/health/ollama 200 in 379ms
+ GET /api/ollama/models 200 in 27ms
+ GET /api/standards/schemas?standard=link16 200 in 29ms
+ GET /api/health/ollama 200 in 29ms
+ GET /api/ollama/models 200 in 14ms
+ GET /api/health/ollama 200 in 11ms
+ GET /pm-dashboard 200 in 67ms
+ GET /api/health/ollama 200 in 30ms
+ GET /api/ollama/models 200 in 31ms
+ GET /api/ontology/metrics 200 in 33ms
+ GET /api/ontology/artifacts 200 in 39ms
+ GET /api/health/ollama 200 in 38ms
+ GET /api/ontology/metrics 200 in 41ms
+ GET /api/ollama/models 200 in 50ms
+ GET /api/ontology/artifacts 200 in 47ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 61ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 14ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 11ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 11ms
+ GET /api/standards/schemas?standard=link16 200 in 12ms
+ GET / 200 in 28ms
+ ✓ Compiled /ontology in 260ms (1052 modules)
+ GET /ontology 200 in 336ms
+ GET /api/ontology/artifacts 200 in 40ms
+ GET /api/standards/schemas?standard=vmf 200 in 61ms
+ GET /api/standards/schemas?standard=link16 200 in 64ms
+ GET /api/ollama/models 200 in 67ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 64ms
+ GET /api/ontology/artifacts 200 in 47ms
+ GET /api/ollama/models 200 in 33ms
+ GET /api/standards/schemas?standard=vmf 200 in 35ms
+ GET /api/standards/schemas?standard=link16 200 in 37ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 37ms
  GET /api/ontology/artifacts/cdm_link16.json 200 in 34ms
- GET /api/ontology/artifacts/cdm_vmf.json 200 in 40ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 9ms
+ GET / 200 in 113ms
+ GET /cop-demo 200 in 102ms
+ GET /api/health/ollama 200 in 32ms
+ GET /api/ollama/models 200 in 40ms
+ GET /api/health/ollama 200 in 25ms
+ GET /api/ollama/models 200 in 21ms
+ GET /api/health/ollama 200 in 18ms
+ GET /api/ollama/models 200 in 20ms
+ ✓ Compiled /api/ollama/chat in 232ms (541 modules)
+ POST /api/ollama/chat 200 in 8339ms
+ GET / 200 in 82ms
+ GET /pm-dashboard 200 in 58ms
+ ✓ Compiled /api/ontology/artifacts in 189ms (546 modules)
+ ✓ Compiled (548 modules)
+ GET /api/ollama/models 200 in 382ms
+ GET /api/ontology/metrics 200 in 384ms
+ GET /api/health/ollama 200 in 388ms
+ GET /api/ontology/artifacts 200 in 391ms
+ GET /api/ollama/models 200 in 43ms
+ GET /api/health/ollama 200 in 50ms
+ GET /api/ontology/metrics 200 in 60ms
+ GET /api/ontology/artifacts 200 in 67ms
+ ✓ Compiled /api/ontology/artifacts/[name] in 113ms (550 modules)
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 129ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 197ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 15ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 13ms
+ ✓ Compiled /api/workflows/cop-demo/start in 125ms (554 modules)
+ POST /api/workflows/cop-demo/start 200 in 167ms
+ ✓ Compiled /api/workflows/[id]/events in 104ms (556 modules)
+ GET /api/workflows/kpx2me4gmlgzra6ylkii5r/events 200 in 10170ms
+ ✓ Compiled /api/workflows/[id]/status in 135ms (556 modules)
+ GET /api/workflows/kpx2me4gmlgzra6ylkii5r/status 200 in 189ms
+ GET /api/ontology/artifacts/cdm.json 200 in 32ms
+ GET /cop-demo 200 in 129ms
+ GET /api/health/ollama 200 in 41ms
+ GET /api/ollama/models 200 in 49ms
+ GET /api/health/ollama 200 in 31ms
+ GET /api/ollama/models 200 in 24ms
+ GET /api/health/ollama 200 in 19ms
+ GET /api/ollama/models 200 in 20ms
+ GET /pm-dashboard 200 in 45ms
+ GET /api/health/ollama 200 in 40ms
+ GET /api/ollama/models 200 in 41ms
+ GET /api/ontology/metrics 200 in 47ms
+ GET /api/ontology/artifacts 200 in 52ms
+ GET /api/health/ollama 200 in 45ms
+ GET /api/ollama/models 200 in 57ms
+ GET /api/ontology/metrics 200 in 58ms
+ GET /api/ontology/artifacts 200 in 73ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 62ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 13ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 15ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 17ms
+ GET / 200 in 38ms
+ GET /ontology 200 in 35ms
+ GET /api/ontology/artifacts 200 in 47ms
+ ✓ Compiled /api/standards/schemas in 151ms (559 modules)
+ GET /api/ollama/models 200 in 332ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 339ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 342ms
+ GET /api/standards/schemas?standard=link16 200 in 392ms
+ GET /api/standards/schemas?standard=vmf 200 in 394ms
+ GET /api/ontology/artifacts 200 in 367ms
+ GET /api/ollama/models 200 in 85ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 72ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 72ms
+ GET /api/standards/schemas?standard=link16 200 in 42ms
+ GET /api/standards/schemas?standard=vmf 200 in 33ms
+ GET /api/ontology/artifacts/base_defense_core.json 200 in 19ms
+ GET /api/ontology/artifacts/cdm.json 200 in 30ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 74ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 34ms
+ ✓ Compiled /api/personas/[type]/execute in 258ms (543 modules)
+ POST /api/personas/STANDARDS_ANALYST/execute 200 in 62344ms
+ POST /api/personas/STANDARDS_ANALYST/execute 200 in 53859ms
+ POST /api/personas/DATA_MODELER/execute 200 in 53023ms
+ ✓ Compiled /api/ontology/metrics in 184ms (543 modules)
+ GET /api/ontology/metrics 200 in 233ms
+ GET / 200 in 95ms
+ GET /pm-dashboard 200 in 49ms
+ ✓ Compiled /api/ollama/models in 115ms (542 modules)
+ ✓ Compiled (546 modules)
+ GET /api/ontology/metrics 200 in 341ms
+ GET /api/ontology/artifacts 200 in 367ms
+ GET /api/ollama/models 200 in 370ms
+ GET /api/health/ollama 200 in 388ms
+ GET /api/ontology/metrics 200 in 56ms
+ GET /api/ollama/models 200 in 49ms
+ GET /api/ontology/artifacts 200 in 50ms
+ ✓ Compiled /api/ontology/artifacts/[name] in 102ms (548 modules)
+ GET /api/health/ollama 200 in 254ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 275ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 222ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 20ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 17ms
+ ✓ Compiled /api/workflows/cop-demo/start in 230ms (552 modules)
+ POST /api/workflows/cop-demo/start 200 in 273ms
+ ✓ Compiled /api/workflows/[id]/events in 95ms (554 modules)
+ ✓ Compiled /api/workflows/[id]/fail in 176ms (556 modules)
+ POST /api/workflows/6p4hfpnqgrnjvrrrd2td7/fail 200 in 483ms
+ GET /api/workflows/6p4hfpnqgrnjvrrrd2td7/events 200 in 5159ms
+ ✓ Compiled /api/workflows/[id]/status in 113ms (558 modules)
+ GET /api/workflows/6p4hfpnqgrnjvrrrd2td7/status 200 in 195ms
+ GET / 200 in 69ms
+ GET /cop-demo 200 in 83ms
+ GET /api/health/ollama 200 in 32ms
+ GET /api/ollama/models 200 in 41ms
+ GET /api/health/ollama 200 in 31ms
+ GET /api/ollama/models 200 in 24ms
+ GET /api/health/ollama 200 in 21ms
+ GET /api/ollama/models 200 in 24ms
+ ✓ Compiled /api/standards/schemas in 189ms (561 modules)
+ GET /api/standards/schemas?standard=link16 200 in 257ms
+ ✓ Compiled /api/sim/cdm/events in 146ms (563 modules)
+ GET /api/sim/cdm/events?sources=link16%2Cvmf&intervalMs=700 200 in 7203ms
+ POST /api/workflows/cop-demo/start 200 in 24ms
+ GET /api/workflows/p7hnfakdlbi095ovmpbp6m7/status 200 in 29ms
+ GET /api/workflows/p7hnfakdlbi095ovmpbp6m7/status 200 in 26ms
+ GET /api/workflows/p7hnfakdlbi095ovmpbp6m7/status 200 in 27ms
+ GET /api/workflows/p7hnfakdlbi095ovmpbp6m7/status 200 in 22ms
+ GET /api/workflows/p7hnfakdlbi095ovmpbp6m7/status 200 in 22ms
+ GET /api/workflows/p7hnfakdlbi095ovmpbp6m7/status 200 in 27ms
+ GET /api/workflows/p7hnfakdlbi095ovmpbp6m7/status 200 in 21ms
+ GET /pm-dashboard 200 in 106ms
+ GET /api/ontology/metrics 200 in 56ms
+ GET /api/health/ollama 200 in 63ms
+ GET /api/ollama/models 200 in 62ms
+ GET /api/ontology/artifacts 200 in 67ms
+ GET /api/ontology/metrics 200 in 52ms
+ GET /api/ollama/models 200 in 58ms
+ GET /api/health/ollama 200 in 62ms
+ GET /api/ontology/artifacts 200 in 63ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 68ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 20ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 21ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 12ms
+ GET /cop-demo 200 in 82ms
+ GET /api/health/ollama 200 in 29ms
+ GET /api/ollama/models 200 in 38ms
+ GET /api/health/ollama 200 in 25ms
+ GET /api/ollama/models 200 in 26ms
+ GET /api/health/ollama 200 in 26ms
+ GET /api/ollama/models 200 in 19ms
+ GET / 200 in 47ms
+ GET /ontology 200 in 40ms
+ GET /api/ontology/artifacts 200 in 68ms
+ GET /api/standards/schemas?standard=link16 200 in 69ms
+ GET /api/standards/schemas?standard=vmf 200 in 69ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 63ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 65ms
+ GET /api/ollama/models 200 in 83ms
+ GET /api/ontology/artifacts 200 in 53ms
+ GET /api/standards/schemas?standard=link16 200 in 54ms
+ GET /api/standards/schemas?standard=vmf 200 in 54ms
+ GET /api/ollama/models 200 in 44ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 49ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 50ms
+ GET /api/ontology/artifacts/cdm.json 200 in 33ms
+ GET /api/ontology/artifacts/base_defense_core.json 200 in 32ms
+ GET /api/ontology/artifacts/cdm.json 200 in 27ms
+ GET /ontology 200 in 49ms
+ GET /api/ontology/artifacts 200 in 54ms
+ GET /api/standards/schemas?standard=link16 200 in 55ms
+ GET /api/standards/schemas?standard=vmf 200 in 57ms
+ GET /api/ollama/models 200 in 62ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 58ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 59ms
+ GET /api/ontology/artifacts 200 in 51ms
+ GET /api/standards/schemas?standard=link16 200 in 53ms
+ GET /api/standards/schemas?standard=vmf 200 in 54ms
+ GET /api/ollama/models 200 in 56ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 50ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 50ms
+ GET / 200 in 34ms
+ GET /ontology 200 in 55ms
+ GET /api/ontology/artifacts 200 in 110ms
+ GET /api/standards/schemas?standard=link16 200 in 112ms
+ GET /api/standards/schemas?standard=vmf 200 in 113ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 99ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 100ms
+ GET /api/ollama/models 200 in 122ms
+ GET /api/ontology/artifacts 200 in 51ms
+ GET /api/standards/schemas?standard=link16 200 in 43ms
+ GET /api/standards/schemas?standard=vmf 200 in 44ms
+ GET /api/ollama/models 200 in 44ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 46ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 47ms
+ GET / 200 in 42ms
+ GET /pm-dashboard 200 in 38ms
+ GET /api/ontology/metrics 200 in 36ms
+ GET /api/ontology/artifacts 200 in 39ms
+ GET /api/health/ollama 200 in 43ms
+ GET /api/ollama/models 200 in 51ms
+ GET /api/ontology/metrics 200 in 85ms
+ GET /api/health/ollama 200 in 122ms
+ GET /api/ontology/artifacts 200 in 125ms
+ GET /api/ollama/models 200 in 115ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 112ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 19ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 27ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 20ms
+ GET /cop-demo 200 in 30ms
+ GET /api/ollama/models 200 in 32ms
+ GET /api/health/ollama 200 in 37ms
+ GET /api/ollama/models 200 in 22ms
+ GET /api/health/ollama 200 in 19ms
+ GET /api/ollama/models 200 in 21ms
+ GET /api/health/ollama 200 in 22ms
+ GET / 200 in 25ms
+ GET /cop-demo 200 in 32ms
+ GET /api/ollama/models 200 in 25ms
+ GET /api/health/ollama 200 in 26ms
+ GET /api/ollama/models 200 in 25ms
+ GET /api/health/ollama 200 in 24ms
+ GET /api/ollama/models 200 in 19ms
+ GET /api/health/ollama 200 in 19ms
+ GET /api/sim/cdm/events?sources=link16%2Cvmf&intervalMs=700 200 in 14268ms
+ GET / 200 in 30ms
+ GET /ontology 200 in 42ms
+ GET /api/ontology/artifacts 200 in 39ms
+ GET /api/standards/schemas?standard=link16 200 in 47ms
+ GET /api/standards/schemas?standard=vmf 200 in 44ms
+ GET /api/ollama/models 200 in 53ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 71ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 76ms
+ GET /api/ontology/artifacts 200 in 95ms
+ GET /api/standards/schemas?standard=link16 200 in 66ms
+ GET /api/ollama/models 200 in 66ms
+ GET /api/standards/schemas?standard=vmf 200 in 67ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 60ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 62ms
+ GET / 200 in 38ms
+ GET /cop-demo 200 in 32ms
+ GET /api/health/ollama 200 in 32ms
+ GET /api/ollama/models 200 in 40ms
+ GET /api/health/ollama 200 in 29ms
+ GET /api/ollama/models 200 in 21ms
+ GET /api/health/ollama 200 in 24ms
+ GET /api/ollama/models 200 in 20ms
+ GET /api/ontology/artifacts/cdm.json 200 in 34ms
+ GET / 200 in 37ms
+ GET /pm-dashboard 200 in 35ms
+ GET /api/ontology/metrics 200 in 49ms
+ GET /api/health/ollama 200 in 53ms
+ GET /api/ontology/artifacts 200 in 54ms
+ GET /api/ollama/models 200 in 59ms
+ GET /api/ontology/metrics 200 in 48ms
+ GET /api/health/ollama 200 in 45ms
+ GET /api/ollama/models 200 in 58ms
+ GET /api/ontology/artifacts 200 in 61ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 51ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 17ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 25ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 14ms
+ GET / 200 in 27ms
+ GET /ontology 200 in 28ms
+ GET /api/ontology/artifacts 200 in 50ms
+ GET /api/standards/schemas?standard=link16 200 in 56ms
+ GET /api/standards/schemas?standard=vmf 200 in 58ms
+ GET /api/ollama/models 200 in 62ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 82ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 83ms
+ GET /api/ontology/artifacts 200 in 74ms
+ GET /api/standards/schemas?standard=link16 200 in 49ms
+ GET /api/standards/schemas?standard=vmf 200 in 50ms
+ GET /api/ollama/models 200 in 52ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 43ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 42ms
+ GET / 200 in 28ms
+ GET /cop-demo 200 in 35ms
+ GET /api/health/ollama 200 in 33ms
+ GET /api/ollama/models 200 in 43ms
+ GET /api/health/ollama 200 in 25ms
+ GET /api/ollama/models 200 in 24ms
+ GET /api/health/ollama 200 in 23ms
+ GET /api/ollama/models 200 in 21ms
+ GET /api/standards/schemas?standard=link16 200 in 14ms
+ GET /api/ontology/artifacts/cdm.json 200 in 20ms
+ GET /api/standards/schemas?standard=vmf 200 in 18ms
+ GET /api/standards/schemas?standard=link16 200 in 11ms
+ GET /api/standards/schemas?standard=vmf 200 in 15ms
+ GET / 200 in 31ms
+ GET /pm-dashboard 200 in 36ms
+ GET /api/ontology/metrics 200 in 36ms
+ GET /api/ontology/artifacts 200 in 38ms
+ GET /api/health/ollama 200 in 46ms
+ GET /api/ollama/models 200 in 53ms
+ GET /api/ontology/metrics 200 in 41ms
+ GET /api/health/ollama 200 in 58ms
+ GET /api/ollama/models 200 in 52ms
+ GET /api/ontology/artifacts 200 in 64ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 51ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 20ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 27ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 16ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 24ms
+ GET / 200 in 38ms
+ GET /ontology 200 in 45ms
+ GET /api/ontology/artifacts 200 in 46ms
+ GET /api/standards/schemas?standard=link16 200 in 50ms
+ GET /api/standards/schemas?standard=vmf 200 in 51ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 46ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 46ms
+ GET /api/ollama/models 200 in 56ms
+ GET /api/ontology/artifacts 200 in 42ms
+ GET /api/standards/schemas?standard=link16 200 in 44ms
+ GET /api/standards/schemas?standard=vmf 200 in 44ms
+ GET /api/ollama/models 200 in 45ms
+ GET /api/ontology/artifacts/cdm_link16.json 200 in 38ms
+ GET /api/ontology/artifacts/cdm_vmf.json 200 in 39ms
+ ✓ Compiled /api/personas/[type]/execute in 241ms (550 modules)
+ POST /api/personas/STANDARDS_ANALYST/execute 200 in 61404ms
+ POST /api/personas/STANDARDS_ANALYST/execute 200 in 60337ms
+ POST /api/personas/DATA_MODELER/execute 200 in 48359ms
+ ✓ Compiled /api/ontology/metrics in 163ms (543 modules)
+ GET /api/ontology/metrics 200 in 216ms
+ GET / 200 in 95ms
+ GET / 200 in 30ms
+ ✓ Compiled in 1458ms (998 modules)
+ ✓ Compiled in 294ms (508 modules)
+ ✓ Compiled in 497ms (1015 modules)
